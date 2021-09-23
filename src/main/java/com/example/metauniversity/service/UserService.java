@@ -1,17 +1,22 @@
 package com.example.metauniversity.service;
 
+import com.example.metauniversity.config.FolderConfig;
+import com.example.metauniversity.domain.File.File;
+import com.example.metauniversity.domain.File.UserFile;
 import com.example.metauniversity.domain.User.EnrollmentStatus;
 import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.User.UsersData;
 import com.example.metauniversity.domain.User.dto.userDto;
-import com.example.metauniversity.domain.User.dto.userDto.getMyInfoResponse;
 import com.example.metauniversity.exception.NoSuchUserException;
+import com.example.metauniversity.repository.UserFileRepository;
 import com.example.metauniversity.repository.UserRepository;
 import com.example.metauniversity.repository.UsersDataRepository;
 import com.example.metauniversity.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Locale;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,6 +26,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final UsersDataRepository usersDataRepository;
     private final CustomUserDetailsService customUserDetailsService;
+    private final UserFileRepository userFileRepository;
+    private final FileService fileService;
+    private final FolderConfig folderConfig;
 
     @Transactional
     public void saveUser(userDto.signIn signindto) {
@@ -44,22 +52,24 @@ public class UserService {
     public userDto.getMyInfoResponse getUserInfo(Long id) {
         return new userDto.getMyInfoResponse(userRepository.getMyInfo(id));
     }
-    
-    // 개인 정보 수정
-    @Transactional 
-    public void updateInfo(Long id, userDto.getMyInfoResponse usersdto) {
-    	UsersData usersData = userRepository.getMyInfo(id).getUsersData();
-    	
-    	usersData.updateData(usersdto);
+
+    @Transactional
+    public void updateMyInfo(userDto.update updateDto, User user) {
+
+        if(updateDto.getThumbnail().getOriginalFilename().length() != 0) {
+            File file = fileService.uploadThumbnailImage(folderConfig.getUser(), updateDto.getThumbnail());
+            userFileRepository.save(UserFile.create(file, user));
+        }
+
+        usersDataRepository.findById(user.getUsersData().getUserCode())
+                .orElseThrow(() -> new NoSuchUserException("수정할 사용자가 존재하지 않습니다.")).update(updateDto);
     }
 
     // 휴학, 복학 신청
-    @Transactional 
-	public void applyLeave(Long id, EnrollmentStatus enrollmentStatus) {
-		UsersData usersData = userRepository.getMyInfo(id).getUsersData();
-    	
-		usersData.updateEnroll(enrollmentStatus);
-		
-	}
+    @Transactional
+    public void applyLeave(Long id, EnrollmentStatus enrollmentStatus) {
+        UsersData usersData = userRepository.getMyInfo(id).getUsersData();
 
+        usersData.updateEnroll(enrollmentStatus);
+    }
 }

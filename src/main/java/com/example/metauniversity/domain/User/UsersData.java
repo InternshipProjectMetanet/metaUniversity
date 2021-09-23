@@ -1,6 +1,7 @@
 package com.example.metauniversity.domain.User;
 
 import com.example.metauniversity.domain.Base.BaseEntity;
+import com.example.metauniversity.domain.User.dto.userDto;
 import com.example.metauniversity.domain.User.dto.userDto.getMyInfoResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,19 +43,28 @@ public class UsersData {
     @Enumerated(EnumType.STRING)
     private EnrollmentStatus enrollmentStatus;
     private Integer userGrade;
+    private Boolean isThumbnail;
 
     /**
      * Worker
      */
     private String workerSpot;
-    
+
+    public void setIsThumbnail() {
+        isThumbnail = true;
+    }
+
     // 개인 정보 수정
-    public void updateData(getMyInfoResponse usersdto) {
-		this.userName = usersdto.getUserName();
-    	this.userBirth = usersdto.getUserBirth();
-    	this.userPhone = usersdto.getUserPhone();
-    	this.userEmail = usersdto.getUserEmail();
-    	this.Address = usersdto.getAddress();
+    public void update(userDto.update updateDto) {
+
+        if(updateDto.getThumbnail().getOriginalFilename().length() != 0) {
+            setIsThumbnail();
+        }
+		this.userName = updateDto.getUserName();
+    	this.userBirth = updateDto.getUserBirth();
+    	this.userPhone = updateDto.getUserPhone();
+    	this.userEmail = updateDto.getUserEmail();
+    	this.Address = updateDto.getAddress();
 	}
     
     // 휴학, 복학 신청

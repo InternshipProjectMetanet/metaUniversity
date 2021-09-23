@@ -10,6 +10,8 @@ import com.example.metauniversity.domain.User.dto.userDto;
 import com.example.metauniversity.domain.board.Board;
 import com.example.metauniversity.domain.board.dto.boardDto;
 import com.example.metauniversity.domain.board.dto.boardDto.boardList;
+import com.example.metauniversity.domain.board.dto.boardDto.getBoard;
+import com.example.metauniversity.exception.NoSuchBoardException;
 import com.example.metauniversity.exception.NoSuchUserException;
 import com.example.metauniversity.repository.BoardRepository;
 import com.example.metauniversity.repository.UserFileRepository;
@@ -23,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,7 +34,7 @@ public class BoardService {
 	
 	private final BoardRepository boardRepository;
 	
-	// 게시글 조회
+	// 게시글 목록 조회
 	public List<boardList> getBoardList() {
 		
 		List<Board> boards = boardRepository.findAll();
@@ -49,6 +52,21 @@ public class BoardService {
 		}
 		
 		return boardDtoList;
+	}
+
+	// 게시글 상세 조회
+	public getBoard getBoard(Long boardId) {
+		Board board = boardRepository.findById(boardId)
+				.orElseThrow(() -> new NoSuchBoardException("해당 게시물이 없습니다."));
+		
+		boardDto.getBoard boarddto = boardDto.getBoard.builder()
+					.boardId(board.getBoardId())
+					.content(board.getContent())
+					.title(board.getTitle())
+					.userName(board.getUser().getUsersData().getUserName())
+					.build();
+				
+		return boarddto;
 	}
 
 	

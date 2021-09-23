@@ -31,7 +31,7 @@
                                     <td>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-12">
-                                                <a href="@{'/boardDetail/' + ${board.boardId}}" class="text-decoration-none">
+                                                <a th:href="@{'/boardDetail/' + ${board.boardId}}" class="text-decoration-none">
 													<span th:text="${board.title}" style="float: left;"></span>
 													<span th:text="${board.userName}"></span>
 													<span th:text="${board.created_date}" style="float: right;"></span>

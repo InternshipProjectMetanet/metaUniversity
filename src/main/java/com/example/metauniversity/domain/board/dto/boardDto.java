@@ -25,5 +25,17 @@ public class boardDto {
         private LocalDateTime created_date;
         private String userName;
     }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class getBoard {
+    	private Long boardId;
+        private String title;
+        private String content;
+        private String userName;
+    }
 
 }

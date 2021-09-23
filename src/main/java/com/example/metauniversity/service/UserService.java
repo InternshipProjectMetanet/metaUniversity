@@ -16,7 +16,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -71,5 +73,10 @@ public class UserService {
         UsersData usersData = userRepository.getMyInfo(id).getUsersData();
 
         usersData.updateEnroll(enrollmentStatus);
+    }
+
+    public List<userDto.searchResponse> searchUser(userDto.searchDto searchDto) {
+        return userRepository.getUserBySearch(searchDto)
+                .stream().map(s -> new userDto.searchResponse(s)).collect(Collectors.toList());
     }
 }

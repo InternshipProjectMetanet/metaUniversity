@@ -28,9 +28,11 @@ public class HomeController {
     public String denied() {
         return "error";
     }
+    /*
     @GetMapping("/boardList")
     public String boardList(){
         return "boardList";
     }
+    */
 
 }

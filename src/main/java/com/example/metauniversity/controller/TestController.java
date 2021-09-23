@@ -12,7 +12,7 @@ public class TestController {
 
     @GetMapping("/test")
     public Object auth(Principal principal){
-        Object auth = SecurityContextHolder.getContext().getAuthentication();
+        Object auth = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
 
         return auth;

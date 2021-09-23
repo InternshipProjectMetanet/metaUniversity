@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class HomeController {
 
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
     @GetMapping("/info")
     public String hello() {
         return "info";
@@ -20,17 +25,11 @@ public class HomeController {
     public String register(){
         return "register";
     }
-    @GetMapping("/home")
-    public String home() {
-        return "home";
-    }
+
     @GetMapping("/denied")
     public String denied() {
         return "error";
     }
-    @GetMapping("/boardList")
-    public String boardList(){
-        return "boardList";
-    }
+
 
 }

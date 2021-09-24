@@ -37,5 +37,16 @@ public class boardDto {
         private String content;
         private String userName;
     }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class saveBoard {
+    	private Long accountId;
+        private String title;
+        private String content;
+    }
 
 }

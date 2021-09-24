@@ -35,15 +35,10 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr>
-                                        <td>ㅎㅇ</td>
-                                        <td>ㅎㅇ</td>
-                                        <td>ㅎㅇ</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ㅎㅇ</td>
-                                        <td>ㅎㅇ</td>
-                                        <td>ㅎㅇ</td>
+                                    <tr th:each="board : ${boardList}">
+                                        <td th:text="${board.title}"></td>
+                                        <td th:text="${board.userName}"></td>
+                                        <td th:text="${#temporals.format(board.created_date,'yyyy-MM-dd')}"></td>
                                     </tr>
                                 </tbody>
 

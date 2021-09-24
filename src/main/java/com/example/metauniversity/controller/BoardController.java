@@ -37,10 +37,29 @@ public class BoardController {
      */
     @GetMapping("/boardDetail/{boardId}")
     public String boardDetail(@PathVariable("boardId") Long boardId, Model model) {
-//    	boardDto.getBoard boardDto = boardService.getBoard(boardId);
-//
-//        model.addAttribute("boardDto", boardDto);
+    	boardDto.getBoard boardDto = boardService.getBoard(boardId);
+
+        model.addAttribute("boardDto", boardDto);
         return "boardContent";
+    }
+    
+    /**
+     * 공지사항 삭제
+     */
+    @GetMapping("/boardDelete/{boardId}")
+    public String boardDelete(@PathVariable("boardId") Long boardId) {
+    	boardService.deleteBoard(boardId);
+    	
+    	return "redirect:/boardList";
+    }
+    
+    /**
+     * 공지사항 등록
+     */
+    @GetMapping("/boardForm")
+    public String boardForm() {
+    	
+    	return "boardForm";
     }
 
    

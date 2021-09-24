@@ -69,5 +69,11 @@ public class BoardService {
 		return boarddto;
 	}
 
+	// 게시글 삭제
+	@Transactional
+	public void deleteBoard(Long boardId) {
+		boardRepository.deleteById(boardId);		
+	}
+
 	
 }

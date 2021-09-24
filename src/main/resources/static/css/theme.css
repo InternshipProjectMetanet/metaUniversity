@@ -9613,8 +9613,8 @@ fieldset:disabled .btn {
   min-height: 70vh !important;
 }
 
-.min-vh-50 {
-  min-height: 50vh !important;
+.min-vh-40 {
+  min-height: 40vh !important;
 }
 
 .flex-fill {

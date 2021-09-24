@@ -22,12 +22,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-12 m-auto my-2">
-                                    <div class="text border-bottom my-3 fs-4">나는야 제목!</div>
+                                    <div class="text border-bottom my-3 fs-4">
+										<span th:text="${boardDto.title}"></span>
+									</div>
                                 </div>
                                 <div class="col-12 m-auto my-2 fs-5">
-                                    <div class="min-vh-40 border-bottom">안녕하세요 텍스트입니다</div>
+                                    <div class="min-vh-50 border-bottom"><span th:text="${boardDto.content}"></span></div>
                                 </div>
-
                                 <div class="row align-items-center p-2 m-2">
                                     <div class="col-2">
                                         <img class="avatar" src="/img/cute.png">

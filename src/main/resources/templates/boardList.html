@@ -27,35 +27,20 @@
                             </div>
                             <table class="table table-bordered text-center mt-2 mb-5">
 
-                                <tr>
+                                <tr th:each="board : ${boardList}">
                                     <td>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-12">
-                                                <a href="#" class="text-decoration-none">hi</a>
+                                                <a th:href="@{'/boardDetail/' + ${board.boardId}}" class="text-decoration-none">
+													<span th:text="${board.title}" style="float: left;"></span>
+													<span th:text="${board.userName}"></span>
+													<span th:text="${board.created_date}" style="float: right;"></span>
+												</a>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-12">
-                                                <a href="#" class="text-decoration-none">hi</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="row no-gutters align-items-center">
-                                            <div class="col-12">
-                                                <a href="#" class="text-decoration-none">hi</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
 
                             </table>
                             <!-- 페이징 처리 부분  -->

@@ -11,12 +11,14 @@ import com.example.metauniversity.domain.board.Board;
 import com.example.metauniversity.domain.board.dto.boardDto;
 import com.example.metauniversity.domain.board.dto.boardDto.boardList;
 import com.example.metauniversity.domain.board.dto.boardDto.getBoard;
+import com.example.metauniversity.domain.board.dto.boardDto.saveBoard;
 import com.example.metauniversity.exception.NoSuchBoardException;
 import com.example.metauniversity.exception.NoSuchUserException;
 import com.example.metauniversity.repository.BoardRepository;
 import com.example.metauniversity.repository.UserFileRepository;
 import com.example.metauniversity.repository.UserRepository;
 import com.example.metauniversity.repository.UsersDataRepository;
+import com.example.metauniversity.security.CustomUserDetails;
 import com.example.metauniversity.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -67,6 +69,23 @@ public class BoardService {
 					.build();
 				
 		return boarddto;
+	}
+
+	// 게시글 삭제
+	@Transactional
+	public void deleteBoard(Long boardId) {
+		boardRepository.deleteById(boardId);		
+	}
+
+	// 게시글 등록
+	@Transactional
+	public void saveBoard(saveBoard boarddto, User user) {
+		
+		boardRepository.save(Board.builder()
+				.user(user)
+				.title(boarddto.getTitle())
+				.content(boarddto.getContent())
+				.build());
 	}
 
 	

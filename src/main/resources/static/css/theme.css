@@ -9603,6 +9603,12 @@ fieldset:disabled .btn {
 .vh-100 {
   height: 100vh !important;
 }
+.main-img-size{
+  height: 70vh !important;
+  min-height: 70vh !important;
+  /*object-fit: cover !important;*/
+
+}
 
 .min-vh-100 {
   min-height: 100vh !important;
@@ -12344,7 +12350,7 @@ fieldset:disabled .btn {
   background-color: #198754 !important;
 }
 
-.bg-info {
+.bg-ibg-image-fullnfo {
   background-color: #0dcaf0 !important;
 }
 
@@ -23480,9 +23486,11 @@ body {
   height: 7.5rem;
 }
 
-.avatar-xxxl {
-  width: 13rem;
-  height: 13rem;
+.avatar-fit{
+  width: 100%;
+  height: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 
 .avatar img {

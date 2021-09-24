@@ -9606,7 +9606,7 @@ fieldset:disabled .btn {
 .main-img-size{
   height: 70vh !important;
   min-height: 70vh !important;
-  /*object-fit: cover !important;*/
+  object-fit: cover !important;
 
 }
 
@@ -22807,7 +22807,8 @@ fieldset:disabled .btn {
 .nav-link[data-bs-toggle="collapse"]:after {
   display: block;
   content: "";
-  background: url(./icons/chevron-down.svg);
+  background: url(icons/chevron-down.svg);
+  background-size: cover;
   font-family: Feather;
   margin-left: auto;
   transition: 0.5s ease;

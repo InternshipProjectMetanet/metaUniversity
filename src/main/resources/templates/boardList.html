@@ -27,35 +27,21 @@
                             </div>
                             <table class="table table-bordered text-center mt-2 mb-5">
                                 <thead>
-                                    <tr>
-                                        <th class="w-75">title</th>
-                                        <th>username</th>
-                                        <th>createdat</th>
-                                    </tr>
+                                <tr>
+                                    <th class="w-75">title</th>
+                                    <th>username</th>
+                                    <th>createdat</th>
+                                </tr>
                                 </thead>
 
                                 <tbody>
-                                    <tr th:each="board : ${boardList}">
-                                        <td th:text="${board.title}"></td>
-                                        <td th:text="${board.userName}"></td>
-                                        <td th:text="${#temporals.format(board.created_date,'yyyy-MM-dd')}"></td>
-                                    </tr>
+                                <tr th:each="board : ${boardList}">
+                                    <td><a th:text="${board.title}"
+                                           th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
+                                    <td th:text="${board.userName}"></td>
+                                    <td th:text="${#temporals.format(board.created_date,'yyyy-MM-dd')}"></td>
+                                </tr>
                                 </tbody>
-
-<!--                                <tr th:each="board : ${boardList}">-->
-<!--                                    <td>-->
-<!--                                        <div class="row no-gutters align-items-center">-->
-<!--                                            <div class="col-12">-->
-<!--                                                <a th:href="@{'/boardDetail/' + ${board.boardId}}" class="text-decoration-none">-->
-<!--													<td th:text="${board.title}"></td>-->
-<!--													<td th:text="${board.userName}"></td>-->
-<!--													<td th:text="${board.created_date}" ></td>-->
-<!--												</a>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-
 
                             </table>
                             <!-- 페이징 처리 부분  -->

@@ -1,5 +1,6 @@
 package com.example.metauniversity.domain.board.dto;
 
+import com.example.metauniversity.domain.File.File;
 import com.example.metauniversity.domain.User.EnrollmentStatus;
 import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.User.UserTyped;
@@ -9,6 +10,7 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -36,6 +38,7 @@ public class boardDto {
         private String title;
         private String content;
         private String userName;
+        private List<File> filesList;
     }
     
     @Getter
@@ -45,6 +48,17 @@ public class boardDto {
     @NoArgsConstructor
     public static class saveBoard {
     	private Long accountId;
+        private String title;
+        private String content;
+    }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class updateBoard {
+    	private Long boardId;
         private String title;
         private String content;
     }

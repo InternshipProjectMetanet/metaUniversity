@@ -17,5 +17,11 @@ public class Test2Controller {
 
         return "studentsList";
     }
+    @GetMapping("/scheduleAdd")
+    public String studentss() {
+
+        return "scheduleAdd";
+    }
+
 
 }

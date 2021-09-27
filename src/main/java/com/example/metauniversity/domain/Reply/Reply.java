@@ -2,6 +2,8 @@ package com.example.metauniversity.domain.Reply;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,6 +16,7 @@ import com.example.metauniversity.domain.Base.BaseEntity;
 import com.example.metauniversity.domain.Reply.dto.replyDto;
 import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.board.Board;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,5 +44,8 @@ public class Reply extends BaseEntity {
     private User user;
     
     private String replyContent;
+    
+    @Enumerated(EnumType.STRING)
+    private delete_yn delete_yn;
     
 }

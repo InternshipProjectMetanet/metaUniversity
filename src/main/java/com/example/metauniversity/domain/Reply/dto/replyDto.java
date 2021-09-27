@@ -1,16 +1,10 @@
 package com.example.metauniversity.domain.Reply.dto;
 
-import com.example.metauniversity.domain.User.EnrollmentStatus;
-import com.example.metauniversity.domain.User.User;
-import com.example.metauniversity.domain.User.UserTyped;
-import com.example.metauniversity.domain.User.UsersData;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.time.LocalDateTime;
-
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 public class replyDto {
 
@@ -24,6 +18,8 @@ public class replyDto {
     	private Long boardId;
     	private String userName;
         private String replyContent;
+        private String deleteYn;
     }
-    
+
+
 }

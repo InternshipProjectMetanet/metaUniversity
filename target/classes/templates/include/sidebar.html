@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="sidebar">
+    <!-- sidebar 시작!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <!-- Sidebar -->
+    <nav class="navbar-vertical navbar pt-10">
+        <div class="nav-scroller">
+            <!-- Brand logo -->
+            <a class="navbar-brand text-center" th:href="@{home}">
+                메타대학교
+            </a>
+            <!-- Navbar nav -->
+            <ul class="navbar-nav flex-column" id="sideNavbar">
+
+                <li class="nav-item">
+                    <a class="nav-link has-arrow" href="#" data-bs-toggle="collapse" data-bs-target="#navPages"
+                       aria-expanded="false" aria-controls="navPages">
+                        <i data-feather="layers" class="nav-icon icon-xs me-2">
+                        </i> 개인정보
+                    </a>
+
+                    <div id="navPages" class="collapse" data-bs-parent="#sideNavbar">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{user/info}">
+                                    내정보
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link has-arrow" href="#">
+                                    설정
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <!-- Nav item -->
+                <li class="nav-item">
+                    <a class="nav-link has-arrow" href="#!" data-bs-toggle="collapse" data-bs-target="#navAuthentication"
+                       aria-expanded="false" aria-controls="navAuthentication">
+                        <i data-feather="lock" class="nav-icon icon-xs me-2">
+                        </i> 학적관리
+                    </a>
+                    <div id="navAuthentication" class="collapse" data-bs-parent="#sideNavbar">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    신청</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    뭐필요함?</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    일딴바꿔
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Nav item -->
+                <li class="nav-item">
+                    <a class="nav-link has-arrow" href="#!" data-bs-toggle="collapse" data-bs-target="#navComponents"
+                       aria-expanded="false" aria-controls="navComponents">
+                        <i data-feather="database" class="nav-icon icon-xs me-2">
+                        </i> 학사관리
+                    </a>
+                    <div id="navComponents" class="collapse" data-bs-parent="#sideNavbar">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" aria-expanded="false">
+                                    학점따위
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" aria-expanded="false">
+                                    중요하지..
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- sidebar 끝!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+</th:block>
+</html>

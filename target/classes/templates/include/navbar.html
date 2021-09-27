@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:fragment="navbar">
+    <!-- navbar 시작!!!!!!!!!!!!!!!!! -->
+    <div class="header">
+        <!-- navbar -->
+        <nav class="navbar-classic navbar navbar-expand-lg fixed-top">
+            <a id="nav-toggle" href="#"><i data-feather="menu" class="nav-icon me-2 icon-xs"></i></a>
+            <div class="ms-lg-3 d-none d-md-none d-lg-block">
+            </div>
+            <!--Navbar nav -->
+            <ul class="navbar-nav navbar-right-wrap d-flex align-items-center col-4 m-auto">
+                <li class="col-5"></li>
+                <li class="">
+                    <a href="#">
+                        <img alt="logo" src="/img/school_black.svg" class="icon">
+                    </a>
+                </li>
+                <li class="col-12"></li>
+
+                <!-- 로그인 상태에 따라 달라지는 navbar 입니다.-->
+                <li class="dropdown" >
+                    <a class="rounded-circle" href="#" role="button" id="dropdownUser" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <div class="avatar avatar-md avatar-indicators avatar-online">
+                            <img alt="avatar" src="/img/account_circle.svg" class="rounded-circle" />
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+                        <div class="px-4 pb-0 pt-2">
+                            <div sec:authorize="isAuthenticated()" class="lh-1 ">
+                                <h5 sec:authentication="name" class="mb-1 text-center"></h5>
+                            </div>
+                            <div sec:authorize="isAnonymous()" class="lh-1 ">
+                                <h5 class="mb-1 text-center">로그인 해주세요</h5>
+                            </div>
+                            <div class=" dropdown-divider mt-3 mb-2"></div>
+                        </div>
+
+                        <ul class="list-unstyled">
+                            <li>
+                                <a sec:authorize="isAuthenticated()" class="dropdown-item text-primary" th:href="@{/user/info}">
+                                    <i class="me-2 icon-xxs text-primary dropdown-item-icon" data-feather="star"></i>내정보
+                                </a>
+                            </li>
+                            <li>
+                                <a sec:authorize="isAuthenticated()" class="dropdown-item" th:href="@{/logout}">
+                                    <i class="me-2 icon-xxs dropdown-item-icon" data-feather="power"></i>로그아웃
+                                </a>
+                            </li>
+                            <li>
+                                <a sec:authorize="isAnonymous()" class="dropdown-item" th:href="@{/login}">
+                                    <i class="me-2 icon-xxs dropdown-item-icon" data-feather="settings"></i>로그인
+                                </a>
+                            </li>
+                            <li>
+                                <a sec:authorize="isAnonymous()" class="dropdown-item" th:href="@{/register}">
+                                    <i class="me-2 icon-xxs dropdown-item-icon" data-feather="settings"></i>회원가입
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- navbar 끝!!!!!!!!!!!!!!-->
+</th:block>
+
+</html>

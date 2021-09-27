@@ -1,21 +1,17 @@
 package com.example.metauniversity.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
-import com.example.metauniversity.repository.ReplyRepository;
+import com.example.metauniversity.domain.Reply.dto.replyDto;
+import com.example.metauniversity.domain.Reply.dto.replyDto.insertReply;
 
-import lombok.RequiredArgsConstructor;
+public interface ReplyService {
 
-@Service
-@Transactional(readOnly = true)
-@RequiredArgsConstructor
-public class ReplyService {
+	public boolean registerReply(insertReply params);
 	
-	private final ReplyRepository replyRepository;
-	
-	// 댓글 등록
-	
+	public List<replyDto.insertReply> getReplyList(replyDto.insertReply params);
+
+	boolean deleteReply(Long replyId);
 
 	
 }

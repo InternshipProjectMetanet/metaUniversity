@@ -70,7 +70,7 @@ public class userDto {
             this.userGrade = user.getUsersData().getUserGrade();
             this.enrollmentStatus = user.getUsersData().getEnrollmentStatus();
             this.accountId = user.getAccountId();
-            this.thumbnailUrl = user.getUsersData().getIsThumbnail() ? user.getUserfile().getFile().getUrl() : "img/cute.png";
+            this.thumbnailUrl = user.getUsersData().getIsThumbnail() ? user.getUserfile().getFile().getUrl() : "/img/cute.png";
         }
     }
 

@@ -57,7 +57,7 @@ public class BoardController {
     }
     
     /**
-     * 공지사항 등록
+     * 공지사항 등록 페이지
      */
     @GetMapping("/boardForm")
     public String boardForm() {

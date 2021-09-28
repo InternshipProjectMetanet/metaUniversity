@@ -5,8 +5,8 @@ spring:
       enabled: true
     livereload:
       enabled: true
-    freemarker:
-      cache: false
+  freemarker:
+    cache: false
   jpa:
     show-sql: true
     generate-ddl: true

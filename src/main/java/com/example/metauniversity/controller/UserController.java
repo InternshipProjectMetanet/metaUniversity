@@ -66,7 +66,7 @@ public class UserController {
 
         return "redirect:/user/info";
     }
-    
+
     /**
      * 학생 조회 - 관리자
      */

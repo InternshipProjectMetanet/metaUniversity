@@ -6,7 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/ck-editor.css}">
     <script src="/ckeditor5/build/ckeditor.js"></script>
 </head>
-
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script th:src="@{/js/common.js}"></script>
 <body>
 <div id="db-wrapper" class="toggled">
     <!--sidebar 삽입  -->
@@ -37,8 +38,53 @@
 	                                </div>
                                 </div>
 
-                                <div class="row align-items-center p-2 m-2">
-                                    <div class="col-2">
+                                <!-- /////////////////////////////////////// -->
+						
+								<!-- 조회 -->
+						<script th:inline="javascript">	
+						/*<![CDATA[*/
+									$(function() {
+										printReplyList();
+									});
+
+									function printReplyList() {
+
+									var uri = /*[[ @{/reply/1}]]*/;
+									console.log(uri);
+
+									$.get(uri, function(response) {
+										if (isEmpty(response) == false) {
+											var replyHtml = "";
+										}
+										else{	
+									//	$(response.reply).each(function(replyId, reply) { 
+									//	$(response.replyList).each(function(replyId, reply) {
+								replyHtml += `
+                    				<img class="avatar" src="/img/cute.png" alt="">
+                    				</div>
+                    					<div class="col-8">
+                        					${reply.repleContent}
+                    					</div>
+                    				<div class="col-2">
+                        			<a href="#" class="bi bi-x-lg btn btn-trans"></a>
+                    				</div>
+                    				<div class="col-2">
+                       					 <img class="avatar" src="/img/cute.png" alt="">
+                    				</div>
+									`;
+									};
+
+										$(".row align-items-center p-2 m-2").html(replyHtml);
+										}
+									, "json");
+										}
+									/*[- end of function -]*/
+									
+									/*]]>*/	
+									
+								</script>
+
+                                   <!--  <div class="col-2">
                                         <img class="avatar" src="/img/cute.png" alt="">
                                     </div>
                                     <div class="col-8">
@@ -56,6 +102,7 @@
                                     <div class="col-2">
                                         <a href="#" class="bi bi-x-lg btn btn-trans"></a>
                                     </div>
+<!-- /////////////////////////////////////// -->
 
                                     <div class="row mt-9 mb-3 align-items-center">
                                         <div class="col-2">

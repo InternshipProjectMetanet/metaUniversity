@@ -5,14 +5,20 @@ import com.example.metauniversity.domain.User.dto.userDto;
 import com.example.metauniversity.domain.User.dto.userDto.getMyInfoResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name = "usersData")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @DynamicUpdate
 public class UsersData {

@@ -1,5 +1,5 @@
 ClassicEditor
-	.create( document.querySelector( '#ckeditor' ), {
+	.create( document.querySelector( '#editor' ), {
 		
 	toolbar: {
 		items: [
@@ -62,3 +62,34 @@ ClassicEditor
 		console.warn( 'Build id: mup457zd4zfa-7a4uc4qnvsyw' );
 		console.error( error );
 	} );
+
+
+$(document).on('change', "#uploadFiles [type='file']", function() {
+	if ($(this).val().length != 0) {
+		$(this).attr("name", "uploadFile");
+		$(this).next().css('visibility', 'visible');
+	} else {
+		$(this).attr("name", "fileData");
+		$(this).next().css('visibility', 'hidden');
+	}
+
+	addFile();
+
+});
+
+$(document).on('click', "[name='fileDelete']", function() {
+
+	$(this).parent().remove();
+	addFile();
+
+});
+
+function addFile() {
+	if ($("[name='fileData']").length == 0) {
+		$("#uploadFiles").append(
+			'<div class="col-10 m-auto my-2">'
+			+'<input type="file" class="col-10" id="file" name="fileData" />'
+			+'    <button type="button" class="bi bi-x-lg btn btn-trans" name="fileDelete" style="visibility: hidden;"></button>'
+			+'</div>');
+	}
+}

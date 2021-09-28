@@ -41,6 +41,11 @@
                                     <td th:text="${board.userName}"></td>
                                     <td th:text="${#temporals.format(board.created_date,'yyyy-MM-dd')}"></td>
                                 </tr>
+                                <!-- 찾는 학생이 없을 경우 (시작) -->
+				                <tr th:if="${boardList.totalElements == 0}">
+				                    <td colspan="3">게시글이 없습니다.</td>
+				                </tr>
+				                <!-- 찾는 학생이 없을 경우 (끝) -->
                                 </tbody>
 
                             </table>
@@ -52,7 +57,8 @@
 							            pazingSize = 10,
                             			start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},
                             			tempEndPage = ${start + pazingSize - 1},
-              							last=${tempEndPage < totalPages ? tempEndPage : totalPages}">
+              							last=${tempEndPage < totalPages ? tempEndPage : totalPages}" 
+              					th:if="${boardList.totalElements != 0}" >
                             
                                 <!--  이전  -->
                                 <li class="page-item">

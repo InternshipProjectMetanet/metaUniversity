@@ -61,19 +61,9 @@ public class BoardService {
 		
 		Page<Board> boards = boardRepository.findAll(pageable);
 		
-		List<boardDto.boardList> boardDtoList = new ArrayList<>();
-		
-		for (Board board : boards.getContent()) {
-			boardDto.boardList boarddto = boardDto.boardList.builder()
-					.boardId(board.getBoardId())
-					.created_date(board.getCreatedDate())
-					.title(board.getTitle())
-					.userName(board.getUser().getUsersData().getUserName())
-					.build();
-			
-			boardDtoList.add(boarddto);
-		}
-		
+		List<boardDto.boardList> boardDtoList = boards.getContent()
+				.stream().map(b -> new boardDto.boardList(b)).collect(Collectors.toList());
+				
 		boardDto.pageBoardList boardList = boardDto.pageBoardList.builder()
 				.pageSize(boards.getSize())
 				.pageNumber(boards.getNumber())

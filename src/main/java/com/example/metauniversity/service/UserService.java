@@ -15,6 +15,11 @@ import com.example.metauniversity.repository.UserRepository;
 import com.example.metauniversity.repository.UsersDataRepository;
 import com.example.metauniversity.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,14 +84,36 @@ public class UserService {
     
     /**
      * 관리자 - 학생 조회
+     * @param pageable 
      */
-    public List<userDto.searchResponse> userSearch(userDto.search searchDto, User user) {
+    public userDto.searchPageUserList userSearch(userDto.search searchDto, User user, Pageable pageable) {
     	
     	if(!user.getUsersData().getUserType().equals(UserTyped.WORKER)) {
     		throw new CannotSearchUserException("직원만 조회할 수 있습니다.");
     	}
     	
-    	return userRepository.searchUser(searchDto)
+    	int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "boardId"));
+    	
+        Page<User> pageUserList = userRepository.searchUser(searchDto, pageable);
+        List<userDto.searchResponse> userDtoList = pageUserList.getContent()
     			.stream().map(s -> new userDto.searchResponse(s)).collect(Collectors.toList());
+        
+    	return userDto.searchPageUserList.builder()
+    			.pageSize(pageUserList.getSize())
+				.pageNumber(pageUserList.getNumber())
+				.totalPages(pageUserList.getTotalPages())
+				.totalElements(pageUserList.getTotalElements())
+				.userDtoList(userDtoList)
+    			.build();
     }
+    
+    // 관리자 - 학생 상세 조회
+	public Object getstudentInfo(User user, String userCode) {
+		if(!user.getUsersData().getUserType().equals(UserTyped.WORKER)) {
+    		throw new CannotSearchUserException("직원만 조회할 수 있습니다.");
+    	}
+		
+		return new userDto.getMyInfoResponse(userRepository.getStudentInfo(userCode));
+	}
 }

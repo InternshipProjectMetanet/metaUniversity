@@ -6,10 +6,15 @@ import com.example.metauniversity.domain.User.dto.userDto;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface UserRepositoryCustom {
     User findByUserName(String userName);
 
     User getMyInfo(Long id);
     
-    List<User> searchUser(userDto.search searchDto);
+    User getStudentInfo(String userCode);
+    
+    Page<User> searchUser(userDto.search searchDto, Pageable pageable);
 }

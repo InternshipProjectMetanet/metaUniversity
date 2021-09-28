@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.metauniversity.domain.File.dto.fileDto;
-import com.example.metauniversity.domain.User.dto.userDto;
 import com.example.metauniversity.domain.board.dto.boardDto;
 import com.example.metauniversity.security.CustomUserDetails;
 import com.example.metauniversity.service.BoardService;
@@ -39,7 +38,7 @@ public class BoardController {
     public String boardList(@PageableDefault Pageable pageable, Model model) {
     	boardDto.pageBoardList boardDtoList = boardService.getBoardList(pageable);
         model.addAttribute("boardList", boardDtoList);
-        return "boardList";
+        return "board/boardList";
     }
     
     /**
@@ -50,7 +49,7 @@ public class BoardController {
     	boardDto.getBoard boardDto = boardService.getBoard(boardId);
 
         model.addAttribute("boardDto", boardDto);
-        return "boardContent";
+        return "board/boardContent";
     }
     
     /**
@@ -69,7 +68,7 @@ public class BoardController {
     @GetMapping("/boardForm")
     public String boardForm() {
     	
-    	return "boardForm";
+    	return "board/boardForm";
     }
     
     /**
@@ -116,7 +115,7 @@ public class BoardController {
 
         model.addAttribute("boardDto", boardDto);
     	
-    	return "boardEdit";
+    	return "board/boardEdit";
     }
     
     /**

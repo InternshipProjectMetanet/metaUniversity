@@ -15,13 +15,7 @@ public class HomeController {
     public String home() {
         return "home";
     }
-    /**
-     *  학적관리 페이지
-     */
-    @GetMapping("/info")
-    public String hello() {
-        return "info";
-    }
+
     /**
      * 로그인 페이지
      */
@@ -29,6 +23,7 @@ public class HomeController {
     public String login(){
         return "login";
     }
+
     /**
      * 회원가입 페이지
      */
@@ -36,6 +31,7 @@ public class HomeController {
     public String register(){
         return "register";
     }
+
     /**
      * 에러페이지
      */

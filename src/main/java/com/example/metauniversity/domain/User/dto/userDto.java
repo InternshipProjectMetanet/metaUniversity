@@ -70,7 +70,7 @@ public class userDto {
             this.userGrade = user.getUsersData().getUserGrade();
             this.enrollmentStatus = user.getUsersData().getEnrollmentStatus();
             this.accountId = user.getAccountId();
-            this.thumbnailUrl = user.getUsersData().getIsThumbnail() ? user.getUserfile().getFile().getUrl() : "img/cute.png";
+            this.thumbnailUrl = user.getUsersData().getIsThumbnail() ? user.getUserfile().getFile().getUrl() : "/img/cute.png";
         }
     }
 
@@ -95,5 +95,41 @@ public class userDto {
     @NoArgsConstructor
     public static class updateResponse {
         private String thumbnailUrl;
+    }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class search {
+    	private String userCode;
+    	private String userName;
+    	private String userMajor;
+    }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class searchResponse {
+    	private String userCode;
+    	private String userName;
+    	private String userMajor;
+    	private String userDepartment;
+    	private Integer userGrade;
+    	private String enrollmentStatus;
+    	
+		public searchResponse(User user) {
+			this.userCode = user.getUsersData().getUserCode();
+			this.userName = user.getUsersData().getUserName();
+			this.userMajor = user.getUsersData().getUserMajor();
+			this.userDepartment = user.getUsersData().getUserDepartment();
+			this.userGrade = user.getUsersData().getUserGrade();
+			this.enrollmentStatus = user.getUsersData().getEnrollmentStatus().getKey();
+		}
+    	
+    	
     }
 }

@@ -13,6 +13,7 @@ import com.example.metauniversity.domain.board.Board;
 import com.example.metauniversity.domain.board.dto.boardDto;
 import com.example.metauniversity.domain.board.dto.boardDto.boardList;
 import com.example.metauniversity.domain.board.dto.boardDto.getBoard;
+import com.example.metauniversity.domain.board.dto.boardDto.pageBoardList;
 import com.example.metauniversity.domain.board.dto.boardDto.saveBoard;
 import com.example.metauniversity.domain.board.dto.boardDto.updateBoard;
 import com.example.metauniversity.exception.NoSuchBoardException;
@@ -25,6 +26,11 @@ import com.example.metauniversity.repository.UsersDataRepository;
 import com.example.metauniversity.security.CustomUserDetails;
 import com.example.metauniversity.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,12 +54,16 @@ public class BoardService {
 	private final FolderConfig folderConfig;
 	
 	// 게시글 목록 조회
-	public List<boardList> getBoardList() {
+	public boardDto.pageBoardList getBoardList(Pageable pageable) {
 		
-		List<Board> boards = boardRepository.findAll();
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "boardId"));
+		
+		Page<Board> boards = boardRepository.findAll(pageable);
+		
 		List<boardDto.boardList> boardDtoList = new ArrayList<>();
 		
-		for (Board board : boards) {
+		for (Board board : boards.getContent()) {
 			boardDto.boardList boarddto = boardDto.boardList.builder()
 					.boardId(board.getBoardId())
 					.created_date(board.getCreatedDate())
@@ -64,7 +74,15 @@ public class BoardService {
 			boardDtoList.add(boarddto);
 		}
 		
-		return boardDtoList;
+		boardDto.pageBoardList boardList = boardDto.pageBoardList.builder()
+				.pageSize(boards.getSize())
+				.pageNumber(boards.getNumber())
+				.totalPages(boards.getTotalPages())
+				.totalElements(boards.getTotalElements())
+				.boardDtoList(boardDtoList)
+				.build();
+		
+		return boardList;
 	}
 
 	// 게시글 상세 조회

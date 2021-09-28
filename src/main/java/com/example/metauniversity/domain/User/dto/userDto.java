@@ -96,4 +96,40 @@ public class userDto {
     public static class updateResponse {
         private String thumbnailUrl;
     }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class search {
+    	private String userCode;
+    	private String userName;
+    	private String userMajor;
+    }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class searchResponse {
+    	private String userCode;
+    	private String userName;
+    	private String userMajor;
+    	private String userDepartment;
+    	private Integer userGrade;
+    	private String enrollmentStatus;
+    	
+		public searchResponse(User user) {
+			this.userCode = user.getUsersData().getUserCode();
+			this.userName = user.getUsersData().getUserName();
+			this.userMajor = user.getUsersData().getUserMajor();
+			this.userDepartment = user.getUsersData().getUserDepartment();
+			this.userGrade = user.getUsersData().getUserGrade();
+			this.enrollmentStatus = user.getUsersData().getEnrollmentStatus().getKey();
+		}
+    	
+    	
+    }
 }

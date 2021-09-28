@@ -3,6 +3,8 @@ package com.example.metauniversity.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,8 +36,8 @@ public class BoardController {
      * 공지사항 목록 조회
      */
     @GetMapping("/boardList")
-    public String boardList(Model model) {
-    	List<boardDto.boardList> boardDtoList = boardService.getBoardList();
+    public String boardList(@PageableDefault Pageable pageable, Model model) {
+    	boardDto.pageBoardList boardDtoList = boardService.getBoardList(pageable);
         model.addAttribute("boardList", boardDtoList);
         return "boardList";
     }

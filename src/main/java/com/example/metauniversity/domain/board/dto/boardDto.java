@@ -62,5 +62,18 @@ public class boardDto {
         private String title;
         private String content;
     }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class pageBoardList {
+    	private int pageSize; // 한 페이지 데이터 수
+    	private int pageNumber; // 현재 페이지
+    	private int totalPages; // 전체 페이지 수
+    	private Long totalElements; // 전체 데이터 수
+    	List<boardDto.boardList> boardDtoList;
+    }
 
 }

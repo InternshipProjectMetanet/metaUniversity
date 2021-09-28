@@ -4,12 +4,20 @@ import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.User.UserTyped;
 import com.example.metauniversity.domain.User.dto.userDto.search;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.support.PageableExecutionUtils;
+
 import static com.example.metauniversity.domain.User.QUser.user;
 
 @RequiredArgsConstructor
@@ -36,15 +44,19 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
     }
 
 	@Override
-	public List<User> searchUser(search searchDto) {
-		return queryFactory.select(user)
+	public Page<User> searchUser(search searchDto, Pageable pageable) {
+		QueryResults<User> searchResult = queryFactory.select(user)
 				.from(user)
 				.join(user.usersData).fetchJoin()
 				.where(searchUserCode(searchDto.getUserCode()),
 						searchUserName(searchDto.getUserName()),
 						searchUserMajor(searchDto.getUserMajor()),
 						user.usersData.userType.eq(UserTyped.STUDENT))
-				.fetch();
+				.offset(pageable.getOffset())
+				.limit(pageable.getPageSize())
+				.fetchResults();
+		
+		return new PageImpl<>(searchResult.getResults(), pageable, searchResult.getTotal());
 	}
 	
 	private BooleanExpression searchUserCode(String userCode) {
@@ -74,6 +86,15 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
 		
 		return user.usersData.userMajor.contains(userMajor);
 		
+	}
+
+	@Override
+	public User getStudentInfo(String userCode) {
+		return queryFactory.select(user)
+                .from(user)
+                .join(user.usersData).fetchJoin()
+                .where(user.usersData.userCode.eq(userCode))
+                .fetchOne();
 	}
     
     

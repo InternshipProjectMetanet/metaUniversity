@@ -4,9 +4,12 @@ import com.example.metauniversity.domain.User.EnrollmentStatus;
 import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.User.UserTyped;
 import com.example.metauniversity.domain.User.UsersData;
+import com.example.metauniversity.domain.board.dto.boardDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -129,7 +132,18 @@ public class userDto {
 			this.userGrade = user.getUsersData().getUserGrade();
 			this.enrollmentStatus = user.getUsersData().getEnrollmentStatus().getKey();
 		}
-    	
-    	
+    }
+    
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class searchPageUserList {
+    	private int pageSize; // 한 페이지 데이터 수
+    	private int pageNumber; // 현재 페이지
+    	private int totalPages; // 전체 페이지 수
+    	private Long totalElements; // 전체 데이터 수
+    	List<userDto.searchResponse> userDtoList;
     }
 }

@@ -5,11 +5,17 @@ import com.example.metauniversity.domain.User.dto.userDto;
 import com.example.metauniversity.security.CustomUserDetails;
 import com.example.metauniversity.service.UserService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -75,9 +81,22 @@ public class UserController {
      * 학생 조회 - 관리자
      */
     @GetMapping("/user/studentsList")
-    public String studentsList(Model model, @ModelAttribute userDto.search searchDto, @AuthenticationPrincipal CustomUserDetails currentUser) {
+    public String studentsList(@PageableDefault Pageable pageable, Model model
+    		, @ModelAttribute userDto.search searchDto, @AuthenticationPrincipal CustomUserDetails currentUser) {
 
-        model.addAttribute("studentsList", userService.userSearch(searchDto, currentUser.getUser()));
+    	model.addAttribute("studentsList", userService.userSearch(searchDto, currentUser.getUser(), pageable));
+    	model.addAttribute("searchDto", searchDto);
+    	
         return "/studentsList";
+    }
+    
+    /**
+     * 학생 상세 조회 - 관리자
+     */
+    @GetMapping("/user/studentInfo/{userCode}")
+    public String getstudentInfo(@PathVariable("userCode") String userCode, Model model, @AuthenticationPrincipal CustomUserDetails currentUser) {
+
+    	model.addAttribute("userData", userService.getstudentInfo(currentUser.getUser(), userCode));    	
+        return "/info";
     }
 }

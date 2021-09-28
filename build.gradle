@@ -80,7 +80,7 @@ dependencies {
      */
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc' //mockmvc 를 restdocs 에 사용하게 돕는 라이브러리
     asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
->>>>>>> 87b6dfee91cb1c4b02423f5f6c762fd06c849caf
+
 }
 
 test {

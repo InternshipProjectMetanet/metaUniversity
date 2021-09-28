@@ -5,6 +5,7 @@ import com.example.metauniversity.domain.User.EnrollmentStatus;
 import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.User.UserTyped;
 import com.example.metauniversity.domain.User.UsersData;
+import com.example.metauniversity.domain.board.Board;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,14 @@ public class boardDto {
         private String title;
         private LocalDateTime created_date;
         private String userName;
+
+        
+        public boardList(Board board) {
+			this.boardId = board.getBoardId();
+			this.title = board.getTitle();
+			this.created_date = board.getCreatedDate();
+			this.userName = board.getUser().getUsersData().getUserName();
+		}
 
     }
     

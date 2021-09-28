@@ -26,13 +26,13 @@
                 <!-- row -->
                 <div class="row w-50">
                   <div class="col-3 p-0">
-                    <input type="text" name="userName" class="form-control" placeholder="이름">
+                    <input type="text" name="userName" class="form-control" placeholder="이름" th:value="${searchDto.userName}">
                   </div>
                   <div class="col-3 p-0">
-                    <input type="text" name="userCode" class="form-control" placeholder="학번">
+                    <input type="text" name="userCode" class="form-control" placeholder="학번" th:value="${searchDto.userCode}">
                   </div>
                   <div class="col-3 p-0">
-                    <input type="text" name="userMajor" class="form-control" placeholder="전공">
+                    <input type="text" name="userMajor" class="form-control" placeholder="전공" th:value="${searchDto.userMajor}">
                   </div>
                   <div class="col-2 p-0">
                     <button type="submit"
@@ -55,41 +55,50 @@
                   </thead>
                   <tbody>
                   <!-- tr 반복 시작 -->
-                  <tr class="border-bottom" th:each="student : ${studentsList}">
-                    <td th:text="${student.userName}">이름 데이터</td>
-                    <td th:text="${student.userCode}">학번 데이터</td>
-                    <td th:text="${student.userDepartment}">부서 데이터</td>
-                    <td th:text="${student.userMajor}">전공 데이터</td>
-                    <td th:text="${student.userGrade}">학년 데이터</td>
-                    <td th:text="${student.enrollmentStatus}">재학여부 데이터</td>
+                  <tr class="border-bottom" th:each="student : ${studentsList.userDtoList}">
+                    <td><a th:text="${student.userName}"
+                           th:href="@{'/user/studentInfo/' + ${student.userCode}}"></a></td>
+                    <td th:text="${student.userCode}"></td>
+                    <td th:text="${student.userDepartment}"></td>
+                    <td th:text="${student.userMajor}"></td>
+                    <td th:text="${student.userGrade}"></td>
+                    <td th:text="${student.enrollmentStatus}"></td>
                   </tr>
                   <!-- tr 반복 끝 -->
+                  <!-- 찾는 학생이 없을 경우 (시작) -->
+                  <tr th:if="${studentsList.totalElements == 0}">
+                    <td colspan="6">찾는 학생이 없습니다.</td>
+                  </tr>
+                  <!-- 찾는 학생이 없을 경우 (끝) -->
                   </tbody>
                 </table>
-
+                
                 <!-- 페이징 처리 부분  -->
-                <ul class="pagination justify-content-center">
-                  <!--  이전  -->
+                <ul class="pagination justify-content-center" 
+                	th:with="pageNumber = ${studentsList.pageNumber},
+							pageSize = ${studentsList.pageSize},
+							totalPages = ${studentsList.totalPages},
+							pazingSize = 10,
+                            start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},
+                            tempEndPage = ${start + pazingSize - 1},
+              				last=${tempEndPage < totalPages ? tempEndPage : totalPages}"
+              		th:if="${studentsList.totalElements != 0}">
+                            
+                	<!--  이전  -->
+                    <li class="page-item">
+                    	<a class="page-link" th:href="${pageNumber==0} ? '' : @{studentsList(page=${pageNumber}, userName=${searchDto.userName}, userCode=${searchDto.userCode}, userMajor=${searchDto.userMajor})}">이전</a>
+                    </li>
 
-                  <li class="page-item">
-                    <a class="page-link" href="#">이전</a>
-                  </li>
+	                <!--  페이지 버튼  -->
+                    <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pageNumber + 1} ? 'page-item active' : 'page-item'">
+				    	<a class="page-link" th:text="${page}" 
+				    		th:href="@{studentsList(page=${page}, userName=${searchDto.userName}, userCode=${searchDto.userCode}, userMajor=${searchDto.userMajor})}"></a>
+				  	</li>
 
-                  <!--  페이지 버튼  -->
-
-                  <li class="page-item active">
-                    <a href="#" class="page-link">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a href="#" class="page-link">2</a>
-                  </li>
-
-                  <!--  다음  -->
-
-                  <li class="page-item">
-                    <a class="page-link" href="#">다음</a>
-                  </li>
-
+		            <!--  다음  -->
+                    <li class="page-item">
+        	            <a class="page-link" th:href="${pageNumber==totalPages-1} ? '' : @{studentsList(page=${pageNumber+2}, userName=${searchDto.userName}, userCode=${searchDto.userCode}, userMajor=${searchDto.userMajor})}">다음</a>
+                    </li>
                 </ul>
                 <!-- 페이징 처리 끝 -->
 

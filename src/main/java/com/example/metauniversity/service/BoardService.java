@@ -18,11 +18,7 @@ import com.example.metauniversity.domain.board.dto.boardDto.saveBoard;
 import com.example.metauniversity.domain.board.dto.boardDto.updateBoard;
 import com.example.metauniversity.exception.NoSuchBoardException;
 import com.example.metauniversity.exception.NoSuchUserException;
-import com.example.metauniversity.repository.BoardFileRepository;
-import com.example.metauniversity.repository.BoardRepository;
-import com.example.metauniversity.repository.FileRepository;
-import com.example.metauniversity.repository.UserRepository;
-import com.example.metauniversity.repository.UsersDataRepository;
+import com.example.metauniversity.repository.*;
 import com.example.metauniversity.security.CustomUserDetails;
 import com.example.metauniversity.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -50,8 +46,11 @@ public class BoardService {
 	private final BoardRepository boardRepository;
 	private final BoardFileRepository boardFileRepository;
 	private final FileRepository fileRepository;
+	private final UserFileRepository userFileRepository;
 	private final FileService fileService;
 	private final FolderConfig folderConfig;
+	private final UserRepository userRepository;
+
 	
 	// 게시글 목록 조회
 	public boardDto.pageBoardList getBoardList(Pageable pageable) {
@@ -86,15 +85,20 @@ public class BoardService {
 	}
 
 	// 게시글 상세 조회
-	public getBoard getBoard(Long boardId) {
+	public getBoard getBoard(Long boardId, User currentUser) {
 		Board board = boardRepository.findById(boardId)
 				.orElseThrow(() -> new NoSuchBoardException("해당 게시물이 없습니다."));
-		
+
+		User user = userRepository.findById(currentUser.getId())
+			.orElseThrow(() -> new NoSuchUserException("해당 유저가 없습니다."));
+
+
 		boardDto.getBoard boarddto = boardDto.getBoard.builder()
 					.boardId(board.getBoardId())
 					.content(board.getContent())
 					.title(board.getTitle())
 					.userName(board.getUser().getUsersData().getUserName())
+					.userUrl(user.getUserfile().getFile().getUrl())
 					.filesList(board.getBoardfile().stream().map(f -> f.getFile()).collect(Collectors.toList()))
 					.build();
 				

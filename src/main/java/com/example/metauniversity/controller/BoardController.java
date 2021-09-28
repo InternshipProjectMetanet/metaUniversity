@@ -45,8 +45,11 @@ public class BoardController {
      * 공지사항 상세 조회
      */
     @GetMapping("/boardDetail/{boardId}")
-    public String boardDetail(@PathVariable("boardId") Long boardId, Model model) {
-    	boardDto.getBoard boardDto = boardService.getBoard(boardId);
+    public String boardDetail(@PathVariable("boardId") Long boardId,
+                              Model model,
+                              @AuthenticationPrincipal CustomUserDetails currentUser) {
+
+    	boardDto.getBoard boardDto = boardService.getBoard(boardId, currentUser.getUser());
 
         model.addAttribute("boardDto", boardDto);
         return "board/boardContent";
@@ -110,8 +113,10 @@ public class BoardController {
      * 공지사항 수정
      */
     @GetMapping("/boardEdit/{boardId}")
-    public String boardEdit(@PathVariable("boardId") Long boardId, Model model) {
-    	boardDto.getBoard boardDto = boardService.getBoard(boardId);
+    public String boardEdit(@PathVariable("boardId") Long boardId,
+                            Model model,
+                            @AuthenticationPrincipal CustomUserDetails currentUser) {
+    	boardDto.getBoard boardDto = boardService.getBoard(boardId, currentUser.getUser());
 
         model.addAttribute("boardDto", boardDto);
     	

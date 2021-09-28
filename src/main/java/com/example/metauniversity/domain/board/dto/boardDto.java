@@ -26,6 +26,7 @@ public class boardDto {
         private String title;
         private LocalDateTime created_date;
         private String userName;
+
     }
     
     @Getter
@@ -39,6 +40,7 @@ public class boardDto {
         private String content;
         private String userName;
         private List<File> filesList;
+        private String userUrl;
     }
     
     @Getter

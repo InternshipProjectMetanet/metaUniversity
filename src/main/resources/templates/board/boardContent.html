@@ -4,7 +4,8 @@
     <meta th:replace="/include/head :: head" />
     <title>메타넷대학교</title>
 </head>
-
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script th:src="@{/js/common.js}"></script>
 <body>
 <div id="db-wrapper" class="toggled">
     <!--sidebar 삽입  -->
@@ -35,18 +36,21 @@
 	                                </div>
                                 </div>
 
+                                <div id="comments">
+
+                                </div>
                                 <div class="row align-items-center p-2 m-2">
-                                    <div id="comments">
+
                                         <div class="col-2">
                                             <img class="avatar" src="/img/cute.png" alt="">
                                         </div>
-                                        <div class="col-8">
-                                            안녕하세요 댓글 1번이에용
+                                        <div class="col-8" id="comment">
+
                                         </div>
                                         <div class="col-2">
                                             <a href="#" class="bi bi-x-lg btn btn-trans"></a>
                                         </div>
-                                    </div>
+
 
 
 
@@ -61,15 +65,19 @@
                                         <a href="#" class="bi bi-x-lg btn btn-trans"></a>
                                     </div>
 
-                                    <div class="row mt-9 mb-3 align-items-center">
-                                        <div class="col-2">
-                                            <img class="avatar" src="/img/cute.png">
+
+                                    <form>
+                                        <div class="row mt-9 mb-3 align-items-center">
+                                            <div class="col-2">
+                                                <img class="avatar" th:src="${boardDto.getUserUrl()}">
+                                            </div>
+                                            <input class="col-8 border" placeholder="댓글입력">
+                                            <div class="col-2">
+                                                <button type="submit" class="btn btn-outline-primary">등록</button>
+                                            </div>
                                         </div>
-                                        <input class="col-8 border" placeholder="댓글입력">
-                                        <div class="col-2">
-                                            <div class="btn btn-outline-primary">등록</div>
-                                        </div>
-                                    </div>
+                                    </form>
+
 
                                 </div>
 
@@ -95,6 +103,18 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
+<script>
+    $.ajax({
+        url: "/reply",
+        type: "GET",
+        success: function onSuccess(data) {
+            console.log(data)
+        },
+        error: function onError (error){
+            console.error(error)
+        }
+    })
+</script>
 </body>
 
 

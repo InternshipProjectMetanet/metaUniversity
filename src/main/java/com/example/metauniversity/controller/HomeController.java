@@ -24,13 +24,6 @@ public class HomeController {
         return "login";
     }
 
-    /**
-     * 회원가입 페이지
-     */
-    @GetMapping("/register")
-    public String register(){
-        return "register";
-    }
 
     /**
      * 에러페이지

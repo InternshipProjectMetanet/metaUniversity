@@ -4,13 +4,9 @@
 <head>
     <meta th:replace="/include/head :: head" />
     <title>공지사항 등록</title>
+    <link rel="stylesheet" th:href="@{/css/ckeditor.css}">
 
-    <script th:src="@{/ckeditor5/build/ckeditor.js}"></script>
-    <style type="text/css">
-        .ck-editor__editable {
-            height: 450px;
-        }
-    </style>
+
 </head>
 
 <body>
@@ -37,7 +33,7 @@
                                     <input class="form-control text-center" id="title" placeholder="제목" name="title">
                                 </div>
                                 <div class="col-10 m-auto my-2">
-                                    <textarea class="form-control" rows="20" placeholder="내용" id="ckeditor" name="content"></textarea>
+                                    <textarea class="form-control" rows="20" placeholder="내용" id="editor" name="content"></textarea>
                                 </div>
                                 <!-- 파일 업로드 -->
                                 <div id="uploadFiles">
@@ -61,38 +57,11 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
+<script th:src="@{/js/ckeditor.js}"></script>
+<script th:src="@{/js/ckeditorCustom.js}"></script>
 </body>
-<script th:src="@{/ckeditor5/build/ckeditorCustom.js}"></script>
+
 <script>
-    $(document).on('change', "#uploadFiles [type='file']", function() {
-        if ($(this).val().length != 0) {
-            $(this).attr("name", "uploadFile");
-            $(this).next().css('visibility', 'visible');
-        } else {
-            $(this).attr("name", "fileData");
-            $(this).next().css('visibility', 'hidden');
-        }
-
-        addFile();
-
-    });
-
-    $(document).on('click', "[name='fileDelete']", function() {
-
-        $(this).parent().remove();
-        addFile();
-
-    });
-
-    function addFile() {
-        if ($("[name='fileData']").length == 0) {
-            $("#uploadFiles").append(
-                '<div class="col-10 m-auto my-2">'
-                +'<input type="file" class="col-10" id="file" name="fileData" />'
-                +'    <button type="button" class="bi bi-x-lg btn btn-trans" name="fileDelete" style="visibility: hidden;"></button>'
-                +'</div>');
-        }
-    }
 
 </script>
 </html>

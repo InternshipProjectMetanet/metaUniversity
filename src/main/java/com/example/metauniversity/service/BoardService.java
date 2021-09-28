@@ -1,5 +1,4 @@
 package com.example.metauniversity.service;
-
 import com.example.metauniversity.config.FolderConfig;
 import com.example.metauniversity.domain.File.BoardFile;
 import com.example.metauniversity.domain.File.File;
@@ -21,7 +20,6 @@ import com.example.metauniversity.exception.NoSuchUserException;
 import com.example.metauniversity.repository.BoardFileRepository;
 import com.example.metauniversity.repository.BoardRepository;
 import com.example.metauniversity.repository.file.FileRepository;
-import com.example.metauniversity.repository.user.UserFileRepository;
 import com.example.metauniversity.repository.user.UserRepository;
 import com.example.metauniversity.repository.user.UsersDataRepository;
 import com.example.metauniversity.security.CustomUserDetails;

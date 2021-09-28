@@ -90,3 +90,4 @@ public class UserService {
                 .stream().map(s -> new userDto.searchResponse(s)).collect(Collectors.toList());
     }
 }
+

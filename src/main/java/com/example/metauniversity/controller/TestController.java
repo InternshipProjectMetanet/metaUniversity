@@ -18,10 +18,9 @@ public class TestController {
     @GetMapping("/test")
     public Object auth(@AuthenticationPrincipal CustomUserDetails userDetails){
 
+
        return userDetails.getUser().getUsersData().getUserEmail();
 
+
     }
-
-
-
 }

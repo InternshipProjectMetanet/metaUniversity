@@ -70,14 +70,14 @@ public class UserController {
 
         return "redirect:/user/info";
     }
-    
+
     /**
      * 학생 조회 - 관리자
      */
     @GetMapping("/user/studentsList")
     public String studentsList(Model model, @ModelAttribute userDto.search searchDto, @AuthenticationPrincipal CustomUserDetails currentUser) {
 
-    	model.addAttribute("studentsList", userService.userSearch(searchDto, currentUser.getUser()));
+        model.addAttribute("studentsList", userService.userSearch(searchDto, currentUser.getUser()));
         return "/studentsList";
     }
 }

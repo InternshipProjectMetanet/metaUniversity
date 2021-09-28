@@ -29,18 +29,18 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 
     private final BoardService boardService;
-	
+
 
     /**
      * 공지사항 목록 조회
      */
     @GetMapping("/boardList")
     public String boardList(@PageableDefault Pageable pageable, Model model) {
-    	boardDto.pageBoardList boardDtoList = boardService.getBoardList(pageable);
+        boardDto.pageBoardList boardDtoList = boardService.getBoardList(pageable);
         model.addAttribute("boardList", boardDtoList);
         return "board/boardList";
     }
-    
+
     /**
      * 공지사항 상세 조회
      */
@@ -54,45 +54,47 @@ public class BoardController {
         model.addAttribute("boardDto", boardDto);
         return "board/boardContent";
     }
-    
+
     /**
      * 공지사항 삭제
      */
     @GetMapping("/boardDelete/{boardId}")
     public String boardDelete(@PathVariable("boardId") Long boardId) {
-    	boardService.deleteBoard(boardId);
-    	
-    	return "redirect:/boardList";
+        boardService.deleteBoard(boardId);
+
+        return "redirect:/boardList";
     }
-    
+
     /**
      * 공지사항 등록 페이지
      */
     @GetMapping("/boardForm")
     public String boardForm() {
+
     	
     	return "board/boardForm";
+
     }
-    
+
     /**
      * 공지사항 등록
      */
     @PostMapping("/boardForm")
     public String boardForm(@ModelAttribute boardDto.saveBoard boarddto
-    		, MultipartHttpServletRequest request
-    		, @AuthenticationPrincipal CustomUserDetails currentUser) {
-    	
-    	List<MultipartFile> uploadFiles = request.getFiles("uploadFile");
-    	
-    	boardDto.saveBoard boardInfo = boardDto.saveBoard.builder()
-    		.accountId(currentUser.getUser().getId())
-    		.title(boarddto.getTitle())
-    		.content(boarddto.getContent())
-    		.build();
-    		
-    	boardService.saveBoard(boardInfo, uploadFiles, currentUser.getUser());
-    	    	
-    	return "redirect:/boardList";
+            , MultipartHttpServletRequest request
+            , @AuthenticationPrincipal CustomUserDetails currentUser) {
+
+        List<MultipartFile> uploadFiles = request.getFiles("uploadFile");
+
+        boardDto.saveBoard boardInfo = boardDto.saveBoard.builder()
+                .accountId(currentUser.getUser().getId())
+                .title(boarddto.getTitle())
+                .content(boarddto.getContent())
+                .build();
+
+        boardService.saveBoard(boardInfo, uploadFiles, currentUser.getUser());
+
+        return "redirect:/boardList";
     }
 
     /**
@@ -101,14 +103,14 @@ public class BoardController {
     @ResponseBody
     @RequestMapping("/board/imageSave")
     public Object boardImageSave(MultipartHttpServletRequest request) {
-    	
-    	MultipartFile uploadImage = request.getFile("upload");
-    	
-    	fileDto.fileUrl filedto = boardService.saveBoardImage(uploadImage);
-    	
-    	return filedto;
+
+        MultipartFile uploadImage = request.getFile("upload");
+
+        fileDto.fileUrl filedto = boardService.saveBoardImage(uploadImage);
+
+        return filedto;
     }
-    
+
     /**
      * 공지사항 수정
      */
@@ -121,25 +123,24 @@ public class BoardController {
         model.addAttribute("boardDto", boardDto);
     	
     	return "board/boardEdit";
+
     }
-    
+
     /**
      * 공지사항 수정
      */
     @PostMapping("/boardEdit/{boardId}")
     public String boardEdit(@ModelAttribute boardDto.updateBoard boarddto
-    		, MultipartHttpServletRequest request
-    		, @PathVariable Long boardId
-    		, @AuthenticationPrincipal CustomUserDetails currentUser) {
-    	
-    	List<MultipartFile> uploadFiles = request.getFiles("uploadFile");
-    	
-    	String[] deleteFileId = request.getParameterValues("deleteFileId");
-    	
-    	boardService.updateBoard(boarddto, uploadFiles, deleteFileId, currentUser.getUser());
-    	
-    	return "redirect:/boardDetail/" + boardId;
-    }
-   
+            , MultipartHttpServletRequest request
+            , @PathVariable Long boardId
+            , @AuthenticationPrincipal CustomUserDetails currentUser) {
 
+        List<MultipartFile> uploadFiles = request.getFiles("uploadFile");
+
+        String[] deleteFileId = request.getParameterValues("deleteFileId");
+
+        boardService.updateBoard(boarddto, uploadFiles, deleteFileId, currentUser.getUser());
+
+        return "redirect:/boardDetail/" + boardId;
+    }
 }

@@ -83,6 +83,38 @@ public class BoardService {
 		
 		return boardList;
 	}
+	
+	// 홈화면 게시글 목록 조회
+	public boardDto.pageBoardList getBoardListHome(Pageable pageable) {
+		
+		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+		pageable = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "boardId"));
+		
+		Page<Board> boards = boardRepository.findAll(pageable);
+		
+		List<boardDto.boardList> boardDtoList = new ArrayList<>();
+		
+		for (Board board : boards.getContent()) {
+			boardDto.boardList boarddto = boardDto.boardList.builder()
+					.boardId(board.getBoardId())
+					.created_date(board.getCreatedDate())
+					.title(board.getTitle())
+					.userName(board.getUser().getUsersData().getUserName())
+					.build();
+			
+			boardDtoList.add(boarddto);
+		}
+		
+		boardDto.pageBoardList boardList = boardDto.pageBoardList.builder()
+				.pageSize(boards.getSize())
+				.pageNumber(boards.getNumber())
+				.totalPages(boards.getTotalPages())
+				.totalElements(boards.getTotalElements())
+				.boardDtoList(boardDtoList)
+				.build();
+		
+		return boardList;
+	}
 
 	// 게시글 상세 조회
 	public getBoard getBoard(Long boardId, User currentUser) {

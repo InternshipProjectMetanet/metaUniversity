@@ -5,6 +5,7 @@ import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.User.UserTyped;
 import com.example.metauniversity.domain.User.UsersData;
 import com.example.metauniversity.domain.board.dto.boardDto;
+import com.example.metauniversity.domain.subject.timeTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -145,5 +146,39 @@ public class userDto {
     	private int totalPages; // 전체 페이지 수
     	private Long totalElements; // 전체 데이터 수
     	List<userDto.searchResponse> userDtoList;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class studentData<T> {
+        private String subjectName;
+        private Integer count;
+        private T students;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class enrollSubject {
+        private String userCode;
+        private String userName;
+        private Integer userGrade;
+        private String userDepartment;
+        private String userMajor;
+        private String thumbnailUrl;
+
+        public enrollSubject(timeTable timetable) {
+            this.userCode = timetable.getUser().getUsersData().getUserCode();
+            this.userName = timetable.getUser().getUsersData().getUserName();
+            this.userGrade = timetable.getUser().getUsersData().getUserGrade();
+            this.userDepartment = timetable.getUser().getUsersData().getUserDepartment();
+            this.userMajor = timetable.getUser().getUsersData().getUserMajor();
+            this.thumbnailUrl = timetable.getUser().getUserfile().getFile().getUrl();
+        }
     }
 }

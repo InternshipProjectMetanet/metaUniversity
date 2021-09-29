@@ -8,11 +8,15 @@ import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.User.UserTyped;
 import com.example.metauniversity.domain.User.UsersData;
 import com.example.metauniversity.domain.User.dto.userDto;
+import com.example.metauniversity.domain.subject.subject;
 import com.example.metauniversity.exception.CannotSearchUserException;
+import com.example.metauniversity.exception.NoSuchSubjectException;
 import com.example.metauniversity.exception.NoSuchUserException;
 import com.example.metauniversity.repository.UserFileRepository;
 import com.example.metauniversity.repository.UserRepository;
 import com.example.metauniversity.repository.UsersDataRepository;
+import com.example.metauniversity.repository.subject.subjectRepository;
+import com.example.metauniversity.repository.subject.timeTableRepository;
 import com.example.metauniversity.security.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +41,9 @@ public class UserService {
     private final UsersDataRepository usersDataRepository;
     private final CustomUserDetailsService customUserDetailsService;
     private final UserFileRepository userFileRepository;
+    private final subjectRepository subjectRepository;
     private final FileService fileService;
+    private final timeTableRepository timeTableRepository;
     private final FolderConfig folderConfig;
 
     @Transactional
@@ -47,13 +54,11 @@ public class UserService {
          * 1-1. UsersData.getUserCode가 null이 나온다면 <허가된 학번 혹은 사번이 아닙니다. 행정실을 통한 문의 바랍니다.> 오류 출력
          * 1-2. 만약 둘이 다르다면 <학번 혹은 사번이 다릅니다. 행정실을 통한 문의 바랍니다.> 오류 출력
          */
-
         UsersData InitialUserData = usersDataRepository.findByUserCode(signindto.getUserCode())
                 .orElseThrow(() -> new NoSuchUserException("허가된 학번 혹은 사번이 아닙니다. 행정실을 통한 문의 바랍니다."));
 
         if(!InitialUserData.getUserEmail().equals(signindto.getUserEmail())) {
-            throw new NoSuchUserException("오류메세지 나중에 정할게여..");
-        }
+            throw new NoSuchUserException("오류메세지 나중에 정할게여..");}
 
         customUserDetailsService.save(signindto, InitialUserData);
     }
@@ -116,4 +121,16 @@ public class UserService {
 		
 		return new userDto.getMyInfoResponse(userRepository.getStudentInfo(userCode));
 	}
+
+    /**
+     * 특정 수업을 듣는 학생들의 정보 불러오기
+     */
+    public userDto.studentData<List<userDto.enrollSubject>> getStudent(Long subjectId) {
+        List<userDto.enrollSubject> list = timeTableRepository.getStudent(subjectId).stream()
+                .map(s -> new userDto.enrollSubject(s)).collect(Collectors.toList());
+
+        subject subject = subjectRepository.findById(subjectId)
+                .orElseThrow(() -> new NoSuchSubjectException("존재하지 않는 과목입니다."));
+        return new userDto.studentData<>(subject.getSubjectTitle(), list.size(), list);
+    }
 }

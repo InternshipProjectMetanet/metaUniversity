@@ -106,9 +106,21 @@ public class subjectRestControllerTest {
     @Test
     @DisplayName(value = "수강신청 조회")
     public void sugang() throws Exception{
+
         //given
         subjectDto.enroll enroll = subjectDto.enroll.builder()
+                .subjectId(1L)
                 .subjectTitle("mockSubjectTitle")
+                .professor("mockProfessor")
+                .subjectPoints(3)
+                .isMajor("전공")
+                .subjectDepaetment("mockDepartment")
+                .subjectGrades(1)
+                .limited(40)
+                .classRoom("301")
+                .day("Mon")
+                .startTime("13:00")
+                .endTime("15:00")
                 .status(true)
                 .build();
         given(subjectService.EnrollSubject(any(), any())).willReturn(enroll);
@@ -130,8 +142,19 @@ public class subjectRestControllerTest {
                                 parameterWithName("subjectId").description("수업 아이디")
                         ),
                         responseFields(
-                                fieldWithPath("subjectTitle").type(JsonFieldType.STRING).description("과목 타이틀"),
-                                fieldWithPath("status").type(JsonFieldType.BOOLEAN).description("수강신청 여부(true : 수강신청됨 / false : 수강취소됨)")
+                            fieldWithPath("subjectId").type(JsonFieldType.NUMBER).description("과목 아이디"),
+                            fieldWithPath("subjectTitle").type(JsonFieldType.STRING).description("과목 타이틀"),
+                            fieldWithPath("professor").type(JsonFieldType.STRING).description("과목 담당교수"),
+                            fieldWithPath("subjectPoints").type(JsonFieldType.NUMBER).description("과목 학점"),
+                            fieldWithPath("isMajor").type(JsonFieldType.STRING).description("과목 전공여부"),
+                            fieldWithPath("subjectDepaetment").type(JsonFieldType.STRING).description("과목 개설학부"),
+                            fieldWithPath("subjectGrades").type(JsonFieldType.NUMBER).description("과목 대상학년"),
+                            fieldWithPath("limited").type(JsonFieldType.NUMBER).description("과목 제한인원"),
+                            fieldWithPath("classRoom").type(JsonFieldType.STRING).description("과목 강의실"),
+                            fieldWithPath("day").type(JsonFieldType.STRING).description("과목 수강요일"),
+                            fieldWithPath("startTime").type(JsonFieldType.STRING).description("과목 시작시간"),
+                            fieldWithPath("endTime").type(JsonFieldType.STRING).description("과목 마감시간"),
+                            fieldWithPath("status").type(JsonFieldType.BOOLEAN).description("수강신청 여부(true : 수강신청됨 / false : 수강취소됨)")
                         )
                 ));
     }
@@ -140,11 +163,12 @@ public class subjectRestControllerTest {
     @DisplayName(value = "수강취소 조회")
     public void sugangCancel() throws Exception {
         //given
-        subjectDto.enroll enroll = subjectDto.enroll.builder()
+        subjectDto.cancel cancel = subjectDto.cancel.builder()
                 .subjectTitle("mockSubjectTitle")
+                .subjectId(1L)
                 .status(false)
                 .build();
-        given(subjectService.cancelSubject(any(), any())).willReturn(enroll);
+        given(subjectService.cancelSubject(any(), any())).willReturn(cancel);
 
         //when
         ResultActions result = mvc.perform(RestDocumentationRequestBuilders.post("/subject/cancel/{subjectId}", 1L)
@@ -163,6 +187,7 @@ public class subjectRestControllerTest {
                                 parameterWithName("subjectId").description("수업 아이디")
                         ),
                         responseFields(
+                                fieldWithPath("subjectId").type(JsonFieldType.NUMBER).description("과목 아이디"),
                                 fieldWithPath("subjectTitle").type(JsonFieldType.STRING).description("과목 타이틀"),
                                 fieldWithPath("status").type(JsonFieldType.BOOLEAN).description("수강신청 여부(true : 수강신청됨 / false : 수강취소됨)")
                         )
@@ -175,6 +200,7 @@ public class subjectRestControllerTest {
         //given
         List<subjectDto.getList> glist = new ArrayList<>();
         glist.add(subjectDto.getList.builder()
+                .subjectId(1L)
                 .subjectTitle("mockTitle")
                 .subjectPoints(3)
                 .professor("mockProfessor")
@@ -205,6 +231,7 @@ public class subjectRestControllerTest {
                         ),
                         responseFields(
                                 fieldWithPath("count").type(JsonFieldType.NUMBER).description("필터링된 과목 개수"),
+                                fieldWithPath("data.[].subjectId").type(JsonFieldType.NUMBER).description("필터링된 과목 코드"),
                                 fieldWithPath("data.[].subjectTitle").type(JsonFieldType.STRING).description("필터링된 과목 이름"),
                                 fieldWithPath("data.[].subjectPoints").type(JsonFieldType.NUMBER).description("필터링된 과목 학점"),
                                 fieldWithPath("data.[].professor").type(JsonFieldType.STRING).description("필터링된 과목 교수명"),
@@ -219,6 +246,7 @@ public class subjectRestControllerTest {
                         )
                 ))
                 .andExpect(jsonPath("$.count").value(1))
+                .andExpect(jsonPath("$.data.[0].subjectId").value(1L))
                 .andExpect(jsonPath("$.data.[0].subjectTitle").value("mockTitle"))
                 .andExpect(jsonPath("$.data.[0].subjectPoints").value(3))
                 .andExpect(jsonPath("$.data.[0].professor").value("mockProfessor"))

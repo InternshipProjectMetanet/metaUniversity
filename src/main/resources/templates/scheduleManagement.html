@@ -4,6 +4,102 @@
 <head>
     <meta th:replace="/include/head :: head" />
     <title>메타넷대학교</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function resultHtml(result){
+            testHtml = "";
+            var test = $('#dataOfsubject > tbody');
+            for(var i=0; i<result.count; i++) {
+                testHtml += "<tr className=\"border-bottom\">"
+                testHtml += "<td>" + result.data[i].subjectTitle + "</td>"
+                testHtml += "<td>" + result.data[i].professor + "</td>"
+                testHtml += "<td>" + result.data[i].isMajor + "</td>"
+                testHtml += "<td>" + result.data[i].subjectPoints + "</td>"
+                testHtml += "<td>" + result.data[i].subjectGrades + "</td>"
+                testHtml += "<td>" + result.data[i].limited + "</td>"
+                testHtml += "<td>" + result.data[i].classRoom + "</td>"
+                testHtml += "<td>" + result.data[i].day + "</td>"
+                testHtml += "<td>" + result.data[i].startTime + "</td>"
+                testHtml += "<td>" + result.data[i].endTime + "</td>"
+                testHtml += "<td><button id = \"enrollBtn\" value =\"" + result.data[i].subjectId + "\"class=\"btn btn-outline-primary\" onclick=\"enrollSubject(this.value)\">신청</button></td></tr>"
+            }
+            test.empty();
+            test.append(testHtml);
+        }
+
+        function asyncFiltering() {
+            search = {
+                subjectTitle : $('#formDataObject').find('input:eq(0)').val(),
+                subjectPoints : $('#formDataObject').find('input:eq(1)').val(),
+                isMajor : $('#formDataObject').find('select').val()
+            }
+
+            $.ajax({
+                type : 'GET',
+                url : '/subject/list/search',
+                data : search,
+                contentType : "application/json; charset=utf-8",
+                success : function(result, status, xhr) {
+                    resultHtml(result);
+                },
+                error : function(xhr, status, er) {
+                    alert("해당하는 과목이 없습니다.");
+                }
+            })
+        }
+
+        function enrollSubject(value) {
+            var con = confirm("정말로 신청 하시겠습니까?");
+            if(con) {
+                $.ajax({
+                    type : 'POST',
+                    url : '/subject/enroll/' + value,
+                    contentType : "application/json; charset=utf-8",
+                    success : function(result, status, xhr) {
+                        if(con) {
+                            testHtml = "";
+                            var test = $('#dataOfMySubject > tbody');
+                            testHtml += "<tr className=\"border-bottom\">"
+                            testHtml += "<td>" + result.subjectTitle + "</td>"
+                            testHtml += "<td>" + result.professor + "</td>"
+                            testHtml += "<td>" + result.isMajor + "</td>"
+                            testHtml += "<td>" + result.subjectPoints + "</td>"
+                            testHtml += "<td>" + result.subjectGrades + "</td>"
+                            testHtml += "<td>" + result.limited + "</td>"
+                            testHtml += "<td>" + result.classRoom + "</td>"
+                            testHtml += "<td>" + result.day + "</td>"
+                            testHtml += "<td>" + result.startTime + "</td>"
+                            testHtml += "<td>" + result.endTime + "</td>"
+                            testHtml += "<td><button id = \"cancelBtn\" value =\"" + result.subjectId + "\"class=\"btn btn-outline-primary\" onclick=\"cancelSubject(this.value)\">취소</button></td></tr>"
+                            test.append(testHtml);
+                        }
+                        confirm("수강신청 되었습니다.");
+                    },
+                    error : function(request,status,error) {
+                        alert("신청할 수 없습니다.");
+                    }
+                })
+            }
+        }
+
+        function cancelSubject(val) {
+            con = confirm("정말 취소하시겠습니까?");
+            if(con) {
+                $.ajax({
+                    type : 'POST',
+                    url : '/subject/cancel/' + val,
+                    contentType : "application/json; charset=utf-8",
+                    success : function(result, status, xhr) {
+                        confirm("수강 취소되었습니다.");
+                        location.reload()
+                    },
+                    error : function(request,status,error) {
+                        alert("오류가 발생했습니다.");
+                    }
+                })
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -21,9 +117,9 @@
                             <div class="mb-6">
                                 <h4 class="text-center fw-bold">수업 검색</h4>
                             </div>
-                            <form action="/schedule" method="GET">
+<!--                            <form name = "formDataObject" action="/subject/list/search" method="GET">-->
                                 <!-- row -->
-                                <div class="row m-3">
+                                <div id = "formDataObject" class="row m-3">
                                     <div class="col-2 p-0">
                                         <input type="text" name="subjectTitle" class="form-control" placeholder="강의명">
                                     </div>
@@ -38,16 +134,17 @@
                                         </select>
                                     </div>
                                     <div class="col-1 p-0">
-                                        <button type="submit"
+                                        <button type="submit" onclick="asyncFiltering()"
                                                 class="btn btn-outline-danger form-control mx-2">검색</button>
                                     </div>
                                 </div>
-                            </form>
+<!--                            </form>-->
                             <!-- 수업 검색 기능 끝 -->
-
+<!--                            <button type="submit" onclick="asyncFiltering()"-->
+<!--                                    class="btn btn-outline-danger form-control mx-2">검색</button>-->
                                 <!-- row -->
                                 <div class="mb-3 row p-5">
-                                    <table class="table table-bordered text-center mt-2 mb-5 p-2">
+                                    <table id = "dataOfsubject" class="table table-bordered text-center mt-2 mb-5 p-2">
                                         <thead>
                                         <tr class="border-1">
                                             <th class="fs-5">강의명</th>
@@ -76,7 +173,7 @@
                                             <td th:text="${subjectData.startTime}">시작시간데이터</td>
                                             <td th:text="${subjectData.endTime}">마치는시간데이터</td>
                                             <td>
-                                                <button class="btn btn-outline-primary">신청</button>
+                                                <button id = "enrollBtn" th:value="${subjectData.subjectId}" class="btn btn-outline-primary" onclick="enrollSubject(this.value)">신청</button>
                                             </td>
                                         </tr>
                                         <!-- tr 반복 끝 -->
@@ -130,38 +227,37 @@
 
                                 <!-- row -->
                                 <div class="mb-3 row p-5">
-                                    <table class="table table-borderless text-center mt-2 mb-5 p-2 align-middle border-1">
+                                    <table id = "dataOfMySubject" class="table table-borderless text-center mt-2 mb-5 p-2 align-middle border-1">
                                         <thead>
                                         <tr class="border-1">
                                             <th class="fs-5">강의명</th>
-                                            <th class="fs-5">학점</th>
+                                            <th class="fs-5">교수명</th>
                                             <th class="fs-5">전공</th>
+                                            <th class="fs-5">학점</th>
                                             <th class="fs-5">학년</th>
                                             <th class="fs-5">수강인원</th>
                                             <th class="fs-5">강의실</th>
                                             <th class="fs-5">요일</th>
                                             <th class="fs-5">시작시간</th>
                                             <th class="fs-5">마치는시간</th>
-                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <!-- tr 반복 시작 -->
                                         <tr class="border-bottom">
-                                        <tr>
-                                            <td>강의명</td>
-                                            <td>학점</td>
-                                            <td>전공</td>
-                                            <td>학년</td>
-                                            <td>수강인원</td>
-                                            <td>강의실</td>
-                                            <td>요일</td>
-                                            <td>시작시간</td>
-                                            <td>마치는시간</td>
+                                        <tr th:each="mySubjectData : ${mySubjectDatas}" class="border-bottom">
+                                            <td th:text="${mySubjectData.subjectTitle}">강의명데이터</td>
+                                            <td th:text="${mySubjectData.professor}">교수명데이터</td>
+                                            <td th:text="${mySubjectData.isMajor}">전공데이터</td>
+                                            <td th:text="${mySubjectData.subjectPoints}">학점데이터</td>
+                                            <td th:text="${mySubjectData.subjectGrades}">학년데이터</td>
+                                            <td th:text="${mySubjectData.limited}">수강인원데이터</td>
+                                            <td th:text="${mySubjectData.classRoom}">강의실데이터</td>
+                                            <td th:text="${mySubjectData.day}">요일데이터</td>
+                                            <td th:text="${mySubjectData.startTime}">시작시간데이터</td>
+                                            <td th:text="${mySubjectData.endTime}">마치는시간데이터</td>
                                             <td>
-                                                <form action="" method="post">
-                                                    <button type="submit" class="btn btn-outline-primary">삭제</button>
-                                                </form>
+                                                <button id = "cancelBtn" th:value="${mySubjectData.subjectId}" class="btn btn-outline-primary" onclick="cancelSubject(this.value)">취소</button>
                                             </td>
                                         </tr>
                                         <!-- tr 반복 끝 -->

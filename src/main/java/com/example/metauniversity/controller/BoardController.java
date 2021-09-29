@@ -54,9 +54,10 @@ public class BoardController {
 
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("pageNumber", pageNumber);
-            return "board/boardContent";
+        return "board/boardContent";
 
     }
+
 
     /**
      * 공지사항 삭제

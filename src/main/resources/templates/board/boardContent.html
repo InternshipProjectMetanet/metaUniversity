@@ -4,8 +4,7 @@
     <meta th:replace="/include/head :: head" />
     <title>메타넷대학교</title>
 </head>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script th:src="@{/js/common.js}"></script>
+
 <body onload="getComments()">
 <div id="db-wrapper" class="toggled">
     <!--sidebar 삽입  -->
@@ -26,7 +25,7 @@
                                     <div class="text border-bottom my-3 fs-4"><span th:text="${boardDto.title}"></span></div>
                                 </div>
                                 <div class="col-12 m-auto my-2 fs-5">
-                                    <div class="min-vh-40 border-bottom ck-content"><span th:utext="${boardDto.content}"></span></div>
+                                    <div class="min-vh-40 border-bottom ck-content" th:utext="${boardDto.content}"></div>
                                 </div>
                                 <div class="col-12 m-auto my-2">
 	                                <div class="border-bottom">
@@ -81,9 +80,9 @@
 <div th:replace="/include/scripts :: scripts"></div>
 
 <script th:src="@{/js/boardComment.js}"></script>
-
+<script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/ckeditor.js}"></script>
-<script th:src="@{/js/ckeditorCustom.js}"></script>
+<!--<script th:src="@{/js/ckeditorCustom.js}"></script>-->
 
 </body>
 

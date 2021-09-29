@@ -14,8 +14,7 @@ public class ExceptionController {
 	
 	@ExceptionHandler(NoSuchUserException.class)
     public String noSuchUser(RedirectAttributes redirectAttributes, Exception e) {
-		String[] error = e.getMessage().split("*");
-		
+		String[] error = e.getMessage().split("=");
     	redirectAttributes.addFlashAttribute("errorMessage", error[0]);
     	
         return "redirect:/" + error[1];

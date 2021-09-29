@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.metauniversity.domain.File.dto.fileDto;
 import com.example.metauniversity.domain.board.dto.boardDto;
@@ -47,17 +48,17 @@ public class BoardController {
     /**
      * 공지사항 상세 조회
      */
-
-    @PostMapping("/boardDetail/{boardId}")
-    public String boardDetail(@PathVariable("boardId") Long boardId, Model model, int pageNumber,@AuthenticationPrincipal CustomUserDetails currentUser) {
+    @GetMapping("/boardDetail/{boardId}")
+    public String boardDetail(@PathVariable("boardId") Long boardId, Model model, 
+    		@AuthenticationPrincipal CustomUserDetails currentUser) {
         boardDto.getBoard boardDto = boardService.getBoard(boardId,currentUser.getUser());
 
         model.addAttribute("boardDto", boardDto);
-        model.addAttribute("pageNumber", pageNumber);
+        // model.addAttribute("pageNumber", pageNumber);
             return "board/boardContent";
 
     }
-
+    
     /**
      * 공지사항 삭제
      */

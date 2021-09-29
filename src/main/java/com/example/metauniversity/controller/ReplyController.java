@@ -21,20 +21,17 @@ public class ReplyController {
 
     private final ReplyService replyService;
 
-    @GetMapping("/reply")
-    public List<ReplyDto.GetReply> replies(){
+    @PostMapping("/reply/get")
+    public List<ReplyDto.GetReply> replies(Long boardId){
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(boardId);
 
-        ReplyDto.GetReply reply =  ReplyDto.GetReply.builder().replyContent("gdgd").build();
-        List<ReplyDto.GetReply> replies = new ArrayList<ReplyDto.GetReply>();
-        replies.add(reply);
-        return replies;
+        return replyService.getReplies(1L);
     }
 
-    @PostMapping("/reply")
+    @PostMapping("/reply/add")
     public void insertReply(@AuthenticationPrincipal CustomUserDetails currentUser, ReplyDto.InsertReply insertReply){
-
         replyService.saveReply(insertReply, currentUser.getUser());
-
 
     }
 

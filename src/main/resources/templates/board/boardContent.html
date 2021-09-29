@@ -6,7 +6,7 @@
 </head>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script th:src="@{/js/common.js}"></script>
-<body>
+<body onload="getComments()">
 <div id="db-wrapper" class="toggled">
     <!--sidebar 삽입  -->
     <div th:replace="/include/sidebar :: sidebar"></div>
@@ -36,50 +36,25 @@
 	                                </div>
                                 </div>
 
-                                <div id="comments">
+                                <div id="replies">
+
+                                 <!--댓글이 들어갈 자리입니다.-->
 
                                 </div>
-                                <div class="row align-items-center p-2 m-2">
 
-                                        <div class="col-2">
-                                            <img class="avatar" src="/img/cute.png" alt="">
-                                        </div>
-                                        <div class="col-8" id="comment">
-
-                                        </div>
-                                        <div class="col-2">
-                                            <a href="#" class="bi bi-x-lg btn btn-trans"></a>
-                                        </div>
-
-
-
-
-
+                                <div class="row mt-9 mb-3 align-items-center">
                                     <div class="col-2">
-                                        <img class="avatar" src="/img/cute.png" alt="">
+                                        <img class="avatar" th:src="${boardDto.getUserUrl()}">
                                     </div>
-                                    <div class="col-8">
-                                        안녕하세요 반복문돌려야되요
-                                    </div>
+                                    <input type="hidden" id="boardId" th:value="${boardDto.boardId}">
+                                    <input class="col-8 border" id="commentContent" placeholder="댓글입력">
                                     <div class="col-2">
-                                        <a href="#" class="bi bi-x-lg btn btn-trans"></a>
+                                        <button onclick="addComment()" class="btn btn-outline-primary">등록</button>
                                     </div>
-
-
-                                    <form>
-                                        <div class="row mt-9 mb-3 align-items-center">
-                                            <div class="col-2">
-                                                <img class="avatar" th:src="${boardDto.getUserUrl()}">
-                                            </div>
-                                            <input class="col-8 border" placeholder="댓글입력">
-                                            <div class="col-2">
-                                                <button type="submit" class="btn btn-outline-primary">등록</button>
-                                            </div>
-                                        </div>
-                                    </form>
-
-
                                 </div>
+
+
+
 
 
 
@@ -104,18 +79,7 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
-<script>
-    $.ajax({
-        url: "/reply",
-        type: "GET",
-        success: function onSuccess(data) {
-            console.log(data)
-        },
-        error: function onError (error){
-            console.error(error)
-        }
-    })
-</script>
+<script th:src="@{/js/boardComment.js}"></script>
 </body>
 
 

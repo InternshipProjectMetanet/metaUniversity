@@ -16,9 +16,8 @@ public class ReplyDto {
     public static class InsertReply {
     	private Long replyId;
     	private Long boardId;
-    	private String userName;
         private String replyContent;
-        private boolean isDeleted;
+
     }
 
     @Getter
@@ -34,6 +33,8 @@ public class ReplyDto {
         private String replyContent;
         private boolean isDeleted;
     }
+
+
 
 
 

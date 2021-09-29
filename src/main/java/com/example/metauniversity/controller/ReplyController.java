@@ -24,7 +24,7 @@ public class ReplyController {
     @PostMapping("/reply/get")
     public List<ReplyDto.GetReply> replies(Long boardId){
 
-        return replyService.getReplies(1L);
+        return replyService.getReplies(boardId);
     }
 
     @PostMapping("/reply/add")

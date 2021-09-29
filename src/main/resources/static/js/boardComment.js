@@ -46,7 +46,8 @@
 
 
 
-                    if (e.userName = $('#userName')){
+                    if (e.userName == $('#currentUserName').val()){
+
                         html +=   '                                        <div class="col-2" id="deleteReply">\n' +
                             '                                            <button class="bi bi-x-lg btn btn-trans" onclick="deleteComment(' +
                             e.replyId +
@@ -59,8 +60,10 @@
                             '                                    </div>';
 
                     }
-
+                    console.log($('#userName').val() + "!!!!!!!!!!!!!!!!!!!")
                     console.log(e.replyContent)
+                    console.log(e.userName)
+                    console.log(e.currentUserName === $('#currentUserName').val())
                 }
             )
             $('#replies').html(html)

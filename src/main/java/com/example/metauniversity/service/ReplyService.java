@@ -42,6 +42,7 @@ public class ReplyService {
             reply -> ReplyDto.GetReply.builder()
                 .replyId(reply.getReplyId())
                 .boardId(boardId)
+                .userName(reply.getUser().getUsersData().getUserName())
                 .replyContent(reply.getReplyContent())
                 .isDeleted(reply.isDeleted())
                 .imgUrl(reply.getUser().getUserfile().getFile().getUrl())

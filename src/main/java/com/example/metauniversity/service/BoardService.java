@@ -116,8 +116,10 @@ public class BoardService {
 			.orElseThrow(() -> new NoSuchUserException("해당 유저가 없습니다."));
 
 		String url = "";
+		String currentUserName = "";
 		try{
 			url = user.getUserfile().getFile().getUrl();
+			currentUserName = user.getUsersData().getUserName();
 		}catch (Exception e){
 			url= "/img/account_circle.svg";
 		}
@@ -132,7 +134,8 @@ public class BoardService {
 					.content(board.getContent())
 					.title(board.getTitle())
 					.userName(board.getUser().getUsersData().getUserName())
-					.userUrl(url)
+					.currentUserUrl(url)
+					.currentUserName(currentUserName)
 					.filesList(board.getBoardfile().stream().map(f -> f.getFile()).collect(Collectors.toList()))
 					.build();
 				
@@ -140,7 +143,6 @@ public class BoardService {
 	}
 
 	// 게시글 삭제
-	@Transactional
 	public void deleteBoard(Long boardId) {
 		List<BoardFile> deleteBoardFile = boardFileRepository.findByBoardBoardId(boardId);
 		for (BoardFile boardFile : deleteBoardFile) {

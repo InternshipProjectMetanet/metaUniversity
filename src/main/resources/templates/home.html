@@ -39,8 +39,7 @@
                             <tbody>
                             <!--공지사항 반복문돌리기!!!!!!!!!!!!!-->
                              <tr th:each="board : ${boardList.boardDtoList}">
-                            	<td><a th:text="${board.title}"
-                                           th:onclick="|javascript:goDetail('${board.boardId}')|"></a></td>
+                            	<td><a th:text="${board.title}" th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
                             	<td th:text="${board.userName}"></td>
                             	<td th:text="${#temporals.format(board?.created_date,'yyyy-MM-dd')}"></td>
                             </tr> 
@@ -48,10 +47,6 @@
 
                             </tbody>
                         </table>
-                            <form method="POST" id="pageForm">
-                                <input type="hidden" name="pageNumber" th:value="0" />
-                            </form>
-                        
                     </div>
                 </div>
             </div>
@@ -59,12 +54,6 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
-<script type="text/javascript">
-function goDetail(boardId) {
-	$("form").attr("action","/boardDetail/" + boardId);
-	$("form").submit();
-}
-</script>
 </body>
 
 </html>

@@ -13,4 +13,5 @@ public interface timeTableRepositoryCustom {
     Boolean exist(Long subjectId, Long userId);
     timeTable getMyPreSubject(Long subjectId, Long userId);
     List<timeTable> getAllMySubject(Long userId);
+    List<timeTable> getStudent(Long subjectId);
 }

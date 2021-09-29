@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta th:replace="/include/head :: head" />
+    <title>메타넷대학교</title>
+</head>
+
+<body>
+<div id="db-wrapper" class="toggled">
+    <!--sidebar 삽입  -->
+    <div th:replace="/include/sidebar :: sidebar"></div>
+    <div id="page-content">
+        <div th:replace="/include/navbar :: navbar"></div>
+
+        <div class="container-fluid">
+            <div class="row justify-content-center vh-100">
+                <div class="col-xl-8 m-auto">
+                    <div class="card smooth-shadow-md">
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-center">
+                                <h2 class="text-decoration-none">수업목록</h2>
+                            </div>
+                            <table class="table table-bordered text-center mt-2 mb-5">
+                                <thead>
+                                <tr>
+                                    <th class="w-75">과목명</th>
+                                    <th>교수명</th>
+                                    <th>개설학부</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr th:each="s : ${slist.data}">
+                                    <td><a th:text="${s.subjectTitle}"
+                                           th:href="@{'/boardDetail/' + ${s.subjectId}}"></a></td>
+                                    <td th:text="${s.professor}"></td>
+                                    <td th:text="${s.subjectDepaetment}"></td>
+                                </tr>
+                                <!-- 찾는 학생이 없을 경우 (시작) -->
+                                <tr th:if="${slist.count == 0}">
+                                    <td colspan="3">개설된 수업이 존재하지 않습니다.</td>
+                                </tr>
+                                <!-- 찾는 학생이 없을 경우 (끝) -->
+                                </tbody>
+
+                            </table>
+                            <!-- 페이징 처리 부분  -->
+<!--                            <ul class="pagination justify-content-center"-->
+<!--                                th:with="pageNumber = ${boardList.pageNumber},-->
+<!--							            pageSize = ${boardList.pageSize},-->
+<!--							            totalPages = ${boardList.totalPages},-->
+<!--							            pazingSize = 10,-->
+<!--                            			start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},-->
+<!--                            			tempEndPage = ${start + pazingSize - 1},-->
+<!--              							last=${tempEndPage < totalPages ? tempEndPage : totalPages}"-->
+<!--                                th:if="${boardList.totalElements != 0}" >-->
+
+<!--                                &lt;!&ndash;  이전  &ndash;&gt;-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" th:href="${pageNumber==0} ? '#' : @{/boardList(page=${pageNumber})}">이전</a>-->
+<!--                                </li>-->
+
+<!--                                &lt;!&ndash;  페이지 버튼  &ndash;&gt;-->
+<!--                                <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pageNumber + 1} ? 'page-item active' : 'page-item'">-->
+<!--                                    <a class="page-link" th:text="${page}" th:href="@{/boardList(page=${page})}"></a>-->
+<!--                                </li>-->
+
+<!--                                &lt;!&ndash;  다음  &ndash;&gt;-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" th:href="${pageNumber==totalPages-1} ? '#' : @{/boardList(page=${pageNumber+2})}">다음</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+                            <!-- 페이징 처리 끝 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="/include/scripts :: scripts"></div>
+</body>
+
+</html>

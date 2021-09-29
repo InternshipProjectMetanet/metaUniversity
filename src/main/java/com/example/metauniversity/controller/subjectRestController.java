@@ -29,7 +29,7 @@ public class subjectRestController {
      * 수강취소
      */
     @PostMapping("/subject/cancel/{subjectId}")
-    public subjectDto.enroll subjectCancel(@PathVariable Long subjectId,
+    public subjectDto.cancel subjectCancel(@PathVariable Long subjectId,
                                            @AuthenticationPrincipal CustomUserDetails currentUser) {
         return subjectService.cancelSubject(subjectId, currentUser.getUser().getId());
     }

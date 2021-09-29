@@ -13,6 +13,8 @@ import com.example.metauniversity.repository.subject.subjectRepository;
 import com.example.metauniversity.repository.subject.timeTableRepository;
 import com.example.metauniversity.util.AboutTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,10 +70,13 @@ public class subjectService {
     public subjectDto.enroll EnrollSubject(Long subjectId, User user) {
 
         Integer currentPoints = 0;
-        subject subject = subjectRepository.findById(subjectId)
+        subject subject = subjectRepository.findbyIdFetch(subjectId)
                 .orElseThrow(() -> new NoSuchSubjectException("등록되어있는 수업이 아닙니다."));
         List<timeTable> mySubjectList = timeTableRepository.getMySubjectToEnroll(user.getId()); // 현재 내가 수강신청한 과목 목록
         for (timeTable timeTable : mySubjectList) {
+            if(timeTable.getSubject().getId() == subjectId && timeTable.getUser().getId() == user.getId()) {
+                throw new CannotAddSubjectException("이미 수강신청된 과목입니다.");
+            }
             currentPoints += timeTable.getSubject().getSubjectPoints();
         }
 
@@ -83,31 +88,31 @@ public class subjectService {
             // 현재 학점 + 선택한 과목 학점이 18학점 미만이라면
             if(timeTableRepository.exist(subjectId, user.getId())) {
                 //과거에 신청한 적이 있다(테이블이 수강신청상태 == false인 row가 존재한다.
-                timeTableRepository.getMyPreSubject(subjectId, user.getId()).setStatus();
+                Boolean aBoolean = timeTableRepository.getMyPreSubject(subjectId, user.getId()).setStatus();
+                return new subjectDto.enroll(subject, aBoolean);
             }
 
             timeTable myNewTimeTable = timeTable.builder()
                     .user(user)
                     .subject(subject)
+                    .status(true)
                     .build();
 
             timeTableRepository.save(myNewTimeTable);
 
-            return subjectDto.enroll.builder()
-                    .subjectTitle(myNewTimeTable.getSubject().getSubjectTitle())
-                    .status(myNewTimeTable.getStatus())
-                    .build();
+            return new subjectDto.enroll(subject, myNewTimeTable.getStatus());
         } else {
             throw new CannotAddSubjectException("신청 학점이 18학점을 넘을 수 없습니다.");
         }
     }
 
     @Transactional
-    public subjectDto.enroll cancelSubject(Long subjectId, Long userId) {
+    public subjectDto.cancel cancelSubject(Long subjectId, Long userId) {
         timeTable mySubject = timeTableRepository.getMySubject(userId, subjectId)
                 .orElseThrow(() -> new NoSuchTimeTableException("현재 수강목록에 없습니다."));
         mySubject.setStatus();
 
-        return new subjectDto.enroll(mySubject.getSubject().getSubjectTitle(), mySubject.getStatus());
+        return new subjectDto.cancel(subjectId, mySubject.getSubject().getSubjectTitle(), mySubject.getStatus());
     }
+
 }

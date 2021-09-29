@@ -1,5 +1,6 @@
 package com.example.metauniversity.domain.board;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 
 import com.example.metauniversity.domain.Base.BaseEntity;
 import com.example.metauniversity.domain.File.BoardFile;
+import com.example.metauniversity.domain.Reply.Reply;
 import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.board.dto.boardDto;
 
@@ -39,6 +41,9 @@ public class Board extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
     private User user;
+
+    @OneToMany(mappedBy = "boardId")
+    private List<Reply> replies = new ArrayList<>();
     
     @OneToMany(mappedBy = "board")
     private List<BoardFile> boardfile;

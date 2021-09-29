@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -39,17 +40,19 @@ public class BoardController {
     public String boardList(@PageableDefault Pageable pageable, Model model) {
         boardDto.pageBoardList boardDtoList = boardService.getBoardList(pageable);
         model.addAttribute("boardList", boardDtoList);
+        
         return "boardList";
     }
 
     /**
      * 공지사항 상세 조회
      */
-    @GetMapping("/boardDetail/{boardId}")
-    public String boardDetail(@PathVariable("boardId") Long boardId, Model model) {
+    @PostMapping("/boardDetail/{boardId}")
+    public String boardDetail(@PathVariable("boardId") Long boardId, Model model, int pageNumber) {
         boardDto.getBoard boardDto = boardService.getBoard(boardId);
-
+        
         model.addAttribute("boardDto", boardDto);
+        model.addAttribute("pageNumber", pageNumber);
         return "boardContent";
     }
 

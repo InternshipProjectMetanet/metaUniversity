@@ -25,6 +25,9 @@
                             <div class="d-flex justify-content-center">
                                 <h2 class="text-decoration-none">공지사항</h2>
                             </div>
+                               	<form method="POST" id="pageForm">
+                                	<input type="hidden" name="pageNumber" th:value="${boardList.pageNumber}" />
+                               	</form>
                             <table class="table table-bordered text-center mt-2 mb-5">
                                 <thead>
                                 <tr>
@@ -37,7 +40,7 @@
                                 <tbody>
                                 <tr th:each="board : ${boardList.boardDtoList}">
                                     <td><a th:text="${board.title}"
-                                           th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
+                                           th:onclick="|javascript:goDetail('${board.boardId}')|"></a></td>
                                     <td th:text="${board.userName}"></td>
                                     <td th:text="${#temporals.format(board.created_date,'yyyy-MM-dd')}"></td>
                                 </tr>
@@ -84,6 +87,14 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
+<div th:replace="/modal/errorModal :: errorModal"></div>
+
+<script type="text/javascript">
+function goDetail(boardId) {
+	$("form").attr("action","/boardDetail/" + boardId);
+	$("form").submit();
+}
+</script>
 </body>
 
 </html>

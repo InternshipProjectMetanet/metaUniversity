@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="errorModal">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content" style="width: 80%;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"></span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+      	<span th:utext="${errorMessage}"></span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<span th:if="${errorMessage != null}">
+	<script>
+		$(document).ready(function(){
+			$(".modal").modal('show');
+		});
+	</script>
+</span>
+</th:block>
+</html>

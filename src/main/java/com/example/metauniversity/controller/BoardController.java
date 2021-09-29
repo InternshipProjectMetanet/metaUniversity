@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -38,21 +39,23 @@ public class BoardController {
     public String boardList(@PageableDefault Pageable pageable, Model model) {
         boardDto.pageBoardList boardDtoList = boardService.getBoardList(pageable);
         model.addAttribute("boardList", boardDtoList);
+
         return "board/boardList";
+
     }
 
     /**
      * 공지사항 상세 조회
      */
-    @GetMapping("/boardDetail/{boardId}")
-    public String boardDetail(@PathVariable("boardId") Long boardId,
-                              Model model,
-                              @AuthenticationPrincipal CustomUserDetails currentUser) {
 
-    	boardDto.getBoard boardDto = boardService.getBoard(boardId, currentUser.getUser());
+    @PostMapping("/boardDetail/{boardId}")
+    public String boardDetail(@PathVariable("boardId") Long boardId, Model model, int pageNumber,@AuthenticationPrincipal CustomUserDetails currentUser) {
+        boardDto.getBoard boardDto = boardService.getBoard(boardId,currentUser.getUser());
 
         model.addAttribute("boardDto", boardDto);
-        return "board/boardContent";
+        model.addAttribute("pageNumber", pageNumber);
+            return "board/boardContent";
+
     }
 
     /**
@@ -71,7 +74,7 @@ public class BoardController {
     @GetMapping("/boardForm")
     public String boardForm() {
 
-    	
+
     	return "board/boardForm";
 
     }
@@ -121,7 +124,7 @@ public class BoardController {
     	boardDto.getBoard boardDto = boardService.getBoard(boardId, currentUser.getUser());
 
         model.addAttribute("boardDto", boardDto);
-    	
+
     	return "board/boardEdit";
 
     }

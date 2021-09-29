@@ -24,9 +24,6 @@ public class UserController {
 
     private final UserService userService;
 
-
-
-
     /**
      * 회원가입 페이지
      */

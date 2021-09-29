@@ -14,19 +14,19 @@ import com.example.metauniversity.service.BoardService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequiredArgsConstructor 
+@RequiredArgsConstructor
 public class HomeController {
-	
-	private final BoardService boardService;
+
+    private final BoardService boardService;
 
     /**
      * 홈화면
      */
     @GetMapping("/home")
     public String home(@PageableDefault Pageable pageable, Model model) {
-    	boardDto.pageBoardList boardDtoList = boardService.getBoardListHome(pageable);
-    	model.addAttribute("boardList", boardDtoList);
-    	return "home";
+        boardDto.pageBoardList boardDtoList = boardService.getBoardListHome(pageable);
+        model.addAttribute("boardList", boardDtoList);
+        return "home";
     }
 
     /**

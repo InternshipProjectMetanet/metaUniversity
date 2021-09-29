@@ -1,31 +1,39 @@
 package com.example.metauniversity.controller;
 
+import com.example.metauniversity.domain.User.dto.userDto;
+import com.example.metauniversity.domain.subject.dto.subjectData;
 import com.example.metauniversity.domain.subject.dto.subjectDto;
 import com.example.metauniversity.security.CustomUserDetails;
+import com.example.metauniversity.service.UserService;
 import com.example.metauniversity.service.subjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class subjectController {
 
     private final subjectService subjectService;
+    private final UserService userService;
 
     /**
      * 수강목록 / 내가 신청한 목록 조회
      */
     @GetMapping("/schedule")
     public String gotoSugang(Model model
-            ,@AuthenticationPrincipal CustomUserDetails currentUser) {
+            , @AuthenticationPrincipal CustomUserDetails currentUser) {
 
         model.addAttribute("subjectDatas", subjectService.getAll());
-        model.addAttribute("mySubjectData", subjectService.getMySubject(currentUser.getUser()));
+        model.addAttribute("mySubjectDatas", subjectService.getMySubject(currentUser.getUser()));
 
         return "scheduleManagement.html";
     }
@@ -52,6 +60,25 @@ public class subjectController {
                 new subjectDto.userdata(currentUser.getUser().getId(), currentUser.getUsername()));
 
         return "scheduleAdd";
+    }
+
+    /**
+     * 이번학기 열린 수업 목록
+     */
+    @GetMapping("/schedule/list")
+    public String subjectListBySemester(Model model) {
+        List<subjectDto.getList> all = subjectService.getAll();
+        model.addAttribute("slist", new subjectData<>(all.size(), all));
+        return "subjectList";
+    }
+
+    /**
+     *  직원 -> 특정 수업을 듣는 학생 조회
+     */
+    @GetMapping("/schedule/{subjectId}/studentList")
+    public String getStudentList(@PathVariable Long subjectId, Model model) {
+        model.addAttribute("studentList", userService.getStudent(subjectId));
+        return "subjectStudentList";
     }
 
     /**

@@ -30,8 +30,8 @@ public class timeTable extends BaseEntity {
 
     private Boolean status;
 
-    public void setStatus() {
-        status = status == true ? false : true;
+    public Boolean setStatus() {
+        return status = status == true ? false : true;
     }
 
     public static timeTable create(User user, subject subject) {

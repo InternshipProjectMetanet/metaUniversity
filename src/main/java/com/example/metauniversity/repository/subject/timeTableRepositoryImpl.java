@@ -72,4 +72,14 @@ public class timeTableRepositoryImpl implements timeTableRepositoryCustom{
                         .and(timeTable.status.eq(true)))
                 .fetch();
     }
+
+    @Override
+    public List<timeTable> getStudent(Long subjectId) {
+        return queryFactory.select(timeTable)
+                .from(timeTable)
+                .join(timeTable.user).fetchJoin()
+                .join(timeTable.subject).fetchJoin()
+                .where(timeTable.subject.id.eq(subjectId))
+                .fetch();
+    }
 }

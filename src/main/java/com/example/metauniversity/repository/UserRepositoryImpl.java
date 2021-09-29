@@ -58,7 +58,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
 		
 		return new PageImpl<>(searchResult.getResults(), pageable, searchResult.getTotal());
 	}
-	
+
 	private BooleanExpression searchUserCode(String userCode) {
 	
 		if(userCode == null) {

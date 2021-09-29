@@ -3,9 +3,9 @@
 <head>
     <meta th:replace="/include/head :: head" />
     <title>메타넷대학교</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script th:src="@{/js/common.js}"></script>
+
 <body onload="getComments()">
 <div id="db-wrapper" class="toggled">
     <!--sidebar 삽입  -->
@@ -20,13 +20,13 @@
                             <div class="text-center fs-3 fw-bold">
                                 공지사항
                             </div>
-
                             <div class="row">
                                 <div class="col-12 m-auto my-2">
                                     <div class="text border-bottom my-3 fs-4"><span th:text="${boardDto.title}"></span></div>
+
                                 </div>
                                 <div class="col-12 m-auto my-2 fs-5">
-                                    <div class="min-vh-40 border-bottom ck-content"><span th:utext="${boardDto.content}"></span></div>
+                                    <div class="min-vh-40 border-bottom ck-content" th:utext="${boardDto.content}"></div>
                                 </div>
                                 <div class="col-12 m-auto my-2">
 	                                <div class="border-bottom">
@@ -44,7 +44,8 @@
 
                                 <div class="row mt-9 mb-3 align-items-center">
                                     <div class="col-2">
-                                        <img class="avatar" th:src="${boardDto.getUserUrl()}">
+                                        <img class="avatar" th:src="${boardDto.currentUserUrl}">
+                                        <input th:value="${boardDto.currentUserName}" class="d-none" id="currentUserName">
                                     </div>
                                     <input type="hidden" id="boardId" th:value="${boardDto.boardId}">
                                     <input class="col-8 border" id="commentContent" placeholder="댓글입력">
@@ -53,16 +54,10 @@
                                     </div>
                                 </div>
 
-
-
-
-
-
                                 <!-- 관리자만 수정이 가능하게끔 -->
-
                                 <div class="col-6 m-auto my-2">
                                     <div class="d-flex justify-content-between">
-                                        <a class="btn btn-outline-warning form-control mx-2" th:href="@{/boardList(page=${pageNumber+1})}">목록</a>
+                                        <a class="btn btn-outline-warning form-control mx-2" th:onclick="|javascript:goList()|">목록</a>
                                         <a class="btn btn-outline-warning form-control mx-2" th:href="@{'/boardEdit/' + ${boardId}}">수정</a>
                                         <a class="btn btn-outline-danger form-control mx-2" th:href="@{'/boardDelete/' + ${boardId}}" >삭제</a>
                                     </div>
@@ -79,11 +74,16 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
-
 <script th:src="@{/js/boardComment.js}"></script>
-
+<script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/ckeditor.js}"></script>
-<script th:src="@{/js/ckeditorCustom.js}"></script>
+
+
+<script type="text/javascript">
+	function goList() {
+		history.back();
+	}
+</script>
 
 </body>
 

@@ -49,7 +49,8 @@ public class boardDto {
         private String content;
         private String userName;
         private List<File> filesList;
-        private String userUrl;
+        private String currentUserUrl;
+        private String currentUserName;
     }
     
     @Getter

@@ -16,7 +16,7 @@ public class ExceptionController {
     public String noSuchUser(RedirectAttributes redirectAttributes, Exception e) {
     	redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
     	
-        return "redirect:/register";
+        return "redirect:/signup";
     }
 
     @ExceptionHandler(NoSuchBoardException.class)

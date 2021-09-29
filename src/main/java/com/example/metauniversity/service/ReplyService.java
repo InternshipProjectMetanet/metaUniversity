@@ -36,22 +36,34 @@ public class ReplyService {
                     .build());
     }
     @Transactional
-    public List<ReplyDto.GetReply> getReplies(Long boardId){
+    public List<ReplyDto.GetReply> getReplies(Long boardId) {
+
 
         List<ReplyDto.GetReply> replies = replyRepository.findByBoardId(boardRepository.findById(boardId).orElseThrow(() -> new NoSuchBoardException("게시글이 없습니다."))).stream().map(
-            reply -> ReplyDto.GetReply.builder()
-                .replyId(reply.getReplyId())
-                .boardId(boardId)
-                .userName(reply.getUser().getUsersData().getUserName())
-                .replyContent(reply.getReplyContent())
-                .isDeleted(reply.isDeleted())
-                .imgUrl(reply.getUser().getUserfile().getFile().getUrl())
-                .build()
+            (reply) -> {
+
+                String url = "/img/account_circle.svg";
+                try {
+                    url = reply.getUser().getUserfile().getFile().getUrl();
+                } catch (Exception e) {
+
+                }
+                return ReplyDto.GetReply.builder()
+                    .replyId(reply.getReplyId())
+                    .boardId(boardId)
+                    .userName(reply.getUser().getUsersData().getUserName())
+                    .replyContent(reply.getReplyContent())
+                    .isDeleted(reply.isDeleted())
+                    .imgUrl(url)
+                    .build();
+            }
         ).collect(Collectors.toList());
 
 
         return replies;
     }
-
+    public void deleteReply(Long replyId){
+        replyRepository.deleteById(replyId);
+    }
 
 }

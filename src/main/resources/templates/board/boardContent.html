@@ -23,6 +23,7 @@
                             <div class="row">
                                 <div class="col-12 m-auto my-2">
                                     <div class="text border-bottom my-3 fs-4"><span th:text="${boardDto.title}"></span></div>
+                                    <span th:text="${boardDto.getUserName()}" class="d-none" id="userName"></span>
                                 </div>
                                 <div class="col-12 m-auto my-2 fs-5">
                                     <div class="min-vh-40 border-bottom ck-content" th:utext="${boardDto.content}"></div>
@@ -78,11 +79,10 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
-
 <script th:src="@{/js/boardComment.js}"></script>
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/ckeditor.js}"></script>
-<!--<script th:src="@{/js/ckeditorCustom.js}"></script>-->
+
 
 </body>
 

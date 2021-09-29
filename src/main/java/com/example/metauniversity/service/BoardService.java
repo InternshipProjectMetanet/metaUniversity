@@ -107,6 +107,7 @@ public class BoardService {
 	}
 
 	// 게시글 상세 조회
+	@Transactional
 	public getBoard getBoard(Long boardId, User currentUser) {
 		Board board = boardRepository.findById(boardId)
 				.orElseThrow(() -> new NoSuchBoardException("해당 게시물이 없습니다."));
@@ -114,13 +115,24 @@ public class BoardService {
 		User user = userRepository.findById(currentUser.getId())
 			.orElseThrow(() -> new NoSuchUserException("해당 유저가 없습니다."));
 
+		String url = "";
+		try{
+			url = user.getUserfile().getFile().getUrl();
+		}catch (Exception e){
+			url= "/img/account_circle.svg";
+		}
+
+		System.out.println(url);
+		System.out.println("!!!!!!!!!!!!");
+
+
 
 		boardDto.getBoard boarddto = boardDto.getBoard.builder()
 					.boardId(board.getBoardId())
 					.content(board.getContent())
 					.title(board.getTitle())
 					.userName(board.getUser().getUsersData().getUserName())
-					.userUrl(user.getUserfile().getFile().getUrl())
+					.userUrl(url)
 					.filesList(board.getBoardfile().stream().map(f -> f.getFile()).collect(Collectors.toList()))
 					.build();
 				

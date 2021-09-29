@@ -23,8 +23,6 @@ public class ReplyController {
 
     @PostMapping("/reply/get")
     public List<ReplyDto.GetReply> replies(Long boardId){
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(boardId);
 
         return replyService.getReplies(1L);
     }
@@ -32,6 +30,13 @@ public class ReplyController {
     @PostMapping("/reply/add")
     public void insertReply(@AuthenticationPrincipal CustomUserDetails currentUser, ReplyDto.InsertReply insertReply){
         replyService.saveReply(insertReply, currentUser.getUser());
+
+    }
+
+    @PostMapping("/reply/delete")
+    public void replyDelete(Long replyId){
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        System.out.println(replyId);
 
     }
 

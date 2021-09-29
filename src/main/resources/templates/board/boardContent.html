@@ -20,13 +20,14 @@
                             <div class="text-center fs-3 fw-bold">
                                 공지사항
                             </div>
-							
+
                             <div class="row">
                                 <div class="col-12 m-auto my-2">
                                     <div class="text border-bottom my-3 fs-4"><span th:text="${boardDto.title}"></span></div>
+
                                 </div>
                                 <div class="col-12 m-auto my-2 fs-5">
-                                    <div class="min-vh-40 border-bottom ck-content"><span th:utext="${boardDto.content}"></span></div>
+                                    <div class="min-vh-40 border-bottom ck-content" th:utext="${boardDto.content}"></div>
                                 </div>
                                 <div class="col-12 m-auto my-2">
 	                                <div class="border-bottom">
@@ -44,7 +45,8 @@
 
                                 <div class="row mt-9 mb-3 align-items-center">
                                     <div class="col-2">
-                                        <img class="avatar" th:src="${boardDto.getUserUrl()}">
+                                        <img class="avatar" th:src="${boardDto.currentUserUrl}">
+                                        <input th:value="${boardDto.currentUserName}" class="d-none" id="currentUserName">
                                     </div>
                                     <input type="hidden" id="boardId" th:value="${boardDto.boardId}">
                                     <input class="col-8 border" id="commentContent" placeholder="댓글입력">
@@ -73,11 +75,10 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
-
 <script th:src="@{/js/boardComment.js}"></script>
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/ckeditor.js}"></script>
-<script th:src="@{/js/ckeditorCustom.js}"></script>
+
 
 <script type="text/javascript">
 	function goList() {

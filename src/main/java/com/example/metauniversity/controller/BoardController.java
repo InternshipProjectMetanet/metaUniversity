@@ -1,30 +1,21 @@
 package com.example.metauniversity.controller;
 
 
-import java.util.List;
-
+import com.example.metauniversity.domain.File.dto.fileDto;
+import com.example.metauniversity.domain.board.dto.boardDto;
+import com.example.metauniversity.security.CustomUserDetails;
+import com.example.metauniversity.service.BoardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.metauniversity.domain.File.dto.fileDto;
-import com.example.metauniversity.domain.board.dto.boardDto;
-import com.example.metauniversity.security.CustomUserDetails;
-import com.example.metauniversity.service.BoardService;
-
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -54,11 +45,11 @@ public class BoardController {
         boardDto.getBoard boardDto = boardService.getBoard(boardId,currentUser.getUser());
 
         model.addAttribute("boardDto", boardDto);
-        // model.addAttribute("pageNumber", pageNumber);
+
             return "board/boardContent";
 
     }
-    
+
     /**
      * 공지사항 삭제
      */

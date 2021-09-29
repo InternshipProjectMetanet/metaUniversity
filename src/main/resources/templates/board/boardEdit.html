@@ -23,7 +23,7 @@
                                 공지사항
                             </div>
 
-                            <form class="row" method="POST" th:action="@{'/boardEdit/' + ${boardId}}" enctype="multipart/form-data">
+                            <form class="row" method="POST" th:action="@{'/boardEdit/' + ${boardDto.boardId}}" enctype="multipart/form-data">
                                 <div class="col-4 m-auto my-2 d-none">
                                     <input class="form-control text-center" id="writer" value="작성자 받아와!" placeholder="작성자">
                                 </div>
@@ -31,7 +31,9 @@
                                     <input class="form-control text-center" id="title" placeholder="제목" name="title" th:value="${boardDto.title}">
                                 </div>
                                 <div class="col-10 m-auto my-2">
-                                    <textarea class="form-control" rows="20" placeholder="내용" id="ckeditor" name="content" th:utext="${boardDto.content}"></textarea>                                
+
+                                    <textarea class="form-control" rows="20" placeholder="내용" id="editor" name="content" th:utext="${boardDto.content}"></textarea>                                
+
                                 </div>
                                 <!-- 파일 업로드 -->
                                 <div id="uploadFiles">

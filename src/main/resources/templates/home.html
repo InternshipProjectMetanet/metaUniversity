@@ -39,8 +39,7 @@
                             <tbody>
                             <!--공지사항 반복문돌리기!!!!!!!!!!!!!-->
                              <tr th:each="board : ${boardList.boardDtoList}">
-                            	<td><a th:text="${board.title}"
-                                       th:href="@{'/boardDetail/' + ${board?.boardId}}"></a></td>
+                            	<td><a th:text="${board.title}" th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
                             	<td th:text="${board.userName}"></td>
                             	<td th:text="${#temporals.format(board?.created_date,'yyyy-MM-dd')}"></td>
                             </tr> 
@@ -48,33 +47,6 @@
 
                             </tbody>
                         </table>
-                        
-						<!-- 페이징 처리 부분  -->
-                        <ul class="pagination justify-content-center" 
-                           th:with="pageNumber = ${boardList.pageNumber},
-							        pageSize = ${boardList.pageSize},
-							        totalPages = ${boardList.totalPages},
-							        pazingSize = 10,
-                            		start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},
-                            		tempEndPage = ${start + pazingSize - 1},
-              						last=${tempEndPage < totalPages ? tempEndPage : totalPages}">
-                            
-                         <!--  이전  -->
-                         <li class="page-item">
-                            <a class="page-link" th:href="${pageNumber==0} ? '#' : @{/home(page=${pageNumber})}">이전</a>
-                          </li>
-
-                         <!--  페이지 버튼  -->
-                         <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pageNumber + 1} ? 'page-item active' : 'page-item'">
-							<a class="page-link" th:text="${page}" th:href="@{/home(page=${page})}"></a>
-						 </li>
-
-                        <!--  다음  -->
-                         <li class="page-item">
-                            <a class="page-link" th:href="${pageNumber==totalPages-1} ? '#' : @{/home(page=${pageNumber+2})}">다음</a>
-                          </li>
-                         </ul>
-                       <!-- 페이징 처리 끝 -->  
                     </div>
                 </div>
             </div>

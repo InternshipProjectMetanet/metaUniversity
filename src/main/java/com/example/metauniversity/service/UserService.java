@@ -55,7 +55,7 @@ public class UserService {
          * 1-2. 만약 둘이 다르다면 <학번 혹은 사번이 다릅니다. 행정실을 통한 문의 바랍니다.> 오류 출력
          */
         UsersData InitialUserData = usersDataRepository.findByUserCode(signindto.getUserCode())
-                .orElseThrow(() -> new NoSuchUserException("허가된 학번 혹은 사번이 아닙니다. 행정실을 통한 문의 바랍니다."));
+                .orElseThrow(() -> new NoSuchUserException("허가된 학번 혹은 사번이 아닙니다.<br>행정실을 통한 문의 바랍니다."));
 
         if(!InitialUserData.getUserEmail().equals(signindto.getUserEmail())) {
             throw new NoSuchUserException("오류메세지 나중에 정할게여..");}
@@ -98,7 +98,7 @@ public class UserService {
     	}
     	
     	int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        pageable = PageRequest.of(page, 3, Sort.by(Sort.Direction.DESC, "boardId"));
+        pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "boardId"));
     	
         Page<User> pageUserList = userRepository.searchUser(searchDto, pageable);
         List<userDto.searchResponse> userDtoList = pageUserList.getContent()

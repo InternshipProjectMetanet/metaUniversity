@@ -111,7 +111,6 @@ body[data-editor='DecoupledDocumentEditor'] .sidebar {
 	width: unset;
 	padding: 0;
 	background: transparent;
-	object-fit: cover;
 }
 
 .sidebar.narrow {
@@ -493,12 +492,4 @@ footer {
 	main .message h2 {
 		font-size: 1.5em;
 	}
-}
-
-
-
-.ck-content img{
-	object-fit: cover;
-	width: 500px;
-
 }

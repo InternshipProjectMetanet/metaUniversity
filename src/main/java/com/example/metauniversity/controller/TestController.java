@@ -1,6 +1,9 @@
 package com.example.metauniversity.controller;
 
+import com.example.metauniversity.security.CustomUserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +16,11 @@ import java.security.Principal;
 public class TestController {
 
     @GetMapping("/test")
-    public Object auth(Principal principal){
-        Object auth = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+    public Object auth(@AuthenticationPrincipal CustomUserDetails userDetails){
 
 
-        return auth;
+       return userDetails.getUser().getUsersData().getUserEmail();
+
+
     }
 }

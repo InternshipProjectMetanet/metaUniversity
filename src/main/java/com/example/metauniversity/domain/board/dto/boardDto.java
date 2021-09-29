@@ -27,6 +27,7 @@ public class boardDto {
         private String title;
         private LocalDateTime created_date;
         private String userName;
+
         
         public boardList(Board board) {
 			this.boardId = board.getBoardId();
@@ -34,6 +35,7 @@ public class boardDto {
 			this.created_date = board.getCreatedDate();
 			this.userName = board.getUser().getUsersData().getUserName();
 		}
+
     }
     
     @Getter
@@ -47,6 +49,8 @@ public class boardDto {
         private String content;
         private String userName;
         private List<File> filesList;
+        private String currentUserUrl;
+        private String currentUserName;
     }
     
     @Getter

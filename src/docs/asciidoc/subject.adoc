@@ -58,6 +58,9 @@ include::{snippets}/subject-cancel/response-fields.adoc[]
 === http-request
 include::{snippets}/subject-filter/http-request.adoc[]
 
+=== request-parameters
+include::{snippets}/subject-filter/request-parameters.adoc[]
+
 === http-response
 include::{snippets}/subject-filter/http-response.adoc[]
 

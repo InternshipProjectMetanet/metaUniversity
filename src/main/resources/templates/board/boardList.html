@@ -36,8 +36,7 @@
 
                                 <tbody>
                                 <tr th:each="board : ${boardList.boardDtoList}">
-                                    <td><a th:text="${board.title}"
-                                           th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
+                                    <td><a th:text="${board.title}" th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
                                     <td th:text="${board.userName}"></td>
                                     <td th:text="${#temporals.format(board.created_date,'yyyy-MM-dd')}"></td>
                                 </tr>
@@ -84,6 +83,8 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
+<div th:replace="/modal/errorModal :: errorModal"></div>
+
 </body>
 
 </html>

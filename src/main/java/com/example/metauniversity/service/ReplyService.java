@@ -62,6 +62,8 @@ public class ReplyService {
 
         return replies;
     }
-
+    public void deleteReply(Long replyId){
+        replyRepository.deleteById(replyId);
+    }
 
 }

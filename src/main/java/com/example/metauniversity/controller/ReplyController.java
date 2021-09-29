@@ -8,6 +8,7 @@ import com.example.metauniversity.service.ReplyService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,8 +22,8 @@ public class ReplyController {
 
     private final ReplyService replyService;
 
-    @PostMapping("/reply/get")
-    public List<ReplyDto.GetReply> replies(Long boardId){
+    @GetMapping("/reply/get/{boardId}")
+    public List<ReplyDto.GetReply> replies(@PathVariable Long boardId){
 
         return replyService.getReplies(boardId);
     }
@@ -35,8 +36,8 @@ public class ReplyController {
 
     @PostMapping("/reply/delete")
     public void replyDelete(Long replyId){
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(replyId);
+        replyService.deleteReply(replyId);
+
 
     }
 

@@ -50,12 +50,12 @@ values('20210928', 'testAddress2', 'testBirth2', 'testDepartment2', false, 'test
 
 insert into USERS_DATA(user_code, address, user_birth, user_department, is_Thumbnail, user_email, user_name,
                        user_phone, user_type, enrollment_status, user_grade, user_major, user_minor, worker_spot)
-values('20210929', 'testAddress3', 'testBirth3', 'testDepartment3', false, 'testEmail3@hello.world', 'testName3',
+values('20210929', 'testAddress3', 'testBirth3', 'testDepartment3', false, 'testEmail3@hello.world', '김김김',
        'testPhone3', 'STUDENT', 'ATTENDING', 3, '기계공학과', 'testMinor3', null);
 
 insert into USERS_DATA(user_code, address, user_birth, user_department, is_Thumbnail, user_email, user_name,
                        user_phone, user_type, enrollment_status, user_grade, user_major, user_minor, worker_spot)
-values('010010', 'testAddress3', 'testBirth3', 'testDepartment3', false, 'testEmail3@hello.world', 'testName3',
+values('010010', 'testAddress3', 'testBirth3', 'testDepartment3', false, 'testEmail3@hello.world', '관리자',
        'testPhone3', 'WORKER', 'ATTENDING', 3, '기계공학과', 'testMinor3', null);
 
 

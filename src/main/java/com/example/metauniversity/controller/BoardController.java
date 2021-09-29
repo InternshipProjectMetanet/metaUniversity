@@ -43,7 +43,8 @@ public class BoardController {
     public String boardDetail(@PathVariable("boardId") Long boardId, Model model, 
     		@AuthenticationPrincipal CustomUserDetails currentUser) {
         boardDto.getBoard boardDto = boardService.getBoard(boardId,currentUser.getUser());
-
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println(boardDto.getCurrentUserName());
         model.addAttribute("boardDto", boardDto);
 
             return "board/boardContent";

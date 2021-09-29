@@ -25,11 +25,10 @@
 }
 
     function getComments() {
-    console.log($('#boardId').val())
+
     $.ajax({
-        url: "/reply/get",
-        type: "POST",
-        data: {'boardId': $('#boardId').val()},
+        url: "/reply/get/"+$('#boardId').val(),
+        type: "GET",
         success: function onSuccess(data) {
             console.log(data)
             let html = "";
@@ -60,10 +59,9 @@
                             '                                    </div>';
 
                     }
-                    console.log($('#userName').val() + "!!!!!!!!!!!!!!!!!!!")
-                    console.log(e.replyContent)
-                    console.log(e.userName)
-                    console.log(e.currentUserName === $('#currentUserName').val())
+                    console.log('현재 로그인중인 사용자 :'+ $('#currentUserName').val())
+                    console.log('username : '+e.userName)
+                    console.log(e.userName === $('#currentUserName').val())
                 }
             )
             $('#replies').html(html)

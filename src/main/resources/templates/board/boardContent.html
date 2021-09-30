@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta th:replace="/include/head :: head" />
     <title>메타넷대학교</title>
@@ -56,15 +57,22 @@
 
                                 <!-- 관리자만 수정이 가능하게끔 -->
                                 <div class="col-6 m-auto my-2">
-                                    <div class="d-flex justify-content-between">
-                                        <a class="btn btn-outline-warning form-control mx-2" th:href="@{/boardList(page=${page})}">목록</a>
-                                        <a class="btn btn-outline-warning form-control mx-2" th:href="@{'/boardEdit/' + ${boardId}}">수정</a>
-                                        <a class="btn btn-outline-danger form-control mx-2" th:onclick="|javascript:confirm()|" >삭제</a>
+                                    <div class="d-flex justify-content-center">
+                                    	<div class="col-2 m-1">
+                                    		<a class="btn btn-outline-warning form-control mx-2" th:href="@{/boardList(page=${page})}">목록</a>
+                                    	</div>
+                                    	<div class="col-2 m-1" sec:authorize="hasRole('WORKER')">
+                                    		 <a class="btn btn-outline-warning form-control mx-2" th:href="@{'/boardEdit/' + ${boardId}}" >수정</a>
+                                    	</div>
+                                        <div class="col-2 m-1" sec:authorize="hasRole('WORKER')">
+                                        	 <a class="btn btn-outline-danger form-control mx-2" th:onclick="|javascript:confirm()|" >삭제</a>
+                                        </div>
+                                       
                                     </div>
                                 </div>
                                 <!--///////////////// -->
                                 <form th:action="@{/boardDelete}" method="post" id="deleteForm">
-                                	<input type="hidden" id="boardId" th:value="${boardId}" />
+                                	<input type="hidden" name="boardId" id="boardId" th:value="${boardDto.boardId}" />
                                 </form>
 
                             </div>

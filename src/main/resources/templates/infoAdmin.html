@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<div th:replace="/include/head :: head"></div>
+
+  <title>내정보</title>
+
+</head>
+
+<body>
+
+  <div id="db-wrapper">
+
+   <!--sidebar 삽입  -->
+   <div th:replace="/include/sidebar :: sidebar"></div>
+
+
+    <div id="page-content">
+
+      <div th:replace="/include/navbar :: navbar"></div>
+
+     <!-- container -->
+<div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center g-0
+        min-vh-100">
+        <div class="col-7 py-xl-0">
+            <!-- Card -->
+            <div class="card smooth-shadow-md">
+
+                <!-- card body -->
+<div class="card-body">
+    <div class=" mb-6">
+      <h4 class="fs-1 border-bottom text-sm-center">개인정보</h4>
+    </div>
+    <div class="row align-items-center">
+      <!--사진 col 시작 -->
+      <div class="col-4 overflow-hidden">
+        <div class="d-flex justify-content-center ">
+          <img th:src="@{${userData.thumbnailUrl}}" class="rounded-circle avatar avatar-xxxl" alt="">
+         </div>
+       </div>
+      <!--사진 col 끝 -->
+      <div class="col-8">
+        <!-- row 이름열 -->
+        <div class="mb-3 row">
+          <div class="d-flex justify-content-center">
+            <label for="name" class="col-sm-2 col-form-label
+                      form-label">이름</label>
+            <div class="col-md-8 col-12">
+              <input type="name" class="form-control" th:value="${userData.userName}" id="name" disabled>
+            </div>
+          </div>
+        </div>
+
+        <!-- row 생년월일 -->
+        <div class="mb-3 row">
+          <div class="d-flex justify-content-center">
+            <label for="birth" class="col-sm-2 col-form-label
+                        form-label">생년월일</label>
+            <div class="col-md-8 col-12">
+              <input type="email" class="form-control" th:value="${userData.userBirth}" id="birth" disabled>
+            </div>
+          </div>
+        </div>
+
+        <!-- row 전화번호 -->
+        <div class="mb-3 row">
+          <div class="d-flex justify-content-center">
+            <label for="phone" class="col-sm-2 col-form-label
+                        form-label">전화번호</label>
+            <div class="col-md-8 col-12">
+              <input type="text" class="form-control" th:value="${userData.userPhone}" id="phone" disabled>
+            </div>
+          </div>
+        </div>
+
+        <!-- row 이메일 -->
+        <div class="mb-3 row">
+          <div class="d-flex justify-content-center">
+            <label for="email" class="col-sm-2 col-form-label
+                        form-label">이메일</label>
+            <div class="col-md-8 col-12">
+              <input type="text" class="form-control" th:value="${userData.userEmail}" id="email" disabled>
+            </div>
+          </div>
+        </div>
+        <!-- row 주소 -->
+        <div class="mb-3 row">
+          <div class="d-flex justify-content-center">
+            <label for="address" class="col-sm-2 col-form-label
+                        form-label">주소</label>
+            <div class="col-md-8 col-12">
+              <input type="text" class="form-control" th:value="${userData.address}" id="address" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#stuInfo1">수정</button>
+      </div>
+    </div>
+  </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+  </div>
+  <div th:replace="/modal/stuInfo1"></div>
+
+
+
+  <div th:replace="/include/scripts :: scripts"></div>
+  <div th:replace="/modal/errorModal :: errorModal"></div>
+</body>
+</html>
+

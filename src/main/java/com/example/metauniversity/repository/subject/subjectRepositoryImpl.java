@@ -1,12 +1,8 @@
 package com.example.metauniversity.repository.subject;
 
-import com.example.metauniversity.domain.subject.Qsubject;
-import com.example.metauniversity.domain.subject.QtimeTable;
 import com.example.metauniversity.domain.subject.dto.QsubjectDto_getList;
 import com.example.metauniversity.domain.subject.dto.subjectDto;
 import com.example.metauniversity.domain.subject.subject;
-import com.example.metauniversity.domain.subject.timeTable;
-import com.example.metauniversity.repository.subject.subjectRepositoryCustom;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;

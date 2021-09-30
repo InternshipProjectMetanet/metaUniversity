@@ -14,7 +14,7 @@
             <ul class="navbar-nav navbar-right-wrap d-flex align-items-center col-4 m-auto">
                 <li class="col-5"></li>
                 <li class="">
-                    <a href="#">
+                    <a th:href="@{/}">
                         <img alt="logo" src="/img/school_black.svg" class="icon">
                     </a>
                 </li>
@@ -25,7 +25,7 @@
                     <a class="rounded-circle" href="#" role="button" id="dropdownUser" data-bs-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">
                         <div class="avatar avatar-md avatar-indicators avatar-online">
-                            <img alt="avatar" src="/img/account_circle.svg" class="rounded-circle" />
+                            <img alt="avatar" id="nav-avatar" src="/img/account_circle.svg" class="rounded-circle" />
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
@@ -66,6 +66,7 @@
             </ul>
         </nav>
     </div>
+    <script defer th:src="@{/js/nav.js}"></script>
     <!-- navbar 끝!!!!!!!!!!!!!!-->
 </th:block>
 

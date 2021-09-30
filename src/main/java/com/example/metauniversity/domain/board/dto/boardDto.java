@@ -25,14 +25,14 @@ public class boardDto {
     public static class boardList {
     	private Long boardId;
         private String title;
-        private LocalDateTime created_date;
+        private LocalDateTime updatedDate;
         private String userName;
 
         
         public boardList(Board board) {
 			this.boardId = board.getBoardId();
 			this.title = board.getTitle();
-			this.created_date = board.getCreatedDate();
+			this.updatedDate = board.getUpdatedDate();
 			this.userName = board.getUser().getUsersData().getUserName();
 		}
 

@@ -44,8 +44,8 @@
                                 </div>
                                 <div class="col-4 m-auto my-2">
                                     <div class="d-flex justify-content-between">
-                                        <input type="submit" value="등록" class="btn btn-primary form-control mx-5">
-                                        <a class="btn btn-warning form-control mx-5" href='#'>취소</a>
+                                        <input type="button" value="등록" class="btn btn-primary form-control mx-5" th:onclick="|javascript:boardSubmit()|">
+                                        <a class="btn btn-warning form-control mx-5" th:onclick="|javascript:cancel()|">취소</a>
                                     </div>
                                 </div>
                             </form>
@@ -57,11 +57,30 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
+<div th:replace="/modal/messageModal :: messageModal"></div>
 <script th:src="@{/js/ckeditor.js}"></script>
 <script th:src="@{/js/ckeditorCustom.js}"></script>
+
 </body>
 
-<script>
-
+<script type="text/javascript">
+	function boardSubmit() {
+		if ($("#title").val().length == 0) {
+			$(".modal-body").text("제목을 입력해주세요.");
+			
+			$(".modal").modal('show');
+		} else if ($(".ck-content p").html() == '<br data-cke-filler="true">') {
+			$(".modal-body").text("게시글을 작성해주세요.");
+			
+			$(".modal").modal('show');
+		} else {
+			$(".row").submit();			
+		}
+		
+	}
+	function cancel() {
+		history.back();
+	}
 </script>
+
 </html>

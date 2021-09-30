@@ -60,6 +60,7 @@ public class subjectDto {
             this.isMajor = subject.getIsMajor() ? "전공" : "교양";
             this.subjectPoints = subject.getSubjectPoints();
             this.subjectGrades = subject.getSubjectGrades();
+            this.subjectDepaetment = subject.getSubjectDepartment();
             this.limited = subject.getLimited();
             this.classRoom = subject.getClassRoom();
             this.day = subject.getDay();

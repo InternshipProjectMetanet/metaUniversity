@@ -20,6 +20,7 @@
                             <div class="text-center fs-3 fw-bold">
                                 공지사항
                             </div>
+
                             <div class="row">
                                 <div class="col-12 m-auto my-2">
                                     <div class="text border-bottom my-3 fs-4"><span th:text="${boardDto.title}"></span></div>
@@ -47,7 +48,6 @@
                                         <img class="avatar" th:src="${boardDto.currentUserUrl}">
                                         <input th:value="${boardDto.currentUserName}" class="d-none" id="currentUserName">
                                     </div>
-                                    <input type="hidden" id="boardId" th:value="${boardDto.boardId}">
                                     <input class="col-8 border" id="commentContent" placeholder="댓글입력">
                                     <div class="col-2">
                                         <button onclick="addComment()" class="btn btn-outline-primary">등록</button>
@@ -57,13 +57,15 @@
                                 <!-- 관리자만 수정이 가능하게끔 -->
                                 <div class="col-6 m-auto my-2">
                                     <div class="d-flex justify-content-between">
-                                        <a class="btn btn-outline-warning form-control mx-2" th:onclick="|javascript:goList()|">목록</a>
+                                        <a class="btn btn-outline-warning form-control mx-2" th:href="@{/boardList(page=${page})}">목록</a>
                                         <a class="btn btn-outline-warning form-control mx-2" th:href="@{'/boardEdit/' + ${boardId}}">수정</a>
-                                        <a class="btn btn-outline-danger form-control mx-2" th:href="@{'/boardDelete/' + ${boardId}}" >삭제</a>
+                                        <a class="btn btn-outline-danger form-control mx-2" th:onclick="|javascript:confirm()|" >삭제</a>
                                     </div>
                                 </div>
                                 <!--///////////////// -->
-
+                                <form th:action="@{/boardDelete}" method="post" id="deleteForm">
+                                	<input type="hidden" name="boardId" th:value="${boardId}" />
+                                </form>
 
                             </div>
                         </div>
@@ -74,16 +76,25 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
+<div th:replace="/modal/confirmModal :: confirmModal"></div>
+<div th:replace="/modal/errorModal :: errorModal"></div>
+
 <script th:src="@{/js/boardComment.js}"></script>
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/ckeditor.js}"></script>
 
-
-<script type="text/javascript">
-	function goList() {
-		history.back();
+<script>
+	function confirm() {
+		$(".modal-body").text("해당 게시글을 삭제하시겠습니까?");
+		$(".btn-primary").text("삭제");
+		
+		$(".confirmModal").modal('show');
+	}
+	function confirm_ok(){
+		$("#deleteForm").submit();
 	}
 </script>
+	
 
 </body>
 

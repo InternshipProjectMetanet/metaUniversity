@@ -7,22 +7,20 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-
 @RestController
 @RequiredArgsConstructor
 public class NavController {
 
-    private NavService navService;
+    private final NavService navService;
 
-    @GetMapping("/get/user/icon")
-    public String auth(@AuthenticationPrincipal CustomUserDetails currentUser){
+    @GetMapping("/nav/img")
+    public String navImg(@AuthenticationPrincipal CustomUserDetails currentUser){
 
-        if (currentUser == null){
-            return "/img/account_circle.svg";
-        }else {
-            return navService.getUserImg(currentUser);
+        String url = "/img/account_circle.svg";
+        if(currentUser != null){
+            url = navService.getUserImg(currentUser);
         }
 
+        return url;
     }
 }

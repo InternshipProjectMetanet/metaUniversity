@@ -48,7 +48,7 @@
                                         <img class="avatar" th:src="${boardDto.currentUserUrl}">
                                         <input th:value="${boardDto.currentUserName}" class="d-none" id="currentUserName">
                                     </div>
-                                    <input class="col-8 border" id="commentContent" placeholder="댓글입력">
+                                    <input class="col-8 border" id="commentContent" placeholder="댓글입력" onkeypress="enter()">
                                     <div class="col-2">
                                         <button onclick="addComment()" class="btn btn-outline-primary">등록</button>
                                     </div>
@@ -64,7 +64,7 @@
                                 </div>
                                 <!--///////////////// -->
                                 <form th:action="@{/boardDelete}" method="post" id="deleteForm">
-                                	<input type="hidden" name="boardId" th:value="${boardId}" />
+                                	<input type="hidden" id="boardId" th:value="${boardId}" />
                                 </form>
 
                             </div>

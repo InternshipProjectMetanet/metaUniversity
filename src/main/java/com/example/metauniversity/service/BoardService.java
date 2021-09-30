@@ -13,6 +13,8 @@ import com.example.metauniversity.domain.board.dto.boardDto.updateBoard;
 import com.example.metauniversity.exception.NoSuchBoardException;
 import com.example.metauniversity.exception.NoSuchUserException;
 import com.example.metauniversity.repository.*;
+import com.example.metauniversity.security.CustomUserDetails;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -98,23 +100,21 @@ public class BoardService {
 
 	// 게시글 상세 조회
 	@Transactional
-	public getBoard getBoard(Long boardId, User currentUser) {
+	public getBoard getBoard(Long boardId, CustomUserDetails currentUser) {
 		Board board = boardRepository.findById(boardId)
 				.orElseThrow(() -> new NoSuchBoardException("해당 게시물이 없습니다."));
 
-		User user = userRepository.findById(currentUser.getId())
-			.orElseThrow(() -> new NoSuchUserException("해당 유저가 없습니다."));
-
-
+		User user = null;
 		String url = "";
-
-		try{
+		
+		if(currentUser != null) {
+			
+			user = userRepository.findById(currentUser.getUser().getId())
+									.orElseThrow(() -> new NoSuchUserException("해당 유저가 없습니다."));
 			url = user.getUserfile().getFile().getUrl();
-
-		}catch (Exception e){
+		}else {
 			url= "/img/account_circle.svg";
 		}
-
 
 		boardDto.getBoard boarddto = boardDto.getBoard.builder()
 					.boardId(board.getBoardId())
@@ -122,7 +122,7 @@ public class BoardService {
 					.title(board.getTitle())
 					.userName(board.getUser().getUsersData().getUserName())
 					.currentUserUrl(url)
-					.currentUserName(user.getUsersData().getUserName())
+					.currentUserName(currentUser != null ? user.getUsersData().getUserName() : "인증되지않는 사용자")
 					.filesList(board.getBoardfile().stream().map(f -> f.getFile()).collect(Collectors.toList()))
 					.build();
 				

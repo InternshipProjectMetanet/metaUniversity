@@ -44,10 +44,9 @@ public class BoardController {
     @GetMapping("/boardDetail/{boardId}")
     public String boardDetail(@PathVariable("boardId") Long boardId, Model model,
     		@RequestParam(defaultValue="0") Integer page, @AuthenticationPrincipal CustomUserDetails currentUser) {
-    	
-    	boardDto.getBoard boardDto = boardService.getBoard(boardId,currentUser.getUser());
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@");
-        System.out.println(boardDto.getCurrentUserName());
+
+		boardDto.getBoard boardDto = boardService.getBoard(boardId,currentUser);
+
         
         model.addAttribute("boardDto", boardDto);
         model.addAttribute("page", page);
@@ -121,7 +120,7 @@ public class BoardController {
     public String boardEdit(@PathVariable("boardId") Long boardId,
                             Model model,
                             @AuthenticationPrincipal CustomUserDetails currentUser) {
-    	boardDto.getBoard boardDto = boardService.getBoard(boardId, currentUser.getUser());
+    	boardDto.getBoard boardDto = boardService.getBoard(boardId, currentUser);
 
         model.addAttribute("boardDto", boardDto);
 

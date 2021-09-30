@@ -18,60 +18,63 @@
                 <div class="col-xl-8 m-auto">
                     <div class="card smooth-shadow-md">
                         <div class="card-body">
-
                             <div class="d-flex justify-content-center">
                                 <h2 class="text-decoration-none">수업목록</h2>
                             </div>
-                            <table class="table table-bordered text-center mt-2 mb-5">
-                                <thead>
-                                <tr>
-                                    <th class="w-75">과목명</th>
-                                    <th>교수명</th>
-                                    <th>개설학부</th>
-                                </tr>
-                                </thead>
+                            <div class="mb-3 row p-5">
+                                <table class="table table-borderless text-center align-items-center border-1">
+                                    <thead>
+                                    <tr class="border-1">
+                                        <th class="w-75">과목명</th>
+                                        <th>교수명</th>
+                                        <th>개설학부</th>
+                                    </tr>
+                                    </thead>
 
-                                <tbody>
-                                <tr th:each="s : ${slist.data.subjectDtoList}">
-                                    <td><a th:text="${s.subjectTitle}"
-                                           th:href="@{'/schedule/' + ${s.subjectId} + '/studentList'}"></a></td>
-                                    <td th:text="${s.professor}"></td>
-                                    <td th:text="${s.subjectDepaetment}"></td>
-                                </tr>
-                                <!-- 찾는 학생이 없을 경우 (시작) -->
-                                <tr th:if="${slist.count == 0}">
-                                    <td colspan="3">개설된 수업이 존재하지 않습니다.</td>
-                                </tr>
-                                <!-- 찾는 학생이 없을 경우 (끝) -->
-                                </tbody>
+                                    <tbody>
+                                    <tr th:each="s : ${slist.data.subjectDtoList}" class="border-bottom">
+                                        <td><a th:text="${s.subjectTitle}"
+                                               th:href="@{'/schedule/' + ${s.subjectId} + '/studentList'}"></a></td>
+                                        <td th:text="${s.professor}"></td>
+                                        <td th:text="${s.subjectDepaetment}"></td>
+                                    </tr>
+                                    <!-- 찾는 학생이 없을 경우 (시작) -->
+                                    <tr th:if="${slist.count == 0}">
+                                        <td colspan="3" class="border-bottom">개설된 수업이 존재하지 않습니다.</td>
+                                    </tr>
+                                    <!-- 찾는 학생이 없을 경우 (끝) -->
+                                    </tbody>
 
-                            </table>
-                            <ul class="pagination justify-content-center"
-                                th:with="pageNumber = ${slist.data.pageNumber},
+                                </table>
+
+                                <ul class="pagination justify-content-center"
+                                    th:with="pageNumber = ${slist.data.pageNumber},
 							            pageSize = ${slist.data.pageSize},
 							            totalPages = ${slist.data.totalPages},
 							            pazingSize = 10,
                             			start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},
                             			tempEndPage = ${start + pazingSize - 1},
               							last=${tempEndPage < totalPages ? tempEndPage : totalPages}"
-                                th:if="${slist.data.totalElements != 0}" >
+                                    th:if="${slist.data.totalElements != 0}" >
 
-                                <!--  이전  -->
-                                <li class="page-item">
-                                    <a class="page-link" th:href="${pageNumber==0} ? '#' : @{/schedule/list(page=${pageNumber})}">이전</a>
-                                </li>
+                                    <!--  이전  -->
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="${pageNumber==0} ? '#' : @{/schedule/list(page=${pageNumber})}">이전</a>
+                                    </li>
 
-                                <!--  페이지 버튼  -->
-                                <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pageNumber + 1} ? 'page-item active' : 'page-item'">
-                                    <a class="page-link" th:text="${page}" th:href="@{/schedule/list(page=${page})}"></a>
-                                </li>
+                                    <!--  페이지 버튼  -->
+                                    <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pageNumber + 1} ? 'page-item active' : 'page-item'">
+                                        <a class="page-link" th:text="${page}" th:href="@{/schedule/list(page=${page})}"></a>
+                                    </li>
 
-                                <!--  다음  -->
-                                <li class="page-item">
-                                    <a class="page-link" th:href="${pageNumber==totalPages-1} ? '#' : @{/schedule/list(page=${pageNumber+2})}">다음</a>
-                                </li>
-                            </ul>
+                                    <!--  다음  -->
+                                    <li class="page-item">
+                                        <a class="page-link" th:href="${pageNumber==totalPages-1} ? '#' : @{/schedule/list(page=${pageNumber+2})}">다음</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+<!--                        card body end-->
                     </div>
                 </div>
             </div>

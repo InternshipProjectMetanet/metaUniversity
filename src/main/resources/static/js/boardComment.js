@@ -1,3 +1,10 @@
+function enter(){
+	if(event.keyCode==13) {
+		addComment()
+	}
+}
+
+
 
     function addComment() {
     const data =
@@ -7,6 +14,10 @@
                 }
 
     console.log(data)
+
+	
+
+
 
     $.ajax({
     url: "/reply/add",
@@ -25,7 +36,7 @@
 }
 
     function getComments() {
-
+	console.log($('#boardId').val())
     $.ajax({
         url: "/reply/get/"+$('#boardId').val(),
         type: "GET",

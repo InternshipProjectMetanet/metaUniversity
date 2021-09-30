@@ -29,7 +29,7 @@ public class ReplyService {
         replyRepository.save(
             Reply
                 .builder()
-                    .boardId(boardRepository.getById(insertReply.getBoardId()))
+                    .boardId(boardRepository.findById(insertReply.getBoardId()).orElseThrow(() -> new NoSuchBoardException("없는 게시글 입니다")))
                     .replyContent(insertReply.getReplyContent())
                     .user(user)
                     .isDeleted(false)

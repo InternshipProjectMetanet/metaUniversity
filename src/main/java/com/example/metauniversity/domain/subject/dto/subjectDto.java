@@ -1,5 +1,6 @@
 package com.example.metauniversity.domain.subject.dto;
 
+import com.example.metauniversity.domain.board.dto.boardDto;
 import com.example.metauniversity.domain.subject.subject;
 import com.example.metauniversity.domain.subject.timeTable;
 import com.querydsl.core.annotations.QueryProjection;
@@ -60,6 +61,7 @@ public class subjectDto {
             this.isMajor = subject.getIsMajor() ? "전공" : "교양";
             this.subjectPoints = subject.getSubjectPoints();
             this.subjectGrades = subject.getSubjectGrades();
+            this.subjectDepaetment = subject.getSubjectDepartment();
             this.limited = subject.getLimited();
             this.classRoom = subject.getClassRoom();
             this.day = subject.getDay();
@@ -80,6 +82,19 @@ public class subjectDto {
             this.startTime = timeTable.getSubject().getStartTime();
             this.endTime = timeTable.getSubject().getEndTime();
         }
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class pageSubjectList {
+        private int pageSize; // 한 페이지 데이터 수
+        private int pageNumber; // 현재 페이지
+        private int totalPages; // 전체 페이지 수
+        private Long totalElements; // 전체 데이터 수
+        List<subjectDto.getList> subjectDtoList;
     }
 
     @Getter

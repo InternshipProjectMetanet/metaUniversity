@@ -34,4 +34,8 @@ public class UserFile {
                 .user(user)
                 .build();
     }
+
+    public void update(File file) {
+        this.file = file;
+    }
 }

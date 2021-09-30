@@ -471,6 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#subject-filter">수업과목 필터링 기능 api</a>
 <ul class="sectlevel2">
 <li><a href="#_http_request_3">http-request</a></li>
+<li><a href="#_request_parameters">request-parameters</a></li>
 <li><a href="#_http_response_3">http-response</a></li>
 <li><a href="#_response_body_3">response-body</a></li>
 <li><a href="#_response_fields_3">response-fields</a></li>
@@ -485,39 +486,188 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_http_request"><a class="link" href="#_http_request">http-request</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-enroll/http-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /subject/enroll/1 HTTP/1.1
+Authorization: 현재 로그인한 유저
+Host: localhost:8080</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_http_response"><a class="link" href="#_http_response">http-response</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-enroll/http-response.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 344
+
+{
+  "subjectId" : 1,
+  "professor" : "mockProfessor",
+  "subjectTitle" : "mockSubjectTitle",
+  "subjectPoints" : 3,
+  "isMajor" : "전공",
+  "subjectDepaetment" : "mockDepartment",
+  "subjectGrades" : 1,
+  "limited" : 40,
+  "classRoom" : "301",
+  "day" : "Mon",
+  "startTime" : "13:00",
+  "endTime" : "15:00",
+  "status" : true
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_path_parameters"><a class="link" href="#_path_parameters">path-parameters</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-enroll/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. /subject/enroll/{subjectId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수업 아이디</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_request_headers"><a class="link" href="#_request_headers">request-headers</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-enroll/request-headers.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 로그인한 유저</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_response_body"><a class="link" href="#_response_body">response-body</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-enroll/response-body.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
+  "subjectId" : 1,
+  "professor" : "mockProfessor",
+  "subjectTitle" : "mockSubjectTitle",
+  "subjectPoints" : 3,
+  "isMajor" : "�쟾怨�",
+  "subjectDepaetment" : "mockDepartment",
+  "subjectGrades" : 1,
+  "limited" : 40,
+  "classRoom" : "301",
+  "day" : "Mon",
+  "startTime" : "13:00",
+  "endTime" : "15:00",
+  "status" : true
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_response_fields"><a class="link" href="#_response_fields">response-fields</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-enroll/response-fields.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectTitle</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 타이틀</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>professor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 담당교수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectPoints</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 학점</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMajor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 전공여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectDepaetment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 개설학부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectGrades</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 대상학년</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>limited</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 제한인원</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>classRoom</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 강의실</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>day</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 수강요일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>startTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 시작시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>endTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 마감시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수강신청 여부(true : 수강신청됨 / false : 수강취소됨)</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -526,39 +676,118 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_http_request_2"><a class="link" href="#_http_request_2">http-request</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-cancel/http-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /subject/cancel/1 HTTP/1.1
+Authorization: 현재 로그인한 유저
+Host: localhost:8080</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_http_response_2"><a class="link" href="#_http_response_2">http-response</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-cancel/http-response.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 84
+
+{
+  "subjectId" : 1,
+  "subjectTitle" : "mockSubjectTitle",
+  "status" : false
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_path_parameters_2"><a class="link" href="#_path_parameters_2">path-parameters</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-cancel/path-parameters.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 2. /subject/cancel/{subjectId}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수업 아이디</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_request_headers_2"><a class="link" href="#_request_headers_2">request-headers</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-cancel/request-headers.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 로그인한 유저</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect2">
 <h3 id="_response_body_2"><a class="link" href="#_response_body_2">response-body</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-cancel/response-body.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
+  "subjectId" : 1,
+  "subjectTitle" : "mockSubjectTitle",
+  "status" : false
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_response_fields_2"><a class="link" href="#_response_fields_2">response-fields</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-cancel/response-fields.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectTitle</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 타이틀</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">수강신청 여부(true : 수강신청됨 / false : 수강취소됨)</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -567,27 +796,177 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_http_request_3"><a class="link" href="#_http_request_3">http-request</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-filter/http-request.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /subject/list/search HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_request_parameters"><a class="link" href="#_request_parameters">request-parameters</a></h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectTitle</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 타이틀 : 포함하는 단어 검색</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subjectPoints</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">과목 학점 : 입력한 학점과 같은 학점의 수업 검색</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMajor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전공 여부 : 전공 / 교양으로 나누어 검색</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
 <h3 id="_http_response_3"><a class="link" href="#_http_response_3">http-response</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-filter/http-response.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 377
+
+{
+  "count" : 1,
+  "data" : [ {
+    "subjectId" : 1,
+    "professor" : "mockProfessor",
+    "subjectTitle" : "mockTitle",
+    "subjectPoints" : 3,
+    "isMajor" : "all",
+    "subjectDepaetment" : "mockDepartment",
+    "subjectGrades" : 1,
+    "limited" : 40,
+    "classRoom" : "301",
+    "day" : "Mon",
+    "startTime" : "13:00",
+    "endTime" : "15:00"
+  } ]
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_response_body_3"><a class="link" href="#_response_body_3">response-body</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-filter/response-body.adoc[]</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-none hljs">{
+  "count" : 1,
+  "data" : [ {
+    "subjectId" : 1,
+    "professor" : "mockProfessor",
+    "subjectTitle" : "mockTitle",
+    "subjectPoints" : 3,
+    "isMajor" : "all",
+    "subjectDepaetment" : "mockDepartment",
+    "subjectGrades" : 1,
+    "limited" : 40,
+    "classRoom" : "301",
+    "day" : "Mon",
+    "startTime" : "13:00",
+    "endTime" : "15:00"
+  } ]
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_response_fields_3"><a class="link" href="#_response_fields_3">response-fields</a></h3>
-<div class="paragraph">
-<p>Unresolved directive in subject.adoc - include::C:\Users\user\Desktop\gitTest\meta3\metaUniversity\build\generated-snippets/subject-filter/response-fields.adoc[]</p>
-</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>count</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 개수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].subjectId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 코드</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].subjectTitle</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].subjectPoints</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 학점</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].professor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 교수명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].isMajor</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 전공여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].subjectDepaetment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 개설대학</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].subjectGrades</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 대상학년</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].limited</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 제한인원</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].classRoom</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 강의실</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].day</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 수업요일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].startTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 수업시작시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.[].endTime</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터링된 과목 수업마감시간</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -595,7 +974,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2021-09-28 15:58:40 +0900
+Last updated 2021-09-29 16:54:34 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

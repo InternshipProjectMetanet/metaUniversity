@@ -34,21 +34,45 @@ public class subjectRepositoryImpl implements subjectRepositoryCustom {
     }
 
     @Override
-    public List<subject> findAllBySearch(subjectDto.search search) {
-        return queryFactory.select(subject)
+    public Page<subject> findAllBySearch(subjectDto.search search, Pageable pageable) { // 페이징
+//        return queryFactory.select(subject)
+//                .from(subject)
+//                .where(subjectTitleContains(search.getSubjectTitle()),
+//                        subjectPointsEq(search.getSubjectPoints()),
+//                        isMajorEq(search.getIsMajor()))
+//                .fetch();
+
+        QueryResults<subject> subjectQueryResults = queryFactory.select(subject)
                 .from(subject)
                 .where(subjectTitleContains(search.getSubjectTitle()),
                         subjectPointsEq(search.getSubjectPoints()),
                         isMajorEq(search.getIsMajor()))
-                .fetch();
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        List<subject> content = subjectQueryResults.getResults();
+        long total = subjectQueryResults.getTotal();
+        return new PageImpl<>(content, pageable, total);
     }
 
     @Override
-    public List<subject> getAllSubject() {
-        return queryFactory.select(subject)
+    public Page<subjectDto.getList> getAllSubject(Pageable pageable) { // 페이징
+//        return queryFactory.select(subject)
+//                .from(subject)
+//                .join(subject.user).fetchJoin()
+//                .fetch();
+        QueryResults<subjectDto.getList> getListQueryResults =
+                queryFactory.select(new QsubjectDto_getList(subject))
                 .from(subject)
                 .join(subject.user).fetchJoin()
-                .fetch();
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        List<subjectDto.getList> content = getListQueryResults.getResults();
+        long total = getListQueryResults.getTotal();
+        return new PageImpl<>(content, pageable, total);
     }
 
     @Override

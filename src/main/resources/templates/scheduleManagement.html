@@ -76,6 +76,7 @@
                     success : function(result, status, xhr) {
                         if(con) {
                             var test = $('#dataOfMySubject > tbody');
+                            testHtml = "";
                             testHtml += "<tr className=\"border-bottom\">"
                             testHtml += "<td>" + result.subjectTitle + "</td>"
                             testHtml += "<td>" + result.professor + "</td>"
@@ -238,10 +239,12 @@
                                 <h4 class="text-center fw-bold">수강 신청</h4>
 
                             </div>
+
                             <form action="#" method="GET">
 
                                 <!-- row -->
                                 <div class="mb-3 row p-5">
+                                <h5 class="text-left fw-bold">헌재 신청 학점 : </h5>
                                     <table id = "dataOfMySubject" class="table table-borderless text-center mt-2 mb-5 p-2 align-middle border-1">
                                         <thead>
                                         <tr class="border-1">

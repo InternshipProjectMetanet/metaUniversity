@@ -7,7 +7,9 @@ import com.example.metauniversity.security.CustomUserDetails;
 import com.example.metauniversity.service.UserService;
 import com.example.metauniversity.service.subjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,10 +31,10 @@ public class subjectController {
      * 수강목록 / 내가 신청한 목록 조회
      */
     @GetMapping("/schedule")
-    public String gotoSugang(Model model
+    public String gotoSugang(Model model, @PageableDefault(size = 5) Pageable pageable
             , @AuthenticationPrincipal CustomUserDetails currentUser) {
 
-        model.addAttribute("subjectDatas", subjectService.getAll());
+        model.addAttribute("subjectDatas", subjectService.getAll(pageable));
         model.addAttribute("mySubjectDatas", subjectService.getMySubject(currentUser.getUser()));
 
         return "scheduleManagement.html";
@@ -52,10 +54,10 @@ public class subjectController {
      * 수업 등록(관리자) GET
      */
     @GetMapping("/schedule/create")
-    public String createSubjectGET(Model model, subjectDto.search searchDto
+    public String createSubjectGET(Model model, subjectDto.search searchDto, @PageableDefault(size = 5) Pageable pageable
             ,@AuthenticationPrincipal CustomUserDetails currentUser) {
 
-        model.addAttribute("subjectDatas", subjectService.getAllBySearch(searchDto));
+        model.addAttribute("subjectDatas", subjectService.getAllBySearch(searchDto, pageable));
         model.addAttribute("user",
                 new subjectDto.userdata(currentUser.getUser().getId(), currentUser.getUsername()));
 
@@ -66,9 +68,9 @@ public class subjectController {
      * 이번학기 열린 수업 목록
      */
     @GetMapping("/schedule/list")
-    public String subjectListBySemester(Model model) {
-        List<subjectDto.getList> all = subjectService.getAll();
-        model.addAttribute("slist", new subjectData<>(all.size(), all));
+    public String subjectListBySemester(Model model, Pageable pageable) {
+        subjectDto.pageSubjectList all = subjectService.getAll(pageable);
+        model.addAttribute("slist", new subjectData<>(all.getSubjectDtoList().size(), all));
         return "subjectList";
     }
 

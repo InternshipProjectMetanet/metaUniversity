@@ -14,4 +14,5 @@ public interface timeTableRepositoryCustom {
     timeTable getMyPreSubject(Long subjectId, Long userId);
     List<timeTable> getAllMySubject(Long userId);
     List<timeTable> getStudent(Long subjectId);
+    Integer countMyPoint(Long userId);
 }

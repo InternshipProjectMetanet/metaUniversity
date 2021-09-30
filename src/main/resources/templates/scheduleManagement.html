@@ -76,6 +76,7 @@
                     success : function(result, status, xhr) {
                         if(con) {
                             var test = $('#dataOfMySubject > tbody');
+                            testHtml = "";
                             testHtml += "<tr className=\"border-bottom\">"
                             testHtml += "<td>" + result.subjectTitle + "</td>"
                             testHtml += "<td>" + result.professor + "</td>"

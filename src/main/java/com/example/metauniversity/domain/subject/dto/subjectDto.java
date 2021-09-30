@@ -54,6 +54,7 @@ public class subjectDto {
         private String startTime;
         private String endTime;
 
+        @QueryProjection
         public getList(subject subject) {
             this.subjectId = subject.getId();
             this.professor = subject.getUser().getUsersData().getUserName();

@@ -22,27 +22,27 @@
                 <h4 class="text-center fw-bold">학생 검색</h4>
 
               </div>
-              <form th:action="@{studentsList}" method="GET" class="d-flex justify-content-end me-2">
+              <form th:action="@{studentsList}" method="GET">
                 <!-- row -->
-                <div class="row w-50">
-                  <div class="col-3 p-0">
-                    <input type="text" name="userName" class="form-control" placeholder="이름" th:value="${searchDto.userName}">
-                  </div>
-                  <div class="col-3 p-0">
-                    <input type="text" name="userCode" class="form-control" placeholder="학번" th:value="${searchDto.userCode}">
-                  </div>
-                  <div class="col-3 p-0">
-                    <input type="text" name="userMajor" class="form-control" placeholder="전공" th:value="${searchDto.userMajor}">
-                  </div>
-                  <div class="col-2 p-0">
-                    <button type="submit"
-                            class="btn btn-outline-danger form-control mx-2">검색</button>
-                  </div>
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <div class="col-2">
+                            <input type="text" name="userName" class="form-control" placeholder="이름" th:value="${searchDto.userName}">
+                        </div>
+                        <div class="col-2 p-0 ms-1">
+                            <input type="text" name="userCode" class="form-control" placeholder="학번" th:value="${searchDto.userCode}">
+                        </div>
+                        <div class="col-2 p-0 ms-1">
+                            <input type="text" name="userMajor" class="form-control" placeholder="전공" th:value="${searchDto.userMajor}">
+                        </div>
+
+                        <button type="submit" class="btn btn-outline-danger ms-1">검색</button>
+                    </div>
                 </div>
               </form>
               <!-- row -->
-              <div class="mb-3 row">
-                <table class="table table-borderless text-center mt-2 mb-5 p-2 align-middle border-1">
+              <div class="row mt-4 p-4">
+                <table class="table table-borderless text-center align-items-center border-1">
                   <thead>
                   <tr class="border-1">
                     <th class="fs-5">이름</th>
@@ -67,7 +67,7 @@
                   <!-- tr 반복 끝 -->
                   <!-- 찾는 학생이 없을 경우 (시작) -->
                   <tr th:if="${studentsList.totalElements == 0}">
-                    <td colspan="6">찾는 학생이 없습니다.</td>
+                    <td colspan="6" class="border-bottom">찾는 학생이 없습니다.</td>
                   </tr>
                   <!-- 찾는 학생이 없을 경우 (끝) -->
                   </tbody>

@@ -27,24 +27,23 @@
                                 <th class="fs-4" colspan="3">공지사항</th>
                             </tr>
                             </thead>
-							
-							<thead>
-                                <tr>
-                                    <th class="w-75">title</th>
-                                    <th>username</th>
-                                    <th>createdat</th>
-                                </tr>
+
+                            <thead>
+                            <tr>
+                                <th class="w-75">제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
+                            </tr>
                             </thead>
-							
+
                             <tbody>
                             <!--공지사항 반복문돌리기!!!!!!!!!!!!!-->
-                             <tr th:each="board : ${boardList.boardDtoList}">
-                            	<td><a th:text="${board.title}" th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
-                            	<td th:text="${board.userName}"></td>
-                            	<td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd')}"></td>
-                            </tr> 
-                            <tr>
-
+                            <tr th:each="board : ${boardList.boardDtoList}">
+                                <td><a th:text="${board.title}"
+                                       th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
+                                <td th:text="${board.userName}"></td>
+                                <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd')}"></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

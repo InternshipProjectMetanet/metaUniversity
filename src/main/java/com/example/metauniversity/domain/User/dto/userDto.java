@@ -74,7 +74,7 @@ public class userDto {
             this.userGrade = user.getUsersData().getUserGrade();
             this.enrollmentStatus = user.getUsersData().getEnrollmentStatus();
             this.accountId = user.getAccountId();
-            this.thumbnailUrl = user.getUsersData().getIsThumbnail() ? user.getUserfile().getFile().getUrl() : "/img/cute.png";
+            this.thumbnailUrl = user.getUsersData().getIsThumbnail() ? user.getUserfile().getFile().getUrl() : "/img/account_circle.svg";
         }
     }
 
@@ -131,7 +131,7 @@ public class userDto {
 			this.userMajor = user.getUsersData().getUserMajor();
 			this.userDepartment = user.getUsersData().getUserDepartment();
 			this.userGrade = user.getUsersData().getUserGrade();
-			this.enrollmentStatus = user.getUsersData().getEnrollmentStatus().getKey();
+			this.enrollmentStatus = user.getUsersData().getEnrollmentStatus().getValue();
 		}
     }
     
@@ -178,7 +178,7 @@ public class userDto {
             this.userGrade = timetable.getUser().getUsersData().getUserGrade();
             this.userDepartment = timetable.getUser().getUsersData().getUserDepartment();
             this.userMajor = timetable.getUser().getUsersData().getUserMajor();
-            this.thumbnailUrl = timetable.getUser().getUsersData().getIsThumbnail() ? timetable.getUser().getUserfile().getFile().getUrl() : "/img/cute.png";
+            this.thumbnailUrl = timetable.getUser().getUsersData().getIsThumbnail() ? timetable.getUser().getUserfile().getFile().getUrl() : "/img/account_circle.svg";
         }
     }
 }

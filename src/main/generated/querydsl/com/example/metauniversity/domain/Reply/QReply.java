@@ -24,7 +24,7 @@ public class QReply extends EntityPathBase<Reply> {
 
     public final com.example.metauniversity.domain.Base.QBaseEntity _super = new com.example.metauniversity.domain.Base.QBaseEntity(this);
 
-    public final com.example.metauniversity.domain.board.QBoard board;
+    public final com.example.metauniversity.domain.board.QBoard boardId;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
@@ -58,7 +58,7 @@ public class QReply extends EntityPathBase<Reply> {
 
     public QReply(Class<? extends Reply> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.board = inits.isInitialized("board") ? new com.example.metauniversity.domain.board.QBoard(forProperty("board"), inits.get("board")) : null;
+        this.boardId = inits.isInitialized("boardId") ? new com.example.metauniversity.domain.board.QBoard(forProperty("boardId"), inits.get("boardId")) : null;
         this.user = inits.isInitialized("user") ? new com.example.metauniversity.domain.User.QUser(forProperty("user"), inits.get("user")) : null;
     }
 

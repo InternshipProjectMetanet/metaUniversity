@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
             .authorizeRequests()
             .antMatchers("/").permitAll() // 누구나 접근 허용
-            .antMatchers("/user/**").hasAnyAuthority("STUDENT", "WORKER") // 익명의 사용자만 아니면 들어갈 수 있는 페이지
+            .antMatchers("/user/**").authenticated() // 익명의 사용자만 아니면 들어갈 수 있는 페이지
             .antMatchers("/student/**").hasAuthority("STUDENT") // 학생용 페이지
             .antMatchers("/worker/**").hasAuthority("WORKER") // 직원용 페이지
 //            .antMatchers("/login")

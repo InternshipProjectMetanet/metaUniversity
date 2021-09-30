@@ -38,7 +38,7 @@ public class UserController {
     @PostMapping("/signup")
     public String signIn(@ModelAttribute userDto.signIn signindto) {
         userService.saveUser(signindto);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     /**

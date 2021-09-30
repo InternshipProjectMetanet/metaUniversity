@@ -34,15 +34,6 @@ public class timeTableRepositoryImpl implements timeTableRepositoryCustom{
                 .fetch();
     }
 
-    @Override
-    public Integer countMyPoint(Long userId) {
-        return queryFactory.select(timeTable.subject.subjectPoints.sum())
-                .from(timeTable)
-                .join(timeTable.subject).fetchJoin()
-                .where(timeTable.user.id.eq(userId))
-                .fetchOne();
-    }
-
     /**
      * 이미 수강 버튼을 누른적이 있었다면 실행되는 쿼리
      * == 테이블에 수강상태 false값으로 있는 row가 있는지를 조회

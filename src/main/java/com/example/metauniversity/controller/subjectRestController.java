@@ -44,4 +44,13 @@ public class subjectRestController {
         subjectDto.pageSubjectList allBySearch = subjectService.getAllBySearch(searchDto, pageable);
         return new subjectData<>(allBySearch.getSubjectDtoList().size(), allBySearch);
     }
+
+    /**
+     * Rest 현재 신청 학점
+     */
+    @PostMapping("/subject/mypoints")
+    public subjectData<Integer> getmyPoint(@AuthenticationPrincipal CustomUserDetails currentUser) {
+        Integer integer = subjectService.getMySubjectPoint(currentUser.getUser());
+        return new subjectData<>(1, integer);
+    }
 }

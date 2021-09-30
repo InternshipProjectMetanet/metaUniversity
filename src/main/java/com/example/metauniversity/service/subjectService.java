@@ -101,7 +101,12 @@ public class subjectService {
     }
 
     public Integer getMySubjectPoint(User user) {
-        return timeTableRepository.countMyPoint(user.getId());
+        Integer myPoints = 0;
+        List<timeTable> allMySubject = timeTableRepository.getAllMySubject(user.getId());
+        for (timeTable timeTable : allMySubject) {
+            myPoints += timeTable.getSubject().getSubjectPoints();
+        }
+        return myPoints;
     }
 
     public subjectDto.pageSubjectList getAllBySearch(subjectDto.search searchDto, Pageable pageable) {

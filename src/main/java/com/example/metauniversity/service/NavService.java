@@ -19,15 +19,10 @@ public class NavService {
     @Transactional(readOnly = true)
     public String getUserImg(CustomUserDetails currentUser){
         String url = "";
-        Long userId = null;
 
         User user = userRepository.findById(currentUser.getUser().getId()).orElseThrow(() -> new NoSuchUserException("로그인중인 사용자가 없습니다"));
-            try{
-                url = user.getUserfile().getFile().getUrl();
-            }catch (Exception e){
-                url = "/img/account_circle.svg";
-            }
-
+        url = user.getUsersData().getIsThumbnail() ? user.getUserfile().getFile().getUrl() : "/img/account_circle.svg";
+        
         return url;
     }
 }

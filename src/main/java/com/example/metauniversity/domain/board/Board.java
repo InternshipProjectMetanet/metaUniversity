@@ -49,7 +49,7 @@ public class Board extends BaseEntity {
     private List<BoardFile> boardfile;
     
     private String title;
-    @Column(length = 2000)
+    @Column(length = 10000)
     private String content;
     
     // 게시글 수정

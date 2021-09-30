@@ -22,7 +22,7 @@ public class HomeController {
     /**
      * 홈화면
      */
-    @GetMapping("/home")
+    @GetMapping("/")
     public String home(@PageableDefault Pageable pageable, Model model) {
         boardDto.pageBoardList boardDtoList = boardService.getBoardListHome(pageable);
         model.addAttribute("boardList", boardDtoList);

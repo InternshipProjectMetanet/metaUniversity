@@ -2,6 +2,8 @@ package com.example.metauniversity.service;
 
 import com.example.metauniversity.domain.User.User;
 import com.example.metauniversity.domain.User.UserTyped;
+import com.example.metauniversity.domain.board.Board;
+import com.example.metauniversity.domain.board.dto.boardDto;
 import com.example.metauniversity.domain.subject.dto.subjectDto;
 import com.example.metauniversity.domain.subject.subject;
 import com.example.metauniversity.domain.subject.timeTable;
@@ -14,10 +16,13 @@ import com.example.metauniversity.repository.subject.timeTableRepository;
 import com.example.metauniversity.util.AboutTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,9 +56,43 @@ public class subjectService {
         }
     }
 
-    public List<subjectDto.getList> getAll() {
-        return subjectRepository.getAllSubject().stream()
-                .map(s -> new subjectDto.getList(s)).collect(Collectors.toList());
+    public subjectDto.pageSubjectList getAll(Pageable pageable) {
+
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 5);
+
+        Page<subjectDto.getList> subjectList = subjectRepository.getAllSubject(pageable);
+
+        List<subjectDto.getList> returnlist = new ArrayList<>();
+
+        for (subjectDto.getList list : subjectList.getContent()) {
+            subjectDto.getList listdto = subjectDto.getList.builder()
+                    .subjectId(list.getSubjectId())
+                    .professor(list.getProfessor())
+                    .subjectTitle(list.getSubjectTitle())
+                    .subjectPoints(list.getSubjectPoints())
+                    .isMajor(list.getIsMajor())
+                    .subjectDepaetment(list.getSubjectDepaetment())
+                    .subjectGrades(list.getSubjectGrades())
+                    .limited(list.getLimited())
+                    .classRoom(list.getClassRoom())
+                    .day(list.getDay())
+                    .startTime(list.getStartTime())
+                    .endTime(list.getEndTime())
+                    .build();
+
+            returnlist.add(listdto);
+        }
+
+        subjectDto.pageSubjectList pageList = subjectDto.pageSubjectList.builder()
+                    .pageSize(subjectList.getSize())
+                    .pageNumber(subjectList.getNumber())
+                    .totalPages(subjectList.getTotalPages())
+                    .totalElements(subjectList.getTotalElements())
+                    .subjectDtoList(returnlist)
+                    .build();
+
+        return pageList;
     }
 
     public List<subjectDto.getList> getMySubject(User user) {
@@ -61,9 +100,52 @@ public class subjectService {
                 .map(s -> new subjectDto.getList(s)).collect(Collectors.toList());
     }
 
-    public List<subjectDto.getList> getAllBySearch(subjectDto.search searchDto) {
-        return subjectRepository.findAllBySearch(searchDto)
-                .stream().map(s -> new subjectDto.getList(s)).collect(Collectors.toList());
+    public Integer getMySubjectPoint(User user) {
+        Integer myPoints = 0;
+        List<timeTable> allMySubject = timeTableRepository.getAllMySubject(user.getId());
+        for (timeTable timeTable : allMySubject) {
+            myPoints += timeTable.getSubject().getSubjectPoints();
+        }
+        return myPoints;
+    }
+
+    public subjectDto.pageSubjectList getAllBySearch(subjectDto.search searchDto, Pageable pageable) {
+
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 5);
+
+        Page<subject> subjectList = subjectRepository.findAllBySearch(searchDto, pageable);
+
+        List<subjectDto.getList> returnlist = new ArrayList<>();
+
+        for (subject list : subjectList.getContent()) {
+            subjectDto.getList listdto = subjectDto.getList.builder()
+                    .subjectId(list.getId())
+                    .professor(list.getUser().getUsersData().getUserName())
+                    .subjectTitle(list.getSubjectTitle())
+                    .subjectPoints(list.getSubjectPoints())
+                    .isMajor(list.getIsMajor() ? "전공" : "교양")
+                    .subjectDepaetment(list.getSubjectDepartment())
+                    .subjectGrades(list.getSubjectGrades())
+                    .limited(list.getLimited())
+                    .classRoom(list.getClassRoom())
+                    .day(list.getDay())
+                    .startTime(list.getStartTime())
+                    .endTime(list.getEndTime())
+                    .build();
+
+            returnlist.add(listdto);
+        }
+
+        subjectDto.pageSubjectList pageList = subjectDto.pageSubjectList.builder()
+                .pageSize(subjectList.getSize())
+                .pageNumber(subjectList.getNumber())
+                .totalPages(subjectList.getTotalPages())
+                .totalElements(subjectList.getTotalElements())
+                .subjectDtoList(returnlist)
+                .build();
+
+        return pageList;
     }
 
     @Transactional

@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface subjectRepositoryCustom {
 
     List<subject> findAllByClassRoom(String classRoom);
-    List<subject> findAllBySearch(subjectDto.search search);
-    List<subject> getAllSubject();
+    Page<subject> findAllBySearch(subjectDto.search search, Pageable pageable);
+    Page<subjectDto.getList> getAllSubject(Pageable pageable);
     Optional<subject> findbyIdFetch(Long subjectId);
 }

@@ -18,7 +18,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 
+import static com.example.metauniversity.domain.File.QUserFile.userFile;
 import static com.example.metauniversity.domain.User.QUser.user;
+import static com.example.metauniversity.domain.subject.QtimeTable.timeTable;
 
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepositoryCustom{
@@ -57,6 +59,17 @@ public class UserRepositoryImpl implements UserRepositoryCustom{
 				.fetchResults();
 		
 		return new PageImpl<>(searchResult.getResults(), pageable, searchResult.getTotal());
+	}
+
+	@Override
+	public Boolean existsId(String accountId) {
+		Integer fetchOne = queryFactory
+				.selectOne()
+				.from(user)
+				.where(user.accountId.eq(accountId))
+				.fetchFirst();
+
+		return fetchOne != null;
 	}
 
 	private BooleanExpression searchUserCode(String userCode) {

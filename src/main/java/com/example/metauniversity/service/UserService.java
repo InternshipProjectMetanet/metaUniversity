@@ -57,6 +57,10 @@ public class UserService {
         UsersData InitialUserData = usersDataRepository.findByUserCode(signindto.getUserCode())
                 .orElseThrow(() -> new NoSuchUserException("허가된 학번 혹은 사번이 아닙니다.<br>행정실을 통한 문의 바랍니다.=signup"));
 
+        if(userRepository.existsId(signindto.getAccountId())) {
+            throw new NoSuchUserException("이미 존재하는 아이디입니다.");
+        }
+
         if(!InitialUserData.getUserEmail().equals(signindto.getUserEmail())) {
             throw new NoSuchUserException("이메일을 확인해주세요.=signup");
         }
@@ -73,7 +77,11 @@ public class UserService {
 
         if(updateDto.getThumbnail().getOriginalFilename().length() != 0) {
             File file = fileService.uploadThumbnailImage(folderConfig.getUser(), updateDto.getThumbnail());
-            userFileRepository.save(UserFile.create(file, user));
+            if(userFileRepository.userFileExists(user.getId())) {
+                userFileRepository.findByUserId(user.getId()).update(file);
+            } else {
+                userFileRepository.save(UserFile.create(file, user));
+            }
         }
 
         usersDataRepository.findById(user.getUsersData().getUserCode())

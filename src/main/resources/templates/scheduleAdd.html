@@ -64,7 +64,7 @@
                                     </thead>
                                     <tbody>
                                     <!-- tr 반복 시작 -->
-                                    <tr th:each="subjectData : ${subjectDatas}" class="border-bottom">
+                                    <tr th:each="subjectData : ${subjectDatas.subjectDtoList}" class="border-bottom">
                                         <td th:text="${subjectData.subjectTitle}">강의명데이터</td>
                                         <td th:text="${subjectData.professor}">교수명데이터</td>
                                         <td th:text="${subjectData.isMajor}">전공데이터</td>
@@ -93,28 +93,30 @@
                             </div>
 
                             <!-- 페이징 처리 부분  -->
-                            <ul class="pagination justify-content-center">
-                                <!--  이전  -->
+                            <ul class="pagination justify-content-center"
+                                th:with="pageNumber = ${subjectDatas.pageNumber},
+							            pageSize = ${subjectDatas.pageSize},
+							            totalPages = ${subjectDatas.totalPages},
+							            pazingSize = 10,
+                            			start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},
+                            			tempEndPage = ${start + pazingSize - 1},
+              							last=${tempEndPage < totalPages ? tempEndPage : totalPages}"
+                                th:if="${subjectDatas.totalElements != 0}" >
 
+                                <!--  이전  -->
                                 <li class="page-item">
-                                    <a class="page-link" href="#">이전</a>
+                                    <a class="page-link" th:href="${pageNumber==0} ? '#' : @{/schedule/create(page=${pageNumber})}">이전</a>
                                 </li>
 
                                 <!--  페이지 버튼  -->
-
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">2</a>
+                                <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pageNumber + 1} ? 'page-item active' : 'page-item'">
+                                    <a class="page-link" th:text="${page}" th:href="@{/schedule/create(page=${page})}"></a>
                                 </li>
 
                                 <!--  다음  -->
-
                                 <li class="page-item">
-                                    <a class="page-link" href="#">다음</a>
+                                    <a class="page-link" th:href="${pageNumber==totalPages-1} ? '#' : @{/schedule/create(page=${pageNumber+2})}">다음</a>
                                 </li>
-
                             </ul>
                             <!-- 페이징 처리 끝 -->
 

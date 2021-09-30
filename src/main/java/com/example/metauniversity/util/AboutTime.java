@@ -33,7 +33,7 @@ public class AboutTime {
                 }
                 return false;
             }
-            return false;
+            continue;
         }
         return true;
     }

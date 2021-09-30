@@ -32,9 +32,9 @@
                                 </thead>
 
                                 <tbody>
-                                <tr th:each="s : ${slist.data}">
+                                <tr th:each="s : ${slist.data.subjectDtoList}">
                                     <td><a th:text="${s.subjectTitle}"
-                                           th:href="@{'/schedule/'+${s.subjectId}+'/studentList'}"></a></td>
+                                           th:href="@{'/schedule/' + ${s.subjectId} + '/studentList'}"></a></td>
                                     <td th:text="${s.professor}"></td>
                                     <td th:text="${s.subjectDepaetment}"></td>
                                 </tr>
@@ -46,33 +46,31 @@
                                 </tbody>
 
                             </table>
-                            <!-- 페이징 처리 부분  -->
-<!--                            <ul class="pagination justify-content-center"-->
-<!--                                th:with="pageNumber = ${boardList.pageNumber},-->
-<!--							            pageSize = ${boardList.pageSize},-->
-<!--							            totalPages = ${boardList.totalPages},-->
-<!--							            pazingSize = 10,-->
-<!--                            			start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},-->
-<!--                            			tempEndPage = ${start + pazingSize - 1},-->
-<!--              							last=${tempEndPage < totalPages ? tempEndPage : totalPages}"-->
-<!--                                th:if="${boardList.totalElements != 0}" >-->
+                            <ul class="pagination justify-content-center"
+                                th:with="pageNumber = ${slist.data.pageNumber},
+							            pageSize = ${slist.data.pageSize},
+							            totalPages = ${slist.data.totalPages},
+							            pazingSize = 10,
+                            			start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},
+                            			tempEndPage = ${start + pazingSize - 1},
+              							last=${tempEndPage < totalPages ? tempEndPage : totalPages}"
+                                th:if="${slist.data.totalElements != 0}" >
 
-<!--                                &lt;!&ndash;  이전  &ndash;&gt;-->
-<!--                                <li class="page-item">-->
-<!--                                    <a class="page-link" th:href="${pageNumber==0} ? '#' : @{/boardList(page=${pageNumber})}">이전</a>-->
-<!--                                </li>-->
+                                <!--  이전  -->
+                                <li class="page-item">
+                                    <a class="page-link" th:href="${pageNumber==0} ? '#' : @{/schedule/list(page=${pageNumber})}">이전</a>
+                                </li>
 
-<!--                                &lt;!&ndash;  페이지 버튼  &ndash;&gt;-->
-<!--                                <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pageNumber + 1} ? 'page-item active' : 'page-item'">-->
-<!--                                    <a class="page-link" th:text="${page}" th:href="@{/boardList(page=${page})}"></a>-->
-<!--                                </li>-->
+                                <!--  페이지 버튼  -->
+                                <li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == pageNumber + 1} ? 'page-item active' : 'page-item'">
+                                    <a class="page-link" th:text="${page}" th:href="@{/schedule/list(page=${page})}"></a>
+                                </li>
 
-<!--                                &lt;!&ndash;  다음  &ndash;&gt;-->
-<!--                                <li class="page-item">-->
-<!--                                    <a class="page-link" th:href="${pageNumber==totalPages-1} ? '#' : @{/boardList(page=${pageNumber+2})}">다음</a>-->
-<!--                                </li>-->
-<!--                            </ul>-->
-                            <!-- 페이징 처리 끝 -->
+                                <!--  다음  -->
+                                <li class="page-item">
+                                    <a class="page-link" th:href="${pageNumber==totalPages-1} ? '#' : @{/schedule/list(page=${pageNumber+2})}">다음</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

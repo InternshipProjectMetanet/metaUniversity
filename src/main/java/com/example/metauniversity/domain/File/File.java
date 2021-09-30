@@ -37,5 +37,4 @@ public class File extends BaseEntity {
                 .url(fileDto.getUrl())
                 .build();
     }
-
 }

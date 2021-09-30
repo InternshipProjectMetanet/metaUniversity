@@ -17,4 +17,6 @@ public interface UserRepositoryCustom {
     User getStudentInfo(String userCode);
     
     Page<User> searchUser(userDto.search searchDto, Pageable pageable);
+
+    Boolean existsId(String accountId);
 }

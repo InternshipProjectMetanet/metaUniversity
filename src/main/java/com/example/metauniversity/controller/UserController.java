@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -36,8 +37,9 @@ public class UserController {
      * 회원가입
      */
     @PostMapping("/signup")
-    public String signIn(@ModelAttribute userDto.signIn signindto) {
+    public String signIn(@ModelAttribute userDto.signIn signindto, RedirectAttributes redirectAttributes) {
         userService.saveUser(signindto);
+        redirectAttributes.addFlashAttribute("message", "회원 가입을 환영합니다.");
         return "redirect:/";
     }
 

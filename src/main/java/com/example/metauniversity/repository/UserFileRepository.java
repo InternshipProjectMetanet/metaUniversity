@@ -5,7 +5,10 @@ import com.example.metauniversity.domain.File.UserFile;
 import com.example.metauniversity.domain.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserFileRepository extends JpaRepository<UserFile, Long> {
+import java.util.Optional;
+
+public interface UserFileRepository extends JpaRepository<UserFile, Long> , UserFileRepositoryCustom{
 
     File findByUser(User user);
+    UserFile findByUserId(Long userId);
 }

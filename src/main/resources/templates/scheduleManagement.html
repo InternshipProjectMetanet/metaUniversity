@@ -9,22 +9,40 @@
         function resultHtml(result){
             testHtml = "";
             var test = $('#dataOfsubject > tbody');
+            // var test2 = $('#pagination');
             for(var i=0; i<result.count; i++) {
                 testHtml += "<tr className=\"border-bottom\">"
-                testHtml += "<td>" + result.data[i].subjectTitle + "</td>"
-                testHtml += "<td>" + result.data[i].professor + "</td>"
-                testHtml += "<td>" + result.data[i].isMajor + "</td>"
-                testHtml += "<td>" + result.data[i].subjectPoints + "</td>"
-                testHtml += "<td>" + result.data[i].subjectGrades + "</td>"
-                testHtml += "<td>" + result.data[i].limited + "</td>"
-                testHtml += "<td>" + result.data[i].classRoom + "</td>"
-                testHtml += "<td>" + result.data[i].day + "</td>"
-                testHtml += "<td>" + result.data[i].startTime + "</td>"
-                testHtml += "<td>" + result.data[i].endTime + "</td>"
-                testHtml += "<td><button id = \"enrollBtn\" value =\"" + result.data[i].subjectId + "\"class=\"btn btn-outline-primary\" onclick=\"enrollSubject(this.value)\">신청</button></td></tr>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].subjectTitle + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].professor + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].isMajor + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].subjectPoints + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].subjectGrades + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].limited + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].classRoom + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].day + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].startTime + "</td>"
+                testHtml += "<td>" + result.data.subjectDtoList[i].endTime + "</td>"
+                testHtml += "<td><button id = \"enrollBtn\" value =\"" + result.data.subjectDtoList[i].subjectId + "\"class=\"btn btn-outline-primary\" onclick=\"enrollSubject(this.value)\">신청</button></td></tr>"
+                // testHtml += "<ul id = \"pagination\" className=\"pagination justify-content-center\" "
+                // testHtml += "th:with=\"pageNumber = " + result.data.pageNumber + ","
+                // testHtml += "pageSize = " + result.data.pageSize + ","
+                // testHtml += "totalPages = " + result.data.totalPages + ","
+                // testHtml += "pazingSize = 10,"
+                // testHtml += "start=${T(Math).floor(pageNumber / pazingSize) * pazingSize + 1},"
+                // testHtml += "tempEndPage = ${start + pazingSize - 1},"
+                // testHtml += "last=${tempEndPage < totalPages ? tempEndPage : totalPages}\""
+                // testHtml += "th:if=\"" + result.data.totalElements + "!= 0\">"
+                // testHtml += "<li className=\"page-item\"> "
+                // testHtml += "<a className=\"page-link\" th:href=\"${pageNumber==0} ? '#' : @{/schedule(page=${pageNumber})}\">이전</a></li>"
+                // testHtml += "<li th:each=\"page: ${#numbers.sequence(start, last)}\" th:class=\"${page == pageNumber + 1} ? 'page-item active' : 'page-item'\">"
+                // testHtml += "<a className=\"page-link\" th:text=\"${page}\" th:href=\"@{/schedule(page=${page})}\"></a></li>"
+                // testHtml += "<li className=\"page-item\">"
+                // testHtml += "<a className=\"page-link\" th:href=\"${pageNumber==totalPages-1} ? '#' : @{/schedule(page=${pageNumber+2})}\">다음</a></li></ul>"
             }
             test.empty();
+            // test2.empty();
             test.append(testHtml);
+            // test.append(test2);
         }
 
         function asyncFiltering() {
@@ -57,7 +75,6 @@
                     contentType : "application/json; charset=utf-8",
                     success : function(result, status, xhr) {
                         if(con) {
-                            testHtml = "";
                             var test = $('#dataOfMySubject > tbody');
                             testHtml += "<tr className=\"border-bottom\">"
                             testHtml += "<td>" + result.subjectTitle + "</td>"
@@ -179,33 +196,7 @@
                                         <!-- tr 반복 끝 -->
                                         </tbody>
                                     </table>
-
-                                    <!-- 페이징 처리 부분  -->
-<!--                                    <ul class="pagination justify-content-center">-->
-<!--                                        &lt;!&ndash;  이전  &ndash;&gt;-->
-
-<!--                                        <li class="page-item">-->
-<!--                                            <a class="page-link" href="#">이전</a>-->
-<!--                                        </li>-->
-
-<!--                                        &lt;!&ndash;  페이지 버튼  &ndash;&gt;-->
-
-<!--                                        <li class="page-item active" th:text="${}">-->
-<!--                                            <a href="#" class="page-link"></a>-->
-<!--                                        </li>-->
-<!--                                        <li class="page-item">-->
-<!--                                            <a href="#" class="page-link">2</a>-->
-<!--                                        </li>-->
-
-<!--                                        &lt;!&ndash;  다음  &ndash;&gt;-->
-
-<!--                                        <li class="page-item">-->
-<!--                                            <a class="page-link" href="#">다음</a>-->
-<!--                                        </li>-->
-
-<!--                                    </ul>-->
-<!--                                     페이징 처리 끝-->
-                                    <ul class="pagination justify-content-center"
+                                    <ul id = "pagination" class="pagination justify-content-center"
                                         th:with="pageNumber = ${subjectDatas.pageNumber},
 							            pageSize = ${subjectDatas.pageSize},
 							            totalPages = ${subjectDatas.totalPages},

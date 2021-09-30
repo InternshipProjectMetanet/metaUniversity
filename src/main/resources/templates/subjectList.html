@@ -34,7 +34,7 @@
                                 <tbody>
                                 <tr th:each="s : ${slist.data.subjectDtoList}">
                                     <td><a th:text="${s.subjectTitle}"
-                                           th:href="@{'/boardDetail/' + ${s.subjectId}}"></a></td>
+                                           th:href="@{'/schedule/' + ${s.subjectId} + '/studentList'}"></a></td>
                                     <td th:text="${s.professor}"></td>
                                     <td th:text="${s.subjectDepaetment}"></td>
                                 </tr>

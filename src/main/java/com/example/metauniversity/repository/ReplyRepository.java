@@ -9,4 +9,6 @@ import java.util.List;
 public interface ReplyRepository extends JpaRepository<Reply,Long> {
 
     List<Reply> findByBoardId(Board BoardId);
+    
+    void deleteByBoardIdBoardId(Long boardId);
 }

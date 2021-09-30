@@ -39,6 +39,7 @@ public class BoardService {
 	private final FolderConfig folderConfig;
 	private final UserRepository userRepository;
 	private final UsersDataRepository usersDataRepository;
+	private final ReplyRepository replyRepository;
 
 	
 	// 게시글 목록 조회
@@ -76,7 +77,7 @@ public class BoardService {
 		for (Board board : boards.getContent()) {
 			boardDto.boardList boarddto = boardDto.boardList.builder()
 					.boardId(board.getBoardId())
-					.created_date(board.getCreatedDate())
+					.updatedDate(board.getCreatedDate())
 					.title(board.getTitle())
 					.userName(board.getUser().getUsersData().getUserName())
 					.build();
@@ -129,7 +130,10 @@ public class BoardService {
 	}
 
 	// 게시글 삭제
+	@Transactional
 	public void deleteBoard(Long boardId) {
+		replyRepository.deleteByBoardIdBoardId(boardId);
+		
 		List<BoardFile> deleteBoardFile = boardFileRepository.findByBoardBoardId(boardId);
 		for (BoardFile boardFile : deleteBoardFile) {
 			fileRepository.deleteById(boardFile.getFile().getId());

@@ -178,7 +178,7 @@ public class userDto {
             this.userGrade = timetable.getUser().getUsersData().getUserGrade();
             this.userDepartment = timetable.getUser().getUsersData().getUserDepartment();
             this.userMajor = timetable.getUser().getUsersData().getUserMajor();
-            this.thumbnailUrl = timetable.getUser().getUserfile().getFile().getUrl();
+            this.thumbnailUrl = timetable.getUser().getUsersData().getIsThumbnail() ? timetable.getUser().getUserfile().getFile().getUrl() : "/img/cute.png";
         }
     }
 }

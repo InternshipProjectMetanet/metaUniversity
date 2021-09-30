@@ -58,7 +58,7 @@ public class UserService {
                 .orElseThrow(() -> new NoSuchUserException("허가된 학번 혹은 사번이 아닙니다.<br>행정실을 통한 문의 바랍니다.=signup"));
 
         if(!InitialUserData.getUserEmail().equals(signindto.getUserEmail())) {
-            throw new NoSuchUserException("에러메시지=signup");
+            throw new NoSuchUserException("이메일을 확인해주세요.=signup");
         }
 
         customUserDetailsService.save(signindto, InitialUserData);

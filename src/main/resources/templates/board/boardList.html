@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+				xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta th:replace="/include/head :: head" />
@@ -19,7 +20,7 @@
                     <div class="card smooth-shadow-md">
                         <div class="card-body">
 
-                            <div class="d-flex my-3 justify-content-end">
+                            <div class="d-flex my-3 justify-content-end" sec:authorize="hasRole('WORKER')">
                                 <a th:href="@{/boardForm}" class="d-none d-sm-inline-block btn btn-outline-primary">공지사항 등록</a>
                             </div>
                             <div class="d-flex justify-content-center">

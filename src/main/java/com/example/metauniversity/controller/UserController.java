@@ -11,6 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,7 +50,11 @@ public class UserController {
     @GetMapping("/user/info")
     public String getMyInfo(Model model, @AuthenticationPrincipal CustomUserDetails currentUser) {
         model.addAttribute("userData", userService.getUserInfo(currentUser.getUser().getId()));
-        return "/info";
+        if (currentUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_STUDENT"))) {
+        	return "/info";
+        }else {
+        	return "/infoAdmin";
+        }
     }
 
     /**

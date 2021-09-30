@@ -105,15 +105,12 @@ public class BoardService {
 				.orElseThrow(() -> new NoSuchBoardException("해당 게시물이 없습니다."));
 
 		User user = null;
-		String url = "";
+		String url = "/img/account_circle.svg";
 		
 		if(currentUser != null) {
-			
 			user = userRepository.findById(currentUser.getUser().getId())
 									.orElseThrow(() -> new NoSuchUserException("해당 유저가 없습니다."));
-			url = user.getUserfile().getFile().getUrl();
-		}else {
-			url= "/img/account_circle.svg";
+			url = user.getUsersData().getIsThumbnail() ? user.getUserfile().getFile().getUrl() : "/img/account_circle.svg" ;
 		}
 
 		boardDto.getBoard boarddto = boardDto.getBoard.builder()

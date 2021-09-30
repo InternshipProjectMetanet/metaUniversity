@@ -36,6 +36,7 @@ public class subjectController {
 
         model.addAttribute("subjectDatas", subjectService.getAll(pageable));
         model.addAttribute("mySubjectDatas", subjectService.getMySubject(currentUser.getUser()));
+        model.addAttribute("myPoints", subjectService.getMySubjectPoint(currentUser.getUser()));
 
         return "scheduleManagement.html";
     }

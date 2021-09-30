@@ -53,6 +53,7 @@ public class subjectDto {
         private String day;
         private String startTime;
         private String endTime;
+        private Integer myPoints;
 
         @QueryProjection
         public getList(subject subject) {

@@ -89,6 +89,20 @@
                             testHtml += "<td>" + result.startTime + "</td>"
                             testHtml += "<td>" + result.endTime + "</td>"
                             testHtml += "<td><button id = \"cancelBtn\" value =\"" + result.subjectId + "\"class=\"btn btn-outline-primary\" onclick=\"cancelSubject(this.value)\">취소</button></td></tr>"
+
+                            $.ajax({
+                                type : 'POST',
+                                url : '/subject/mypoints',
+                                contentType : "application/json; charset=utf-8",
+                                success : function(result, status, xhr) {
+                                    mypointhtml = "현재신청학점" + result.data;
+                                    $('#myPoints').html(mypointhtml);
+                                },
+                                error : function(request,status,error) {
+                                    alert("현재 학점을 읽어올 수 없습니다.");
+                                }
+                            })
+
                             test.append(testHtml);
                         }
                         confirm("수강신청 되었습니다.");
@@ -109,6 +123,18 @@
                     contentType : "application/json; charset=utf-8",
                     success : function(result, status, xhr) {
                         confirm("수강 취소되었습니다.");
+                        $.ajax({
+                            type : 'POST',
+                            url : '/subject/mypoints',
+                            contentType : "application/json; charset=utf-8",
+                            success : function(result, status, xhr) {
+                                mypointhtml = "현재신청학점" + result.data;
+                                $('#myPoints').html(mypointhtml);
+                            },
+                            error : function(request,status,error) {
+                                alert("현재 학점을 읽어올 수 없습니다.");
+                            }
+                        })
                         location.reload()
                     },
                     error : function(request,status,error) {
@@ -244,7 +270,7 @@
 
                                 <!-- row -->
                                 <div class="mb-3 row p-5">
-                                <h5 class="text-left fw-bold">헌재 신청 학점 : </h5>
+                                    <h5 id = "myPoints" class="text-left fw-bold" th:text="|현재신청학점 ${myPoints}|"></h5>
                                     <table id = "dataOfMySubject" class="table table-borderless text-center mt-2 mb-5 p-2 align-middle border-1">
                                         <thead>
                                         <tr class="border-1">

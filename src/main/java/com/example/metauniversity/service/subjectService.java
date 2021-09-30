@@ -100,6 +100,15 @@ public class subjectService {
                 .map(s -> new subjectDto.getList(s)).collect(Collectors.toList());
     }
 
+    public Integer getMySubjectPoint(User user) {
+        Integer myPoints = 0;
+        List<timeTable> allMySubject = timeTableRepository.getAllMySubject(user.getId());
+        for (timeTable timeTable : allMySubject) {
+            myPoints += timeTable.getSubject().getSubjectPoints();
+        }
+        return myPoints;
+    }
+
     public subjectDto.pageSubjectList getAllBySearch(subjectDto.search searchDto, Pageable pageable) {
 
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);

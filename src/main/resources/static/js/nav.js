@@ -1,7 +1,7 @@
 
 
 $.ajax({
-    url: "/get/user/icon",
+    url: "/nav/img",
     type: "GET",
     success: function onSuccess(data){
         console.log("유저 이미지 가져옴")

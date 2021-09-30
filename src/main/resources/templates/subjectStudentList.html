@@ -22,10 +22,10 @@
                             <div class="d-flex justify-content-center">
                                 <h2 class="text-decoration-none" th:text="${studentList.subjectName}"></h2>
                             </div>
-                            <table class="table table-bordered text-center mt-2 mb-5">
+                            <table class="table table-bordered text-center mt-2 mb-5" style="vertical-align: middle;">
                                 <thead>
                                 <tr>
-                                    <th class = "w-25"></th>
+                                    <th class = "w-15"></th>
                                     <th>학번</th>
                                     <th>이름</th>
                                     <th>학년</th>
@@ -36,7 +36,7 @@
 
                                 <tbody>
                                 <tr th:each="student : ${studentList.students}">
-                                    <td><img th:src="${student.thumbnailUrl}"></td>
+                                    <td class = "w-15"><img class="rounded-circle avatar avatar-xxxl" th:src="${student.thumbnailUrl}"></td>
                                     <td th:text="${student.userCode}"></td>
                                     <td th:text="${student.userName}"></td>
                                     <td th:text="${student.userGrade}"></td>

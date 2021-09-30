@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-4 m-auto my-2">
                                     <div class="d-flex justify-content-between">
-                                        <input type="submit" value="수정" class="btn btn-primary form-control mx-5">
+                                        <input type="button" value="수정" class="btn btn-primary form-control mx-5" th:onclick="|javascript:boardSubmit()|">
                                         <a class="btn btn-warning form-control mx-5" href='#'>취소</a>
                                     </div>
                                 </div>
@@ -68,7 +68,10 @@
     </div>
 </div>
 <div th:replace="/include/scripts :: scripts"></div>
+<div th:replace="/modal/messageModal :: messageModal"></div>
 <script th:src="@{/js/ckeditor.js}"></script>
 <script th:src="@{/js/ckeditorCustom.js}"></script>
+<script th:src="@{/js/boardEdit.js}"></script>
+
 </body>
 </html>

@@ -24,9 +24,6 @@ public class UserController {
 
     private final UserService userService;
 
-
-
-
     /**
      * 회원가입 페이지
      */
@@ -41,7 +38,7 @@ public class UserController {
     @PostMapping("/signup")
     public String signIn(@ModelAttribute userDto.signIn signindto) {
         userService.saveUser(signindto);
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     /**

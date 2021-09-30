@@ -20,12 +20,12 @@
                         <div class="card-body">
 
                             <div class="d-flex my-3 justify-content-end">
-                                <a href="#" class="d-none d-sm-inline-block btn btn-outline-primary">공지사항 등록</a>
+                                <a th:href="@{/boardForm}" class="d-none d-sm-inline-block btn btn-outline-primary">공지사항 등록</a>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <h2 class="text-decoration-none">공지사항</h2>
                             </div>
-                            <table class="table table-bordered text-center mt-2 mb-5">
+                            <table class="table table-bordered text-center mt-2 mb-5" style="vertical-align: middle;">
                                 <thead>
                                 <tr>
                                     <th class="w-75">title</th>
@@ -36,9 +36,9 @@
 
                                 <tbody>
                                 <tr th:each="board : ${boardList.boardDtoList}">
-                                    <td><a th:text="${board.title}" th:href="@{'/boardDetail/' + ${board.boardId}}"></a></td>
+                                    <td><a th:text="${board.title}" th:href="@{'/boardDetail/' + ${board.boardId}(page=${boardList.pageNumber+1})}"></a></td>
                                     <td th:text="${board.userName}"></td>
-                                    <td th:text="${#temporals.format(board.created_date,'yyyy-MM-dd')}"></td>
+                                    <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd')}"></td>
                                 </tr>
                                 <!-- 찾는 학생이 없을 경우 (시작) -->
 				                <tr th:if="${boardList.totalElements == 0}">
@@ -48,6 +48,7 @@
                                 </tbody>
 
                             </table>
+                            <input type="hidden" name="page" th:value="${boardList.pageNumber}"/>
                             <!-- 페이징 처리 부분  -->
                             <ul class="pagination justify-content-center" 
                             	th:with="pageNumber = ${boardList.pageNumber},

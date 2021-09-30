@@ -55,14 +55,15 @@ public class UserService {
          * 1-2. 만약 둘이 다르다면 <학번 혹은 사번이 다릅니다. 행정실을 통한 문의 바랍니다.> 오류 출력
          */
         UsersData InitialUserData = usersDataRepository.findByUserCode(signindto.getUserCode())
-                .orElseThrow(() -> new NoSuchUserException("허가된 학번 혹은 사번이 아닙니다.<br>행정실을 통한 문의 바랍니다."));
+                .orElseThrow(() -> new NoSuchUserException("허가된 학번 혹은 사번이 아닙니다.<br>행정실을 통한 문의 바랍니다.=signup"));
 
         if(userRepository.existsId(signindto.getAccountId())) {
             throw new NoSuchUserException("이미 존재하는 아이디입니다.");
         }
 
         if(!InitialUserData.getUserEmail().equals(signindto.getUserEmail())) {
-            throw new NoSuchUserException("입학시 제출한 이메일을 입력하세요");}
+            throw new NoSuchUserException("이메일을 확인해주세요.=signup");
+        }
 
         customUserDetailsService.save(signindto, InitialUserData);
     }
@@ -84,7 +85,7 @@ public class UserService {
         }
 
         usersDataRepository.findById(user.getUsersData().getUserCode())
-                .orElseThrow(() -> new NoSuchUserException("수정할 사용자가 존재하지 않습니다.")).update(updateDto);
+                .orElseThrow(() -> new NoSuchUserException("수정할 사용자가 존재하지 않습니다.=user/info")).update(updateDto);
     }
 
     // 휴학, 복학 신청

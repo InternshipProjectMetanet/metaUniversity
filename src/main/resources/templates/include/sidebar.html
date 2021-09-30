@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:fragment="sidebar">
     <!-- sidebar 시작!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
@@ -7,56 +8,58 @@
     <nav class="navbar-vertical navbar pt-10">
         <div class="nav-scroller">
             <!-- Brand logo -->
-            <a class="navbar-brand text-center mt-10" th:href="@{/}">
+
+            <a class="navbar-brand text-center mt-10 text-danger" th:href="@{/}">
                 메타대학교
             </a>
-            <!-- Navbar nav -->
-            <ul class="navbar-nav flex-column lh-3" id="sideNavbar">
 
-                <li class="nav-item">
+            <div class="h4 mt-4 text-center" sec:authorize="isAnonymous()" >
+                <a class="text-warning" th:href="@{/login}">로그인 해주세요</a>
+            </div>
+
+            <!-- Navbar nav -->
+            <ul sec:authorize="isAuthenticated()" class="navbar-nav flex-column" id="sideNavbar">
+
+                <li class="nav-item mb-5">
                     <a class="nav-link has-arrow" href="#" data-bs-toggle="collapse" data-bs-target="#navPages"
                        aria-expanded="false" aria-controls="navPages">
-                        <i data-feather="layers" class="nav-icon icon-xs me-2">
-                        </i> 개인정보
+                       <i data-feather="lock" class="nav-icon icon-xs me-2">
+                        </i> 학적관리
                     </a>
 
                     <div id="navPages" class="collapse" data-bs-parent="#sideNavbar">
                         <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" th:href="@{user/info}">
-                                    내정보
-                                </a>
+                            <li sec:authorize="hasAnyRole('WORKER','STUDENT')" class="nav-item">
+                                <a class="nav-link" th:href="@{/user/info}">내 정보</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link has-arrow" href="#">
-                                    설정
-                                </a>
-                            </li>
+                            <!-- 관리자 -->
+                            <li sec:authorize="hasRole('WORKER')" class="nav-item">
+								<a class="nav-link has-arrow" th:href="@{/user/studentsList}">학생 목록</a>
+							</li>	
                         </ul>
                     </div>
                 </li>
 
 
                 <!-- Nav item -->
-                <li class="nav-item">
+                <li class="nav-item mb-5">
                     <a class="nav-link has-arrow" href="#!" data-bs-toggle="collapse" data-bs-target="#navAuthentication"
                        aria-expanded="false" aria-controls="navAuthentication">
-                        <i data-feather="lock" class="nav-icon icon-xs me-2">
-                        </i> 학적관리
+                        <i data-feather="layers" class="nav-icon icon-xs me-2">
+                        </i> 수강관리
                     </a>
                     <div id="navAuthentication" class="collapse" data-bs-parent="#sideNavbar">
                         <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    신청</a>
+                        
+                            <li sec:authorize="hasRole('STUDENT')" class="nav-item">
+                                <a class="nav-link" th:href="@{/schedule}">수강 신청</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    뭐필요함?</a>
+                            <!-- 관리자 -->
+                            <li sec:authorize="hasRole('WORKER')" class="nav-item">
+                                <a class="nav-link" th:href="@{/schedule/list}">수강 조회</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    일딴바꿔
+                            <li sec:authorize="hasRole('WORKER')" class="nav-item">
+                                <a class="nav-link" th:href="@{/schedule/create}">강의 등록
                                 </a>
                             </li>
                         </ul>
@@ -64,26 +67,12 @@
                 </li>
 
                 <!-- Nav item -->
-                <li class="nav-item">
-                    <a class="nav-link has-arrow" href="#!" data-bs-toggle="collapse" data-bs-target="#navComponents"
+                <li class="nav-item mb-5">
+                    <a class="nav-link has-arrow" th:href="@{/boardList}" data-bs-target="#navComponents"
                        aria-expanded="false" aria-controls="navComponents">
                         <i data-feather="database" class="nav-icon icon-xs me-2">
-                        </i> 학사관리
+                        </i>공지사항
                     </a>
-                    <div id="navComponents" class="collapse" data-bs-parent="#sideNavbar">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" aria-expanded="false">
-                                    학점따위
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" aria-expanded="false">
-                                    중요하지..
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
             </ul>
         </div>

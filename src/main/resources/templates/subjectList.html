@@ -32,7 +32,7 @@
                                     </thead>
 
                                     <tbody>
-                                    <tr th:each="s : ${slist.data.subjectDtoList}">
+                                    <tr th:each="s : ${slist.data.subjectDtoList}" class="border-bottom">
                                         <td><a th:text="${s.subjectTitle}"
                                                th:href="@{'/schedule/' + ${s.subjectId} + '/studentList'}"></a></td>
                                         <td th:text="${s.professor}"></td>

@@ -23487,6 +23487,13 @@ body {
   height: 7.5rem;
 }
 
+.avatar-xxxl {
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+}
+
+
 .avatar-fit{
   width: 100%;
   height: 50%;
